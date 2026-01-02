@@ -1,0 +1,57 @@
+
+> ai4write-frontend@1.0.0 dev
+> nuxt dev
+
+│
+●  Nuxt 3.17.7 (with Nitro 2.12.4, Vite 6.4.1 and Vue 3.5.26)
+
+  ➜ Local:    http://localhost:3000/
+  ➜ Network:  use --host to expose
+
+[nuxt:tailwindcss] ℹ Using default Tailwind CSS file
+[nuxt:tailwindcss] ℹ Tailwind Viewer: http:/localhost:3000/_tailwind/
+✔ Vite client built in 18ms
+✔ Vite server built in 386ms
+[nitro] ✔ Nuxt Nitro server built in 409ms
+ℹ Vite client warmed up in 1ms
+ℹ Vite server warmed up in 473ms
+WARN  [Vue Router warn]: No match found for location with path "/.well-known/appspecific/com.chrome.devtools.json"
+WARN  [Vue Router warn]: No match found for location with path "/.well-known/appspecific/com.chrome.devtools.json"
+ℹ hmr update /layouts/default.vue, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct
+ℹ hmr update /layouts/default.vue, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct (x2)
+ℹ hmr update /layouts/default.vue, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct (x3)
+✔ Vite server hmr 1 files in 0.002ms
+WARN  [Vue Router warn]: No match found for location with path "/.well-known/appspecific/com.chrome.devtools.json"
+WARN  [Vue Router warn]: No match found for location with path "/.well-known/appspecific/com.chrome.devtools.json"
+ℹ hmr update /pages/writing.vue, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /pages/writing.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs
+ℹ hmr update /pages/writing.vue, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /pages/writing.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x2)
+ℹ hmr update /components/WritingHistory.vue, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct
+ℹ hmr update /components/WritingHistory.vue, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct (x2)
+ℹ hmr update /components/WritingHistory.vue, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct (x3)
+ℹ nuxt.config.ts updated. Restarting Nuxt...
+[nuxt:tailwindcss] ℹ Using default Tailwind CSS file
+[nuxt:tailwindcss] ℹ Tailwind Viewer: http:/localhost:3000/_tailwind/
+✔ Vite client built in 46ms
+✔ Vite server built in 296ms
+[nitro] ✔ Nuxt Nitro server built in 318ms
+ℹ Vite client warmed up in 1ms
+ℹ Vite server warmed up in 437ms
+WARN  [Vue Router warn]: No match found for location with path "/.well-known/appspecific/com.chrome.devtools.json"
+WARN  [Vue Router warn]: No match found for location with path "/.well-known/appspecific/com.chrome.devtools.json"
+ℹ hmr update /pages/login.vue, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /pages/login.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs
+ℹ hmr update /layouts/default.vue, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct
+✔ Vite server hmr 10 files in 45.394ms
+WARN  [Vue Router warn]: No match found for location with path "/.well-known/appspecific/com.chrome.devtools.json"
+WARN  [Vue Router warn]: No match found for location with path "/.well-known/appspecific/com.chrome.devtools.json"
+ℹ hmr update /pages/dashboard.vue, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /pages/dashboard.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs
+ℹ hmr update /pages/writing.vue, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /pages/writing.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs
+ℹ hmr update /components/WritingHistory.vue, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct
+✔ Vite server hmr 12 files in 116.449ms
+✔ Vite server hmr 12 files in 116.449ms (repeated 2 times)
+ℹ hmr update /pages/knowledge.vue, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /pages/knowledge.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs
+ℹ hmr update /pages/knowledge.vue, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /pages/knowledge.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x2)
+ℹ hmr update /pages/login.vue, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /pages/login.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs
+ℹ hmr update /assets/css/main.css, /assets/css/main.css?direct
+ℹ hmr update /layouts/default.vue, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css
+ℹ hmr update /components/WritingHistory.vue, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css
+ℹ hmr update /components/WritingHistory.vue, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css (x2)

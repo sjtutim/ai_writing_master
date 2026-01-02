@@ -1,0 +1,302 @@
+// 本地 RAG 写作系统 - Prisma Schema
+// 基于架构文档 12.4 数据模型设计
+
+generator client {
+  provider        = "prisma-client-js"
+  output          = "../src/generated/prisma"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  extensions = [vector]
+}
+
+// ==================== 用户与权限管理 ====================
+
+/// 用户表
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String   @map("password_hash")
+  name         String?
+  status       String   @default("active") // active, disabled
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  // 关联
+  userRoles       UserRole[]
+  collections     KbCollection[]
+  documents       KbDocument[]
+  promptTemplates PromptTemplate[]
+  writingStyles   WritingStyle[]
+  writingTasks    WritingTask[]
+
+  @@map("users")
+}
+
+/// 角色表
+model Role {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  description String?
+  isAdmin     Boolean  @default(false) @map("is_admin")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  // 关联
+  userRoles       UserRole[]
+  rolePermissions RolePermission[]
+
+  @@map("roles")
+}
+
+/// 用户角色关联表
+model UserRole {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  roleId    String   @map("role_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role Role @relation(fields: [roleId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, roleId])
+  @@map("user_roles")
+}
+
+/// 权限表（菜单/按钮权限）
+model Permission {
+  id          String   @id @default(uuid())
+  code        String   @unique // 权限编码，如 kb:read, kb:write
+  name        String
+  type        String   @default("menu") // menu, button
+  parentId    String?  @map("parent_id")
+  path        String?  // 前端路由路径
+  icon        String?
+  sortOrder   Int      @default(0) @map("sort_order")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  // 自关联
+  parent   Permission?  @relation("PermissionTree", fields: [parentId], references: [id])
+  children Permission[] @relation("PermissionTree")
+
+  // 关联
+  rolePermissions RolePermission[]
+
+  @@map("permissions")
+}
+
+/// 角色权限关联表
+model RolePermission {
+  id           String   @id @default(uuid())
+  roleId       String   @map("role_id")
+  permissionId String   @map("permission_id")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  role       Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@unique([roleId, permissionId])
+  @@map("role_permissions")
+}
+
+// ==================== 知识库管理 ====================
+
+/// 知识库集合/分类表
+model KbCollection {
+  id          String   @id @default(uuid())
+  userId      String   @map("user_id")
+  name        String
+  description String?
+  color       String?  @default("#3B82F6") // 集合颜色标识
+  icon        String?  @default("folder") // 图标
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  // 关联
+  user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  documents KbDocument[]
+
+  @@index([userId])
+  @@map("kb_collections")
+}
+
+/// 知识库文档表
+model KbDocument {
+  id            String   @id @default(uuid())
+  userId        String   @map("user_id")
+  collectionId  String?  @map("collection_id") // 所属知识库分类
+  title         String
+  description   String?
+  status        String   @default("pending") // pending, processing, ready, failed
+  latestVersion Int      @default(1) @map("latest_version")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  // 关联
+  user       User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  collection KbCollection?       @relation(fields: [collectionId], references: [id], onDelete: SetNull)
+  versions   KbDocumentVersion[]
+
+  @@index([userId])
+  @@index([collectionId])
+  @@index([status])
+  @@map("kb_documents")
+}
+
+/// 知识库文档版本表
+model KbDocumentVersion {
+  id         String   @id @default(uuid())
+  documentId String   @map("document_id")
+  version    Int
+  rawPath    String?  @map("raw_path")  // MinIO 原始文件路径
+  mdPath     String?  @map("md_path")   // MinIO Markdown 文件路径
+  status     String   @default("pending") // pending, processing, ready, failed
+  error      String?
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  // 关联
+  document KbDocument @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  chunks   KbChunk[]
+
+  @@unique([documentId, version])
+  @@index([status])
+  @@map("kb_document_versions")
+}
+
+/// 知识库分块表（含向量）
+model KbChunk {
+  id         String                         @id @default(uuid())
+  versionId  String                         @map("version_id")
+  chunkIndex Int                            @map("chunk_index")
+  content    String
+  embedding  Unsupported("vector(1024)")?   // bge-m3 输出 1024 维向量
+  createdAt  DateTime                       @default(now()) @map("created_at")
+
+  // 关联
+  version KbDocumentVersion @relation(fields: [versionId], references: [id], onDelete: Cascade)
+
+  @@index([versionId])
+  @@map("kb_chunks")
+}
+
+// ==================== 任务管理 ====================
+
+/// 任务表（统一管理解析、分块、向量化、生成等任务）
+model Job {
+  id        String   @id @default(uuid())
+  type      String   // parse, chunk, embed, generate
+  status    String   @default("pending") // pending, running, succeeded, failed
+  payload   Json?    // 任务输入参数
+  result    Json?    // 任务结果
+  error     String?
+  retries   Int      @default(0)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([type, status])
+  @@index([createdAt])
+  @@map("jobs")
+}
+
+// ==================== 写作配置管理 ====================
+
+/// 提示词模板表
+model PromptTemplate {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  name      String
+  content   String
+  category  String?  // 分类，如：技术写作、医学写作
+  isPublic  Boolean  @default(false) @map("is_public")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // 关联
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  writingTasks WritingTask[]
+
+  @@index([userId])
+  @@index([category])
+  @@map("prompt_templates")
+}
+
+/// 写作风格表
+model WritingStyle {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  name      String
+  content   String   // 风格范文或描述
+  isPublic  Boolean  @default(false) @map("is_public")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // 关联
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  writingTasks WritingTask[]
+
+  @@index([userId])
+  @@map("writing_styles")
+}
+
+// ==================== 写作任务管理 ====================
+
+/// 写作任务表
+model WritingTask {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  promptId  String?  @map("prompt_id")
+  styleId   String?  @map("style_id")
+  kbScope   Json?    @map("kb_scope") // 选择的知识库范围 { documentIds: [...], collectionIds: [...] }
+  query     String   // 用户输入的写作主题/问题
+  status    String   @default("pending") // pending, running, succeeded, failed
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // 关联
+  user    User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  prompt  PromptTemplate? @relation(fields: [promptId], references: [id])
+  style   WritingStyle?   @relation(fields: [styleId], references: [id])
+  outputs WritingOutput[]
+
+  @@index([userId])
+  @@index([status])
+  @@map("writing_tasks")
+}
+
+/// 写作输出表
+model WritingOutput {
+  id          String   @id @default(uuid())
+  taskId      String   @map("task_id")
+  contentPath String?  @map("content_path") // MinIO 存储路径
+  content     String?  // 也可直接存储内容
+  tokens      Int?     // token 消耗
+  metadata    Json?    // 生成过程元数据 { systemPrompt, userPrompt, retrievedChunks, styleContent, etc. }
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  // 关联
+  task WritingTask @relation(fields: [taskId], references: [id], onDelete: Cascade)
+
+  @@index([taskId])
+  @@map("writing_outputs")
+}
+
+// ==================== 周报模块（占位）====================
+
+/// 周报记录表（后续开发）
+model WeeklyReport {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  weekStart DateTime @map("week_start") // 周起始日期
+  content   String?
+  status    String   @default("draft") // draft, submitted
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([userId])
+  @@index([weekStart])
+  @@map("weekly_reports")
+}
