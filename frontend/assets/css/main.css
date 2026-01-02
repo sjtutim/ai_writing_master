@@ -32,19 +32,24 @@
   
   /* --- 按钮体系 --- */
   .btn {
-    @apply inline-flex items-center justify-center px-4 py-2 rounded-xl font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-1 disabled:opacity-60 disabled:cursor-not-allowed active:scale-[0.98];
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-1 disabled:opacity-60 disabled:cursor-not-allowed active:scale-[0.98] border;
   }
   
+  /* 精致的主按钮：深色底，不仅是渐变，增加微弱的顶部高光和细腻阴影 */
   .btn-primary {
-    @apply bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40 hover:to-indigo-600 border border-transparent;
+    @apply bg-indigo-600 text-white border-transparent shadow-sm hover:bg-indigo-700 hover:shadow disabled:hover:bg-indigo-600;
+    /* 增加一个微妙的顶部高光，提升质感 */
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05), inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
   }
   
+  /* 次要按钮：干净的白底灰边，Hover时边框变色 */
   .btn-secondary {
-    @apply bg-white text-gray-700 border border-gray-200 hover:bg-gray-50 hover:text-indigo-600 hover:border-indigo-200 shadow-sm;
+    @apply bg-white text-gray-700 border-gray-200 shadow-sm hover:bg-gray-50 hover:text-gray-900 hover:border-gray-300;
   }
 
+  /* 幽灵按钮：用于低优先级操作 */
   .btn-ghost {
-    @apply text-gray-500 hover:text-indigo-600 hover:bg-indigo-50/50;
+    @apply border-transparent bg-transparent text-gray-500 shadow-none hover:bg-gray-100 hover:text-gray-900;
   }
 
   .btn-sm {

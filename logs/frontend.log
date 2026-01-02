@@ -55,3 +55,4 @@ WARN  [Vue Router warn]: No match found for location with path "/.well-known/app
 ℹ hmr update /layouts/default.vue, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css
 ℹ hmr update /components/WritingHistory.vue, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css
 ℹ hmr update /components/WritingHistory.vue, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css (x2)
+ℹ hmr update /assets/css/main.css, /assets/css/main.css?direct
