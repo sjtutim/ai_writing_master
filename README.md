@@ -163,7 +163,7 @@ ai4write/
 
 ### Docker 部署
 
-使用 Docker Compose 一键启动所有服务：
+使用 Docker Compose 一键部署（包含 Nginx 反向代理）：
 
 ```bash
 # 进入 docker 目录
@@ -173,11 +173,39 @@ cd docker
 cp .env.example .env
 # 编辑 .env 文件，配置数据库连接、MinIO、API Key 等
 
-# 启动所有服务
-docker-compose up -d
+# 构建并启动所有服务
+docker-compose up -d --build
+
+# 查看日志
+docker-compose logs -f
 ```
 
-> **注意**: 当前 Docker 配置假设 PostgreSQL、MinIO、Redis 等基础设施已在外部运行或单独部署。如需完整容器化部署，请参考 `docker-compose.override.yml` 示例。
+部署完成后，通过 `http://YOUR_DOMAIN:8089` 访问应用。
+
+#### 架构说明
+
+```
+                    ┌─────────────────┐
+                    │     Nginx       │
+                    │   (端口 8089)   │
+                    └────────┬────────┘
+                             │
+              ┌──────────────┴──────────────┐
+              │                             │
+              ▼                             ▼
+    ┌─────────────────┐          ┌─────────────────┐
+    │    Frontend     │          │     Backend     │
+    │  (Nuxt 3:3000)  │          │ (Express:3001)  │
+    └─────────────────┘          └─────────────────┘
+```
+
+- **Nginx** - 统一入口，反向代理前后端服务
+  - `/` → 前端 (Nuxt 3)
+  - `/api/*` → 后端 API (Express)
+- **Frontend** - Nuxt 3 SSR 应用
+- **Backend** - Express API 服务
+
+> **注意**: 当前 Docker 配置假设 PostgreSQL、MinIO、Redis 等基础设施已在外部运行或单独部署。
 
 ### 环境变量配置
 
@@ -187,44 +215,61 @@ docker-compose up -d
 # Node 环境
 NODE_ENV=production
 
-# 后端服务端口
-BACKEND_PORT=3001
-FRONTEND_PORT=3007
+# ===========================================
+# 对外服务端口
+# ===========================================
+PROXY_PORT=8089            # Nginx 代理端口（统一入口）
 
+# ===========================================
 # PostgreSQL (外部服务)
+# ===========================================
+POSTGRES_HOST=your-db-host
+POSTGRES_PORT=5432
 POSTGRES_USER=ai4write
 POSTGRES_PASSWORD=your_password
-POSTGRES_HOST=localhost
-POSTGRES_PORT=5432
 POSTGRES_DB=ai4write
 
+# ===========================================
 # MinIO (对象存储)
-MINIO_ENDPOINT=localhost
+# ===========================================
+MINIO_ENDPOINT=your-minio-host
 MINIO_PORT=9000
 MINIO_USE_SSL=false
 MINIO_ACCESS_KEY=minioadmin
 MINIO_SECRET_KEY=minioadmin
 MINIO_BUCKET=ai4write
 
+# ===========================================
 # Redis (外部服务)
-REDIS_HOST=localhost
+# ===========================================
+REDIS_HOST=your-redis-host
 REDIS_PORT=6379
+REDIS_URL=redis://:password@your-redis-host:6379/0
 
-# Embedding API
-EMBEDDING_API_URL=http://localhost:8000
-EMBEDDING_MODEL=BAAI/bge-m3
+# ===========================================
+# Embedding API (向量化服务)
+# ===========================================
+EMBEDDING_API_URL=http://your-embedding-host:8000/v1/embeddings
+EMBEDDING_MODEL=text-embedding-bge-m3
 
-# DeepSeek API
+# ===========================================
+# DeepSeek/LLM API
+# ===========================================
 DEEPSEEK_BASE_URL=https://api.deepseek.com
 DEEPSEEK_API_KEY=sk-xxx
 DEEPSEEK_MODEL=deepseek-chat
 
+# ===========================================
 # JWT 配置
-JWT_SECRET=your-jwt-secret-key
+# ===========================================
+JWT_SECRET=your-super-secret-jwt-key
 JWT_EXPIRES_IN=7d
 
-# 前端 API 地址 (生产环境使用域名)
-NUXT_PUBLIC_API_BASE_URL=http://localhost:3001
+# ===========================================
+# 前端 API 地址
+# ===========================================
+# 使用 Nginx 反向代理时，设置为空或相对路径
+NUXT_PUBLIC_API_BASE_URL=
 ```
 
 ## 📖 使用指南

@@ -159,40 +159,115 @@ ai4write/
 
 ## 🔧 Configuration
 
-### Backend Environment Variables
+### Docker Deployment
 
-```env
-# Database
-DATABASE_URL="postgresql://user:password@localhost:5432/ai4write?schema=public"
-
-# JWT
-JWT_SECRET="your-jwt-secret-key"
-JWT_EXPIRES_IN="7d"
-
-# MinIO
-MINIO_ENDPOINT="localhost"
-MINIO_PORT=9000
-MINIO_ACCESS_KEY="minioadmin"
-MINIO_SECRET_KEY="minioadmin"
-MINIO_BUCKET="ai4write"
-
-# DeepSeek API
-DEEPSEEK_API_KEY="sk-xxx"
-DEEPSEEK_BASE_URL="https://api.deepseek.com"
-
-# bge-m3 Embedding
-BGE_API_URL="http://localhost:8000"
-BGE_API_KEY="your-bge-api-key"
-```
-
-### Docker Deployment (Optional)
+Deploy with Docker Compose (includes Nginx reverse proxy):
 
 ```bash
-# Start infrastructure with Docker Compose
-docker-compose up -d postgres minio
+# Enter docker directory
+cd docker
 
-# Start applications
-docker-compose up -d backend frontend
+# Copy and configure environment variables
+cp .env.example .env
+# Edit .env with database connection, MinIO, API keys, etc.
+
+# Build and start all services
+docker-compose up -d --build
+
+# View logs
+docker-compose logs -f
+```
+
+After deployment, access the application at `http://YOUR_DOMAIN:8089`.
+
+#### Architecture Overview
+
+```
+                    ┌─────────────────┐
+                    │     Nginx       │
+                    │   (Port 8089)   │
+                    └────────┬────────┘
+                             │
+              ┌──────────────┴──────────────┐
+              │                             │
+              ▼                             ▼
+    ┌─────────────────┐          ┌─────────────────┐
+    │    Frontend     │          │     Backend     │
+    │  (Nuxt 3:3000)  │          │ (Express:3001)  │
+    └─────────────────┘          └─────────────────┘
+```
+
+- **Nginx** - Unified entry point, reverse proxy for frontend and backend
+  - `/` → Frontend (Nuxt 3)
+  - `/api/*` → Backend API (Express)
+- **Frontend** - Nuxt 3 SSR application
+- **Backend** - Express API service
+
+> **Note**: Current Docker configuration assumes PostgreSQL, MinIO, Redis, and other infrastructure services are running externally.
+
+### Environment Variables
+
+Create a `.env` file in the `docker` directory:
+
+```env
+# Node Environment
+NODE_ENV=production
+
+# ===========================================
+# External Service Ports
+# ===========================================
+PROXY_PORT=8089            # Nginx proxy port (unified entry)
+
+# ===========================================
+# PostgreSQL (External Service)
+# ===========================================
+POSTGRES_HOST=your-db-host
+POSTGRES_PORT=5432
+POSTGRES_USER=ai4write
+POSTGRES_PASSWORD=your_password
+POSTGRES_DB=ai4write
+
+# ===========================================
+# MinIO (Object Storage)
+# ===========================================
+MINIO_ENDPOINT=your-minio-host
+MINIO_PORT=9000
+MINIO_USE_SSL=false
+MINIO_ACCESS_KEY=minioadmin
+MINIO_SECRET_KEY=minioadmin
+MINIO_BUCKET=ai4write
+
+# ===========================================
+# Redis (External Service)
+# ===========================================
+REDIS_HOST=your-redis-host
+REDIS_PORT=6379
+REDIS_URL=redis://:password@your-redis-host:6379/0
+
+# ===========================================
+# Embedding API (Vector Service)
+# ===========================================
+EMBEDDING_API_URL=http://your-embedding-host:8000/v1/embeddings
+EMBEDDING_MODEL=text-embedding-bge-m3
+
+# ===========================================
+# DeepSeek/LLM API
+# ===========================================
+DEEPSEEK_BASE_URL=https://api.deepseek.com
+DEEPSEEK_API_KEY=sk-xxx
+DEEPSEEK_MODEL=deepseek-chat
+
+# ===========================================
+# JWT Configuration
+# ===========================================
+JWT_SECRET=your-super-secret-jwt-key
+JWT_EXPIRES_IN=7d
+
+# ===========================================
+# Frontend API URL
+# ===========================================
+# When using Nginx reverse proxy, set to empty or relative path
+NUXT_PUBLIC_API_BASE_URL=
 ```
 
 ## 📖 User Guide
