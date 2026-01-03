@@ -30,7 +30,7 @@ export async function getEmbedding(text: string): Promise<number[]> {
     throw new Error(`Embedding API error: ${response.status} ${response.statusText}`);
   }
 
-  const data: EmbeddingResponse = await response.json();
+  const data = await response.json() as unknown as EmbeddingResponse;
   return data.data[0].embedding;
 }
 
@@ -50,7 +50,7 @@ export async function getEmbeddings(texts: string[]): Promise<number[][]> {
     throw new Error(`Embedding API error: ${response.status} ${response.statusText}`);
   }
 
-  const data: EmbeddingResponse = await response.json();
+  const data = await response.json() as unknown as EmbeddingResponse;
   return data.data.map((d) => d.embedding);
 }
 

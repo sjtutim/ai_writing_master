@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+import jwt, { SignOptions } from 'jsonwebtoken';
 import { prisma } from '../services/prisma';
 import { config } from '../config';
 import { authMiddleware, AuthRequest } from '../middleware/auth';
@@ -46,10 +46,11 @@ router.post('/register', async (req, res) => {
     });
 
     // Generate token
+    const signOptions: SignOptions = { expiresIn: config.jwt.expiresIn as any };
     const token = jwt.sign(
       { userId: user.id, email: user.email },
       config.jwt.secret,
-      { expiresIn: config.jwt.expiresIn }
+      signOptions
     );
 
     res.status(201).json({
@@ -134,10 +135,11 @@ router.post('/login', async (req, res) => {
     }
 
     // Generate token
+    const signOptions: SignOptions = { expiresIn: config.jwt.expiresIn as any };
     const token = jwt.sign(
       { userId: user.id, email: user.email },
       config.jwt.secret,
-      { expiresIn: config.jwt.expiresIn }
+      signOptions
     );
 
     res.json({

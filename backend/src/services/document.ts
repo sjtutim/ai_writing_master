@@ -2,9 +2,9 @@ import mammoth from 'mammoth';
 import { minioClient, getObjectPath } from './minio';
 import { config } from '../config';
 
-// Word 转 Markdown
+// Word 转纯文本（mammoth 不支持直接转 Markdown）
 export async function convertWordToMarkdown(buffer: Buffer): Promise<string> {
-  const result = await mammoth.convertToMarkdown({ buffer });
+  const result = await mammoth.extractRawText({ buffer });
   return result.value;
 }
 

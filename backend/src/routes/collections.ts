@@ -136,11 +136,11 @@ router.get('/:id/documents', authMiddleware, async (req: AuthRequest, res) => {
       where: { collectionId: id },
       include: {
         versions: {
-          where: { version: { equals: prisma.kbDocument.fields.latestVersion } },
+          orderBy: { version: 'desc' as const },
           take: 1,
         },
       },
-      orderBy: { updatedAt: 'desc' },
+      orderBy: { updatedAt: 'desc' as const },
     });
 
     res.json(documents);

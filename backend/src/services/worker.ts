@@ -238,7 +238,7 @@ export async function startWorker(): Promise<void> {
         } catch (error: any) {
           console.error(`Job ${job.id} failed:`, error);
 
-          const payload = job.payload as JobPayload;
+          const payload = job.payload as any as JobPayload;
 
           // 更新任务状态
           await prisma.job.update({
