@@ -15,25 +15,20 @@ LLM API connected successfully. Response: Connected
 --- Connection Tests Complete ---
 
 Starting job worker...
-node:events:496
-      throw er; // Unhandled 'error' event
-      ^
-
-Error: listen EADDRINUSE: address already in use :::3001
-    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
-    at listenInCluster (node:net:1965:12)
-    at Server.listen (node:net:2067:7)
-    at Function.listen (/Users/xuhuayong/projects/ai4write/backend/node_modules/express/lib/application.js:635:24)
-    at startServer (/Users/xuhuayong/projects/ai4write/backend/src/index.ts:73:22)
-    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
-Emitted 'error' event on Server instance at:
-    at emitErrorNT (node:net:1944:8)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
-  code: 'EADDRINUSE',
-  errno: -48,
-  syscall: 'listen',
-  address: '::',
-  port: 3001
-}
-
-Node.js v20.18.3
+Server running on http://localhost:3001
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: Connected
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected

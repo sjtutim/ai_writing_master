@@ -635,6 +635,12 @@ const _inlineRuntimeConfig = {
       "/__nuxt_error": {
         "cache": false
       },
+      "/api/**": {
+        "proxy": {
+          "to": "http://localhost:3001/api/**",
+          "_proxyStripBase": "/api"
+        }
+      },
       "/_nuxt/builds/meta/**": {
         "headers": {
           "cache-control": "public, max-age=31536000, immutable"

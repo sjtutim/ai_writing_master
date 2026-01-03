@@ -24,7 +24,8 @@ export function useApi() {
       requestHeaders['Authorization'] = `Bearer ${authStore.token}`
     }
 
-    const response = await fetch(`${baseUrl}${endpoint}`, {
+    const url = baseUrl ? `${baseUrl}${endpoint}` : endpoint
+    const response = await fetch(url, {
       method,
       headers: requestHeaders,
       body: body ? JSON.stringify(body) : undefined,

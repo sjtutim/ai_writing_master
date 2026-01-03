@@ -10,7 +10,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      apiBaseUrl: process.env.NUXT_PUBLIC_API_BASE_URL || 'http://localhost:3001',
+      apiBaseUrl: process.env.NUXT_PUBLIC_API_BASE_URL || '',
     },
   },
 
@@ -26,4 +26,10 @@ export default defineNuxtConfig({
   },
 
   compatibilityDate: '2024-01-01',
+
+  routeRules: {
+    '/api/**': {
+      proxy: 'http://localhost:3001/api/**',
+    },
+  },
 })
