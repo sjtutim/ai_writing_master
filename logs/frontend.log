@@ -10,16 +10,8 @@
 
 [nuxt:tailwindcss] ℹ Using default Tailwind CSS file
 [nuxt:tailwindcss] ℹ Tailwind Viewer: http:/localhost:3000/_tailwind/
-✔ Vite client built in 19ms
-✔ Vite server built in 567ms
-[nitro] ✔ Nuxt Nitro server built in 508ms
+✔ Vite client built in 47ms
+✔ Vite server built in 595ms
+[nitro] ✔ Nuxt Nitro server built in 464ms
 ℹ Vite client warmed up in 1ms
-ℹ Vite server warmed up in 689ms
-WARN  [Vue Router warn]: No match found for location with path "/.well-known/appspecific/com.chrome.devtools.json"
-WARN  [Vue Router warn]: No match found for location with path "/.well-known/appspecific/com.chrome.devtools.json"
-WARN  [Vue Router warn]: No match found for location with path "/.well-known/appspecific/com.chrome.devtools.json"
-WARN  [Vue Router warn]: No match found for location with path "/.well-known/appspecific/com.chrome.devtools.json"
-WARN  [Vue Router warn]: No match found for location with path "/.well-known/appspecific/com.chrome.devtools.json"
-WARN  [Vue Router warn]: No match found for location with path "/.well-known/appspecific/com.chrome.devtools.json"
-WARN  [Vue Router warn]: No match found for location with path "/.well-known/appspecific/com.chrome.devtools.json"
-WARN  [Vue Router warn]: No match found for location with path "/.well-known/appspecific/com.chrome.devtools.json"
+ℹ Vite server warmed up in 679ms
