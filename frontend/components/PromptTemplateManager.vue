@@ -238,7 +238,7 @@ async function deleteTemplate(id: string) {
   if (!confirm('确定要删除这个提示词模板吗？')) return
 
   try {
-    await del(`/api/prompt-templates/${id}`)
+    await del(`/prompt-templates/${id}`)
     await loadTemplates()
   } catch (error) {
     console.error('Failed to delete template:', error)

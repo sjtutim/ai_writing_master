@@ -399,7 +399,7 @@ async function loadTasks() {
     if (searchKeyword.value.trim()) {
       params.append('keyword', searchKeyword.value.trim())
     }
-    const res = await get<{ tasks: WritingTask[]; total: number }>(`/api/writing-tasks?${params}`)
+    const res = await get<{ tasks: WritingTask[]; total: number }>(`/writing-tasks?${params}`)
     tasks.value = res.tasks
     total.value = res.total
   } catch (error) {
@@ -459,7 +459,7 @@ function cancelEdit() {
 async function saveEdit(taskId: string, outputId: string) {
   savingId.value = taskId
   try {
-    await put(`/api/writing-tasks/outputs/${outputId}`, { content: editingContent.value })
+    await put(`/writing-tasks/outputs/${outputId}`, { content: editingContent.value })
     editingTaskId.value = null
     await loadTasks()
   } catch (error) {
@@ -476,7 +476,7 @@ async function deleteTask(id: string) {
   const previousLoading = loading.value
   try {
     loading.value = true
-    await del(`/api/writing-tasks/${id}`)
+    await del(`/writing-tasks/${id}`)
 
     if (tasks.value.length <= 1 && page.value > 1) {
       page.value--

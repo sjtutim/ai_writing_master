@@ -14,6 +14,15 @@ export function useApi() {
 
   const baseUrl = config.public.apiBaseUrl
 
+  // 调试：输出配置信息
+  if (import.meta.dev) {
+    console.log('[useApi] Runtime config:', {
+      baseUrl,
+      fullConfig: config.public,
+      envVar: import.meta.env.NUXT_PUBLIC_API_BASE_URL
+    })
+  }
+
   // 优化：添加超时控制
   async function fetchWithTimeout(
     url: string,

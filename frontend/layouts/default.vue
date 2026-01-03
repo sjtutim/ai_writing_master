@@ -262,7 +262,7 @@ const submitChangePassword = async () => {
 
   changingPassword.value = true
   try {
-    const response = await api.post<{ message: string }>('/api/auth/change-password', {
+    const response = await api.post<{ message: string }>('/auth/change-password', {
       currentPassword: changePasswordForm.currentPassword,
       newPassword: changePasswordForm.newPassword,
     })

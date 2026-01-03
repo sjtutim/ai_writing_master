@@ -467,7 +467,7 @@ async function handleGenerate() {
   const baseUrl = config.public.apiBaseUrl
 
   try {
-    const response = await fetch(`${baseUrl}/api/writing-tasks/generate/stream`, {
+    const response = await fetch(`${baseUrl}/writing-tasks/generate/stream`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -538,9 +538,6 @@ function reuseTask(task: WritingTask) {
 }
 
 function onTaskDeleted() {
-  if (historyRef.value) {
-    historyRef.value.loadTasks()
-  }
   if (historyFullRef.value) {
     historyFullRef.value.loadTasks()
   }

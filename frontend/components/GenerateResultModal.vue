@@ -143,7 +143,7 @@ async function saveEdit() {
   if (props.outputId) {
     saving.value = true
     try {
-      await put(`/api/writing-tasks/outputs/${props.outputId}`, { content: editingContent.value })
+      await put(`/writing-tasks/outputs/${props.outputId}`, { content: editingContent.value })
     } catch (error) {
       console.error('Failed to save:', error)
       alert('保存失败，请重试')

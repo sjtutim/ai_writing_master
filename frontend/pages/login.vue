@@ -70,7 +70,7 @@
             {{ error }}
           </div>
 
-          <form @submit.prevent="handleSubmit" class="space-y-5">
+          <form @submit.prevent="handleSubmit" class="space-y-6">
             <div>
               <label for="email" class="label">邮箱地址</label>
               <input
@@ -78,7 +78,7 @@
                 v-model="email"
                 type="email"
                 required
-                class="input"
+                class="input mt-2 py-3 px-4"
                 placeholder="请输入邮箱地址"
                 autocomplete="email"
               />
@@ -91,7 +91,7 @@
                 v-model="password"
                 type="password"
                 required
-                class="input"
+                class="input mt-2 py-3 px-4"
                 placeholder="请输入密码"
                 autocomplete="current-password"
               />

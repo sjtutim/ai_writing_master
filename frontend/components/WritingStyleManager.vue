@@ -216,7 +216,7 @@ async function deleteStyle(id: string) {
   if (!confirm('确定要删除这个写作风格吗？')) return
 
   try {
-    await del(`/api/writing-styles/${id}`)
+    await del(`/writing-styles/${id}`)
     await loadStyles()
   } catch (error) {
     console.error('Failed to delete style:', error)

@@ -268,7 +268,7 @@ const formatDate = (dateStr: string) => {
 const fetchUsers = async () => {
   loading.value = true
   try {
-    const response = await fetch(`${config.public.apiBaseUrl}/api/users`, {
+    const response = await fetch(`${config.public.apiBaseUrl}/users`, {
       headers: {
         Authorization: `Bearer ${authStore.token}`,
       },
@@ -285,7 +285,7 @@ const fetchUsers = async () => {
 
 const fetchRoles = async () => {
   try {
-    const response = await fetch(`${config.public.apiBaseUrl}/api/users/meta/roles`, {
+    const response = await fetch(`${config.public.apiBaseUrl}/users/meta/roles`, {
       headers: {
         Authorization: `Bearer ${authStore.token}`,
       },
@@ -337,7 +337,7 @@ const saveUser = async () => {
 
   try {
     if (showEditModal.value) {
-      const response = await fetch(`${config.public.apiBaseUrl}/api/users/${editingUserId.value}`, {
+      const response = await fetch(`${config.public.apiBaseUrl}/users/${editingUserId.value}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -358,7 +358,7 @@ const saveUser = async () => {
         formError.value = data.error || '保存失败'
       }
     } else {
-      const response = await fetch(`${config.public.apiBaseUrl}/api/users`, {
+      const response = await fetch(`${config.public.apiBaseUrl}/users`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -395,7 +395,7 @@ const resetPassword = async () => {
   resetPasswordSaving.value = true
 
   try {
-    const response = await fetch(`${config.public.apiBaseUrl}/api/users/${resetPasswordUser.value.id}/reset-password`, {
+    const response = await fetch(`${config.public.apiBaseUrl}/users/${resetPasswordUser.value.id}/reset-password`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -424,7 +424,7 @@ const deleteUser = async (id: string) => {
   if (!confirm('确定要删除该用户吗？此操作不可恢复。')) return
 
   try {
-    const response = await fetch(`${config.public.apiBaseUrl}/api/users/${id}`, {
+    const response = await fetch(`${config.public.apiBaseUrl}/users/${id}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${authStore.token}`,

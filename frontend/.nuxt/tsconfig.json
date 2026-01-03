@@ -101,7 +101,7 @@
         "./imports"
       ],
       "#app-manifest": [
-        "./manifest/meta/853675ed-ecc2-48a5-a80f-86168d5624fd"
+        "./manifest/meta/dev"
       ],
       "#components": [
         "./components"
@@ -168,6 +168,6 @@
     "../node_modules/@pinia/nuxt/dist/runtime/server",
     "../node_modules/@nuxt/telemetry/runtime/server",
     "../node_modules/@nuxt/telemetry/dist/runtime/server",
-    "../.output"
+    "dev"
   ]
 }

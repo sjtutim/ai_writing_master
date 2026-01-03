@@ -521,7 +521,7 @@ const formatDate = (dateStr: string) => {
 
 async function fetchCollections() {
   try {
-    const response = await fetch(`${config.public.apiBaseUrl}/api/collections`, {
+    const response = await fetch(`${config.public.apiBaseUrl}/collections`, {
       headers: { Authorization: `Bearer ${authStore.token}` },
     })
     if (response.ok) {
@@ -535,7 +535,7 @@ async function fetchCollections() {
 async function fetchDocuments() {
   loading.value = true
   try {
-    const response = await fetch(`${config.public.apiBaseUrl}/api/documents`, {
+    const response = await fetch(`${config.public.apiBaseUrl}/documents`, {
       headers: { Authorization: `Bearer ${authStore.token}` },
     })
     if (response.ok) {
@@ -573,8 +573,8 @@ async function saveCollection() {
 
   try {
     const url = editingCollection.value
-      ? `${config.public.apiBaseUrl}/api/collections/${editingCollection.value.id}`
-      : `${config.public.apiBaseUrl}/api/collections`
+      ? `${config.public.apiBaseUrl}/collections/${editingCollection.value.id}`
+      : `${config.public.apiBaseUrl}/collections`
 
     const response = await fetch(url, {
       method: editingCollection.value ? 'PUT' : 'POST',
@@ -603,7 +603,7 @@ async function deleteCollection(id: string) {
   if (!confirm('确定要删除这个知识库吗？属于该知识库的文档将变为未分类状态。')) return
 
   try {
-    const response = await fetch(`${config.public.apiBaseUrl}/api/collections/${id}`, {
+    const response = await fetch(`${config.public.apiBaseUrl}/collections/${id}`, {
       method: 'DELETE',
       headers: { Authorization: `Bearer ${authStore.token}` },
     })
@@ -654,7 +654,7 @@ async function handleUpload() {
       formData.append('collectionId', uploadCollectionId.value)
     }
 
-    const response = await fetch(`${config.public.apiBaseUrl}/api/documents/upload`, {
+    const response = await fetch(`${config.public.apiBaseUrl}/documents/upload`, {
       method: 'POST',
       headers: { Authorization: `Bearer ${authStore.token}` },
       body: formData,
@@ -690,7 +690,7 @@ async function handlePaste() {
   pasteError.value = ''
 
   try {
-    const response = await fetch(`${config.public.apiBaseUrl}/api/documents/paste`, {
+    const response = await fetch(`${config.public.apiBaseUrl}/documents/paste`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -720,7 +720,7 @@ async function handlePaste() {
 
 async function viewDoc(id: string) {
   try {
-    const response = await fetch(`${config.public.apiBaseUrl}/api/documents/${id}`, {
+    const response = await fetch(`${config.public.apiBaseUrl}/documents/${id}`, {
       headers: { Authorization: `Bearer ${authStore.token}` },
     })
     if (response.ok) {
@@ -735,7 +735,7 @@ async function deleteDoc(id: string) {
   if (!confirm('确定要删除这个文档吗？相关的原始文件和 Markdown 文件也将被删除。')) return
 
   try {
-    const response = await fetch(`${config.public.apiBaseUrl}/api/documents/${id}`, {
+    const response = await fetch(`${config.public.apiBaseUrl}/documents/${id}`, {
       method: 'DELETE',
       headers: { Authorization: `Bearer ${authStore.token}` },
     })
@@ -750,7 +750,7 @@ async function deleteDoc(id: string) {
 
 async function reprocessDoc(id: string) {
   try {
-    const response = await fetch(`${config.public.apiBaseUrl}/api/documents/${id}/reprocess`, {
+    const response = await fetch(`${config.public.apiBaseUrl}/documents/${id}/reprocess`, {
       method: 'POST',
       headers: { Authorization: `Bearer ${authStore.token}` },
     })
@@ -764,7 +764,7 @@ async function reprocessDoc(id: string) {
 
 async function downloadRaw(id: string) {
   try {
-    const response = await fetch(`${config.public.apiBaseUrl}/api/documents/${id}/download/raw`, {
+    const response = await fetch(`${config.public.apiBaseUrl}/documents/${id}/download/raw`, {
       headers: { Authorization: `Bearer ${authStore.token}` },
     })
     if (response.ok) {
@@ -783,7 +783,7 @@ async function previewMd(id: string) {
   previewTitle.value = ''
 
   try {
-    const response = await fetch(`${config.public.apiBaseUrl}/api/documents/${id}/preview/md`, {
+    const response = await fetch(`${config.public.apiBaseUrl}/documents/${id}/preview/md`, {
       headers: { Authorization: `Bearer ${authStore.token}` },
     })
     if (response.ok) {

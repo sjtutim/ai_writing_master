@@ -10,41 +10,15 @@
 
 [nuxt:tailwindcss] ℹ Using default Tailwind CSS file
 [nuxt:tailwindcss] ℹ Tailwind Viewer: http:/localhost:3007/_tailwind/
-✔ Vite client built in 16ms
-✔ Vite server built in 546ms
-[nitro] ✔ Nuxt Nitro server built in 523ms
+✔ Vite client built in 19ms
+✔ Vite server built in 525ms
+[nitro] ✔ Nuxt Nitro server built in 356ms
 ℹ Vite client warmed up in 1ms
-ℹ Vite server warmed up in 668ms
-ℹ hmr update /pages/writing.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/writing.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs
-ℹ hmr update /pages/writing.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/writing.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x2)
-ℹ hmr update /pages/writing.vue?vue&type=style&index=0&scoped=3ace97b2&lang.css, /pages/writing.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs
-ℹ hmr update /components/WritingHistory.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct
-✔ Vite server hmr 12 files in 95.229ms
-ℹ hmr update /pages/writing.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/writing.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs
-ℹ hmr update /components/GenerateResultModal.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct
-ℹ hmr update /pages/writing.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/writing.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs
-ℹ hmr update /pages/writing.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/writing.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x2)
-ℹ hmr update /pages/writing.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/writing.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x3)
-ℹ hmr update /pages/writing.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/writing.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x4)
-ℹ hmr update /pages/writing.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/writing.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x5)
-✔ Vite server hmr 12 files in 56.932ms
-ℹ hmr update /pages/writing.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/writing.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x6)
-ℹ hmr update /pages/writing.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/writing.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x7)
-ℹ hmr update /pages/writing.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/writing.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x8)
-ℹ hmr update /pages/writing.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/writing.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x9)
-ℹ hmr update /pages/writing.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/writing.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x10)
-ℹ hmr update /pages/writing.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/writing.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x11)
-ℹ hmr update /pages/writing.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/writing.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x12)
-ℹ hmr update /pages/writing.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/writing.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x13)
-ℹ hmr update /pages/writing.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/writing.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x14)
-ℹ hmr update /pages/writing.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/writing.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x15)
-ℹ hmr update /components/WritingHistory.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct
-ℹ hmr update /components/WritingHistory.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct (x2)
-ℹ hmr update /components/WritingHistory.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct (x3)
-ℹ hmr update /components/WritingHistory.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct (x4)
-ℹ hmr update /components/WritingHistory.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct (x5)
-ℹ hmr update /components/WritingHistory.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct (x6)
-ℹ hmr update /components/WritingHistory.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct (x7)
-ℹ hmr update /components/WritingHistory.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct (x8)
-ℹ hmr update /components/WritingHistory.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct (x9)
-ℹ hmr update /components/WritingHistory.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct (x10)
+ℹ Vite server warmed up in 611ms
+[useApi] Runtime config: { baseUrl: '/api', fullConfig: { apiBaseUrl: '/api' }, envVar: undefined }
+WARN  [Vue Router warn]: No match found for location with path "/.well-known/appspecific/com.chrome.devtools.json"
+WARN  [Vue Router warn]: No match found for location with path "/.well-known/appspecific/com.chrome.devtools.json"
+ℹ hmr update /components/WritingStyleManager.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css?direct, /node_modules/tailwindcss/tailwind.css?direct
+ℹ hmr update /layouts/default.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css?direct, /node_modules/tailwindcss/tailwind.css?direct
+ℹ hmr update /pages/writing.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css?direct, /node_modules/tailwindcss/tailwind.css?direct, /pages/writing.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs
+ℹ hmr update /pages/writing.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css?direct, /node_modules/tailwindcss/tailwind.css?direct, /pages/writing.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x2)
