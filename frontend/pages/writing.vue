@@ -52,19 +52,24 @@
               </label>
               <span class="text-xs text-purple-600 bg-purple-100 px-2 py-0.5 rounded-full">可选</span>
             </div>
-            <div class="flex gap-2">
-              <select
-                v-model="selectedPromptId"
-                class="input flex-1"
-              >
-                <option :value="null">不使用模板限制</option>
-                <option v-for="prompt in prompts" :key="prompt.id" :value="prompt.id">
-                  {{ prompt.name }}
-                </option>
-              </select>
+            <div class="flex items-center gap-3">
+              <div class="relative flex-1 min-w-0">
+                <select
+                  v-model="selectedPromptId"
+                  class="input select-field"
+                >
+                  <option :value="null">不使用模板限制</option>
+                  <option v-for="prompt in prompts" :key="prompt.id" :value="prompt.id">
+                    {{ prompt.name }}
+                  </option>
+                </select>
+                <svg class="select-caret" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
               <button
                 @click="activeTab = 'prompts'"
-                class="btn btn-secondary text-sm"
+                class="btn btn-secondary text-sm flex-shrink-0 whitespace-nowrap"
               >
                 管理模板
               </button>
@@ -92,26 +97,97 @@
             ></textarea>
           </div>
 
-          <!-- 选择知识库 -->
+          <!-- 知识库选择区域 -->
           <div class="mb-6 p-4 bg-blue-50 rounded-xl border border-blue-100">
-            <div class="flex items-center gap-2 mb-3">
+            <div class="flex items-center gap-2 mb-4">
               <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
               </svg>
               <label class="block text-sm font-semibold text-gray-800">
-                参考知识库
+                参考知识
               </label>
               <span class="text-xs text-blue-600 bg-blue-100 px-2 py-0.5 rounded-full">可选</span>
             </div>
-            <select
-              v-model="selectedCollectionId"
-              class="input"
-            >
-              <option :value="null">全部知识库</option>
-              <option v-for="collection in collections" :key="collection.id" :value="collection.id">
-                {{ collection.name }}
-              </option>
-            </select>
+
+            <!-- Tab切换 -->
+            <div class="flex border-b border-gray-200 mb-3">
+              <button
+                @click="knowledgeTab = 'basic'"
+                class="px-3 py-1.5 text-xs font-medium transition-all duration-200 border-b-2 -mb-px"
+                :class="knowledgeTab === 'basic'
+                  ? 'border-blue-500 text-blue-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700'"
+              >
+                单一知识库
+              </button>
+              <button
+                @click="knowledgeTab = 'advanced'"
+                class="px-3 py-1.5 text-xs font-medium transition-all duration-200 border-b-2 -mb-px flex items-center gap-1"
+                :class="knowledgeTab === 'advanced'
+                  ? 'border-blue-500 text-blue-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700'"
+              >
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                </svg>
+                高级跨知识库查询
+              </button>
+            </div>
+
+            <!-- 单一知识库选择 -->
+            <div v-show="knowledgeTab === 'basic'">
+              <div class="relative">
+                <select
+                  v-model="selectedCollectionId"
+                  class="input select-field"
+                >
+                  <option :value="null">全部知识库</option>
+                  <option v-for="collection in collections" :key="collection.id" :value="collection.id">
+                    {{ collection.name }}
+                  </option>
+                </select>
+                <svg class="select-caret" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
+              <p class="text-xs text-gray-500 mt-2">
+                使用向量搜索自动匹配相关知识
+              </p>
+            </div>
+
+            <!-- 跨知识库（缓存） -->
+            <div v-show="knowledgeTab === 'advanced'">
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-2">
+                  <span class="text-xs text-gray-600">已缓存</span>
+                  <span
+                    class="text-xs px-2 py-0.5 rounded-full font-semibold"
+                    :class="cacheCount > 0 ? 'bg-purple-100 text-purple-600' : 'bg-gray-100 text-gray-600'"
+                  >
+                    {{ cacheCount }} 条
+                  </span>
+                </div>
+                <div class="flex gap-2">
+                  <button @click="openKnowledgeSearch" class="btn btn-primary btn-sm">
+                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    搜索知识
+                  </button>
+                  <button
+                    v-if="cacheCount > 0"
+                    @click="clearCache"
+                    class="btn btn-secondary btn-sm"
+                  >
+                    清空缓存
+                  </button>
+                </div>
+              </div>
+              <KnowledgeCachePanel
+                :cached-chunks="cachedChunks"
+                @remove-chunk="removeChunk"
+              />
+            </div>
           </div>
 
           <!-- 选择写作风格 -->
@@ -125,19 +201,24 @@
               </label>
               <span class="text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">可选</span>
             </div>
-            <div class="flex gap-2">
-              <select
-                v-model="selectedStyleId"
-                class="input flex-1"
-              >
-                <option :value="null">无特定风格</option>
-                <option v-for="style in styles" :key="style.id" :value="style.id">
-                  {{ style.name }}
-                </option>
-              </select>
+            <div class="flex items-center gap-3">
+              <div class="relative flex-1 min-w-0">
+                <select
+                  v-model="selectedStyleId"
+                  class="input select-field"
+                >
+                  <option :value="null">无特定风格</option>
+                  <option v-for="style in styles" :key="style.id" :value="style.id">
+                    {{ style.name }}
+                  </option>
+                </select>
+                <svg class="select-caret" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
               <button
                 @click="activeTab = 'styles'"
-                class="btn btn-secondary text-sm"
+                class="btn btn-secondary text-sm flex-shrink-0 whitespace-nowrap"
               >
                 管理风格
               </button>
@@ -161,72 +242,6 @@
               开始生成
             </template>
           </button>
-        </div>
-
-        <!-- 输出区域 -->
-        <div class="card p-6">
-          <div class="flex justify-between items-center mb-4">
-            <div class="flex items-center gap-3">
-              <h2 class="text-lg font-medium text-gray-900">生成结果</h2>
-              <span v-if="output && !isEditing" class="badge badge-gray">
-                {{ output.length }} 字
-              </span>
-            </div>
-            <div v-if="output" class="flex items-center gap-2">
-              <button
-                v-if="!isEditing"
-                @click="startEdit"
-                class="btn btn-ghost btn-sm"
-              >
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                </svg>
-                编辑
-              </button>
-              <template v-else>
-                <button
-                  @click="saveEdit"
-                  class="btn btn-primary btn-sm"
-                >
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                  </svg>
-                  保存
-                </button>
-                <button
-                  @click="cancelEdit"
-                  class="btn btn-secondary btn-sm"
-                >
-                  取消
-                </button>
-              </template>
-              <button
-                @click="copyOutput"
-                class="btn btn-ghost btn-sm"
-              >
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                </svg>
-                复制
-              </button>
-            </div>
-          </div>
-          <div class="min-h-[300px]">
-            <div v-if="output && !isEditing" class="whitespace-pre-wrap text-gray-800 leading-relaxed">{{ output }}</div>
-            <textarea
-              v-else-if="output && isEditing"
-              v-model="editingOutput"
-              rows="20"
-              class="input font-sans"
-            ></textarea>
-            <div v-else class="empty-state">
-              <svg class="empty-state-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-              <p class="empty-state-title">暂无生成内容</p>
-              <p class="empty-state-description">填写写作要求并点击开始生成</p>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -259,6 +274,20 @@
         <WritingHistory ref="historyFullRef" @reuse-task="reuseTask" @task-deleted="onTaskDeleted" />
       </div>
     </div>
+
+    <!-- 知识搜索模态框 -->
+    <KnowledgeSearchModal
+      v-model:visible="showKnowledgeSearch"
+      :selected-collection-id="selectedCollectionId"
+      @chunks-selected="addToCache"
+    />
+
+    <!-- 生成结果模态框 -->
+    <GenerateResultModal
+      v-model:visible="showResultModal"
+      v-model:content="output"
+      :generating="generating"
+    />
   </div>
 </template>
 
@@ -266,12 +295,15 @@
 import WritingStyleManager from '~/components/WritingStyleManager.vue'
 import PromptTemplateManager from '~/components/PromptTemplateManager.vue'
 import WritingHistory from '~/components/WritingHistory.vue'
+import KnowledgeCachePanel from '~/components/KnowledgeCachePanel.vue'
+import KnowledgeSearchModal from '~/components/KnowledgeSearchModal.vue'
+import GenerateResultModal from '~/components/GenerateResultModal.vue'
 
 definePageMeta({
   middleware: 'auth',
 })
 
-const { get } = useApi()
+const { get, post, delete: del } = useApi()
 const config = useRuntimeConfig()
 
 interface Collection {
@@ -310,8 +342,6 @@ const activeTab = ref('workspace')
 const query = ref('')
 const output = ref('')
 const generating = ref(false)
-const isEditing = ref(false)
-const editingOutput = ref('')
 const selectedCollectionId = ref<string | null>(null)
 const selectedPromptId = ref<string | null>(null)
 const selectedStyleId = ref<string | null>(null)
@@ -321,19 +351,18 @@ const prompts = ref<PromptTemplate[]>([])
 const historyRef = ref<InstanceType<typeof WritingHistory> | null>(null)
 const historyFullRef = ref<InstanceType<typeof WritingHistory> | null>(null)
 
-function startEdit() {
-  editingOutput.value = output.value
-  isEditing.value = true
-}
+const knowledgeTab = ref<'advanced' | 'basic'>('basic')
+const showKnowledgeSearch = ref(false)
+const cachedChunks = ref<CachedChunk[]>([])
+const cacheCount = computed(() => cachedChunks.value.length)
+const showResultModal = ref(false)
 
-function saveEdit() {
-  output.value = editingOutput.value
-  isEditing.value = false
-}
-
-function cancelEdit() {
-  editingOutput.value = ''
-  isEditing.value = false
+interface CachedChunk {
+  id: string
+  content: string
+  documentTitle: string
+  collectionName?: string | null
+  addedAt: string
 }
 
 async function loadCollections() {
@@ -360,6 +389,52 @@ async function loadPrompts() {
   }
 }
 
+async function loadCache() {
+  try {
+    const data = await get<{ chunks: CachedChunk[]; count: number }>('/api/writing-tasks/knowledge/cache')
+    cachedChunks.value = data.chunks
+  } catch (error) {
+    console.error('Failed to load cache:', error)
+  }
+}
+
+async function addToCache(chunkIds: string[]) {
+  try {
+    await post('/api/writing-tasks/knowledge/cache', { chunkIds })
+    await loadCache()
+  } catch (error) {
+    console.error('Failed to add to cache:', error)
+    alert('添加到缓存失败，请重试')
+  }
+}
+
+async function removeChunk(chunkId: string) {
+  try {
+    await del(`/api/writing-tasks/knowledge/cache/${chunkId}`)
+    await loadCache()
+  } catch (error) {
+    console.error('Failed to remove chunk:', error)
+    alert('移除失败，请重试')
+  }
+}
+
+async function clearCache() {
+  if (!confirm('确定要清空所有缓存的知识吗？')) {
+    return
+  }
+  try {
+    await del('/api/writing-tasks/knowledge/cache')
+    cachedChunks.value = []
+  } catch (error) {
+    console.error('Failed to clear cache:', error)
+    alert('清空缓存失败，请重试')
+  }
+}
+
+function openKnowledgeSearch() {
+  showKnowledgeSearch.value = true
+}
+
 const selectedPrompt = computed(() => {
   return prompts.value.find(p => p.id === selectedPromptId.value) || null
 })
@@ -369,6 +444,7 @@ async function handleGenerate() {
 
   generating.value = true
   output.value = ''
+  showResultModal.value = true
 
   const payload: any = {
     query: query.value,
@@ -382,9 +458,18 @@ async function handleGenerate() {
     payload.promptId = selectedPromptId.value
   }
 
-  if (selectedCollectionId.value) {
-    payload.kbScope = {
-      collectionIds: [selectedCollectionId.value],
+  // 根据知识库模式决定使用哪种方式
+  if (knowledgeTab.value === 'advanced') {
+    // 高级跨知识库模式：使用缓存的chunk IDs
+    if (cachedChunks.value.length > 0) {
+      payload.cachedChunkIds = cachedChunks.value.map(c => c.id)
+    }
+  } else {
+    // 单一知识库模式
+    if (selectedCollectionId.value) {
+      payload.kbScope = {
+        collectionIds: [selectedCollectionId.value],
+      }
     }
   }
 
@@ -452,14 +537,6 @@ async function handleGenerate() {
   }
 }
 
-async function copyOutput() {
-  try {
-    await navigator.clipboard.writeText(output.value)
-  } catch (error) {
-    console.error('Failed to copy:', error)
-  }
-}
-
 function reuseTask(task: WritingTask) {
   query.value = task.query
   selectedPromptId.value = task.promptId || null
@@ -494,6 +571,7 @@ onMounted(() => {
   loadCollections()
   loadStyles()
   loadPrompts()
+  loadCache()
 })
 
 watch(activeTab, (newTab) => {
@@ -506,3 +584,28 @@ watch(activeTab, (newTab) => {
   }
 })
 </script>
+
+<style scoped>
+.select-field {
+  @apply pr-10 cursor-pointer font-medium bg-white;
+  /* 隐藏原生下拉箭头 */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: none;
+}
+
+/* 针对IE的隐藏箭头 */
+.select-field::-ms-expand {
+  display: none;
+}
+
+.select-caret {
+  @apply pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 transition-colors;
+}
+
+/* 鼠标悬停时箭头变色 */
+.relative:hover .select-caret {
+  @apply text-indigo-500;
+}
+</style>

@@ -12,7 +12,10 @@ type HydrationStrategies = {
 }
 type LazyComponent<T> = (T & DefineComponent<HydrationStrategies, {}, {}, {}, {}, {}, {}, { hydrated: () => void }>)
 interface _GlobalComponents {
-      'PromptTemplateManager': typeof import("../components/PromptTemplateManager.vue")['default']
+      'GenerateResultModal': typeof import("../components/GenerateResultModal.vue")['default']
+    'KnowledgeCachePanel': typeof import("../components/KnowledgeCachePanel.vue")['default']
+    'KnowledgeSearchModal': typeof import("../components/KnowledgeSearchModal.vue")['default']
+    'PromptTemplateManager': typeof import("../components/PromptTemplateManager.vue")['default']
     'WritingHistory': typeof import("../components/WritingHistory.vue")['default']
     'WritingStyleManager': typeof import("../components/WritingStyleManager.vue")['default']
     'NuxtWelcome': typeof import("../node_modules/nuxt/dist/app/components/welcome.vue")['default']
@@ -39,7 +42,10 @@ interface _GlobalComponents {
     'Body': typeof import("../node_modules/nuxt/dist/head/runtime/components")['Body']
     'NuxtIsland': typeof import("../node_modules/nuxt/dist/app/components/nuxt-island")['default']
     'NuxtRouteAnnouncer': typeof import("../node_modules/nuxt/dist/app/components/server-placeholder")['default']
-      'LazyPromptTemplateManager': LazyComponent<typeof import("../components/PromptTemplateManager.vue")['default']>
+      'LazyGenerateResultModal': LazyComponent<typeof import("../components/GenerateResultModal.vue")['default']>
+    'LazyKnowledgeCachePanel': LazyComponent<typeof import("../components/KnowledgeCachePanel.vue")['default']>
+    'LazyKnowledgeSearchModal': LazyComponent<typeof import("../components/KnowledgeSearchModal.vue")['default']>
+    'LazyPromptTemplateManager': LazyComponent<typeof import("../components/PromptTemplateManager.vue")['default']>
     'LazyWritingHistory': LazyComponent<typeof import("../components/WritingHistory.vue")['default']>
     'LazyWritingStyleManager': LazyComponent<typeof import("../components/WritingStyleManager.vue")['default']>
     'LazyNuxtWelcome': LazyComponent<typeof import("../node_modules/nuxt/dist/app/components/welcome.vue")['default']>
@@ -72,6 +78,9 @@ declare module 'vue' {
   export interface GlobalComponents extends _GlobalComponents { }
 }
 
+export const GenerateResultModal: typeof import("../components/GenerateResultModal.vue")['default']
+export const KnowledgeCachePanel: typeof import("../components/KnowledgeCachePanel.vue")['default']
+export const KnowledgeSearchModal: typeof import("../components/KnowledgeSearchModal.vue")['default']
 export const PromptTemplateManager: typeof import("../components/PromptTemplateManager.vue")['default']
 export const WritingHistory: typeof import("../components/WritingHistory.vue")['default']
 export const WritingStyleManager: typeof import("../components/WritingStyleManager.vue")['default']
@@ -99,6 +108,9 @@ export const Html: typeof import("../node_modules/nuxt/dist/head/runtime/compone
 export const Body: typeof import("../node_modules/nuxt/dist/head/runtime/components")['Body']
 export const NuxtIsland: typeof import("../node_modules/nuxt/dist/app/components/nuxt-island")['default']
 export const NuxtRouteAnnouncer: typeof import("../node_modules/nuxt/dist/app/components/server-placeholder")['default']
+export const LazyGenerateResultModal: LazyComponent<typeof import("../components/GenerateResultModal.vue")['default']>
+export const LazyKnowledgeCachePanel: LazyComponent<typeof import("../components/KnowledgeCachePanel.vue")['default']>
+export const LazyKnowledgeSearchModal: LazyComponent<typeof import("../components/KnowledgeSearchModal.vue")['default']>
 export const LazyPromptTemplateManager: LazyComponent<typeof import("../components/PromptTemplateManager.vue")['default']>
 export const LazyWritingHistory: LazyComponent<typeof import("../components/WritingHistory.vue")['default']>
 export const LazyWritingStyleManager: LazyComponent<typeof import("../components/WritingStyleManager.vue")['default']>

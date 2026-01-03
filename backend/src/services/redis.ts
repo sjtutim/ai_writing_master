@@ -141,5 +141,8 @@ export class CacheService {
     userAuth: (userId: string) => `user:auth:${userId}`,
     userProfile: (userId: string) => `user:profile:${userId}`,
     userPermissions: (userId: string) => `user:permissions:${userId}`,
+    knowledgeCache: (userId: string) => `knowledge_cache:${userId}:chunks`,
+    knowledgeCacheChunk: (userId: string, chunkId: string) =>
+      `knowledge_cache:${userId}:chunk:${chunkId}`,
   };
 }

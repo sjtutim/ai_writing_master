@@ -3,6 +3,8 @@ import { prisma } from '../services/prisma';
 import { authMiddleware, AuthRequest } from '../middleware/auth';
 import { generateText, streamText } from '../services/llm';
 import { config } from '../config';
+import { searchSimilarChunks } from '../services/vectorSearch';
+import { KnowledgeCacheService } from '../services/knowledgeCache';
 
 const router = Router();
 
@@ -18,67 +20,27 @@ async function retrieveRelevantChunks(
   query: string,
   kbScope: { documentIds?: string[]; collectionIds?: string[] } | null,
   userId: string,
-  limit: number = 10
+  limit: number = 30
 ): Promise<string[]> {
   try {
-    // 如果没有指定范围，使用用户的所有文档
-    const whereCondition: any = {
-      version: {
-        document: {
-          userId,
-          status: 'ready',
-        },
-      },
-    };
+    const cachedChunks = await KnowledgeCacheService.getCachedChunks(userId);
 
-    // 如果指定了文档或集合范围
-    if (kbScope) {
-      const orConditions: any[] = [];
-
-      if (kbScope.documentIds && kbScope.documentIds.length > 0) {
-        orConditions.push({
-          version: {
-            documentId: { in: kbScope.documentIds },
-          },
-        });
-      }
-
-      if (kbScope.collectionIds && kbScope.collectionIds.length > 0) {
-        orConditions.push({
-          version: {
-            document: {
-              collectionId: { in: kbScope.collectionIds },
-            },
-          },
-        });
-      }
-
-      if (orConditions.length > 0) {
-        whereCondition.OR = orConditions;
-      }
+    if (cachedChunks.length > 0) {
+      console.log(`Using ${cachedChunks.length} cached knowledge chunks`);
+      return cachedChunks.map(chunk =>
+        `[来源: ${chunk.documentTitle}]\n${chunk.content}`
+      );
     }
 
-    // 简单实现：获取相关chunks（这里使用随机或最近的chunks）
-    // 在实际生产环境中，应该使用向量搜索
-    const chunks = await prisma.kbChunk.findMany({
-      where: whereCondition,
-      take: limit,
-      orderBy: { createdAt: 'desc' },
-      include: {
-        version: {
-          include: {
-            document: {
-              select: {
-                title: true,
-              },
-            },
-          },
-        },
-      },
+    console.log('Cache empty, performing vector search');
+    const searchResults = await searchSimilarChunks(query, userId, {
+      collectionId: kbScope?.collectionIds?.[0],
+      limit,
+      threshold: 0.3,
     });
 
-    return chunks.map(chunk =>
-      `[来源: ${chunk.version.document.title}]\n${chunk.content}`
+    return searchResults.map(chunk =>
+      `[来源: ${chunk.documentTitle}]\n${chunk.content}`
     );
   } catch (error) {
     console.error('Error retrieving chunks:', error);
@@ -143,6 +105,7 @@ router.post('/generate/stream', authMiddleware, async (req: AuthRequest, res) =>
       promptId,
       kbScope,
       collectionIds,
+      cachedChunkIds,  // 新增：高级跨知识库模式使用的缓存chunk IDs
     } = req.body;
 
     if (!query) {
@@ -189,11 +152,35 @@ router.post('/generate/stream', authMiddleware, async (req: AuthRequest, res) =>
         if (prompt) promptContent = prompt.content;
       }
 
-      const relevantChunks = await retrieveRelevantChunks(
-        query,
-        finalKbScope as any,
-        userId
-      );
+      // 根据是否有缓存chunk IDs决定使用哪种方式获取知识内容
+      let relevantChunks: string[] = [];
+      if (cachedChunkIds && cachedChunkIds.length > 0) {
+        // 高级跨知识库模式：直接使用缓存的chunks
+        const chunks = await prisma.kbChunk.findMany({
+          where: {
+            id: { in: cachedChunkIds },
+          },
+          include: {
+            version: {
+              include: {
+                document: {
+                  select: { title: true },
+                },
+              },
+            },
+          },
+        });
+        relevantChunks = chunks.map(chunk =>
+          `[来源: ${chunk.version.document.title}]\n${chunk.content}`
+        );
+      } else {
+        // 单一知识库模式：自动检索相关内容
+        relevantChunks = await retrieveRelevantChunks(
+          query,
+          finalKbScope as any,
+          userId
+        );
+      }
 
       const contextText = relevantChunks.join('\n\n---\n\n');
       const renderedPromptContent = promptContent
@@ -309,6 +296,7 @@ router.post('/generate', authMiddleware, async (req: AuthRequest, res) => {
       promptId,
       kbScope, // { documentIds: [...], collectionIds: [...] }
       collectionIds, // 向后兼容
+      cachedChunkIds, // 新增：高级跨知识库模式使用的缓存chunk IDs
     } = req.body;
 
     if (!query) {
@@ -365,12 +353,35 @@ router.post('/generate', authMiddleware, async (req: AuthRequest, res) => {
         }
       }
 
-      // 3. 检索相关知识
-      const relevantChunks = await retrieveRelevantChunks(
-        query,
-        finalKbScope as any,
-        userId
-      );
+      // 3. 检索相关知识 - 根据是否有缓存chunk IDs决定使用哪种方式
+      let relevantChunks: string[] = [];
+      if (cachedChunkIds && cachedChunkIds.length > 0) {
+        // 高级跨知识库模式：直接使用缓存的chunks
+        const chunks = await prisma.kbChunk.findMany({
+          where: {
+            id: { in: cachedChunkIds },
+          },
+          include: {
+            version: {
+              include: {
+                document: {
+                  select: { title: true },
+                },
+              },
+            },
+          },
+        });
+        relevantChunks = chunks.map(chunk =>
+          `[来源: ${chunk.version.document.title}]\n${chunk.content}`
+        );
+      } else {
+        // 单一知识库模式：自动检索相关内容
+        relevantChunks = await retrieveRelevantChunks(
+          query,
+          finalKbScope as any,
+          userId
+        );
+      }
 
       const contextText = relevantChunks.join('\n\n---\n\n');
       const renderedPromptContent = promptContent
@@ -491,6 +502,101 @@ router.delete('/:id', authMiddleware, async (req: AuthRequest, res) => {
   } catch (error) {
     console.error('Delete writing task error:', error);
     res.status(500).json({ error: 'Failed to delete writing task' });
+  }
+});
+
+router.post('/knowledge/search', authMiddleware, async (req: AuthRequest, res) => {
+  try {
+    const userId = req.user!.userId;
+    const { query, collectionId, limit = 30 } = req.body;
+
+    if (!query) {
+      return res.status(400).json({ error: 'Query is required' });
+    }
+
+    const chunks = await searchSimilarChunks(query, userId, {
+      collectionId,
+      limit: Number(limit),
+      threshold: 0.3,
+    });
+
+    res.json({
+      chunks,
+      total: chunks.length,
+    });
+  } catch (error: any) {
+    console.error('Knowledge search error:', error);
+    // 返回更详细的错误信息
+    const errorMessage = error.message || 'Failed to search knowledge';
+    res.status(500).json({ error: errorMessage });
+  }
+});
+
+router.get('/knowledge/cache', authMiddleware, async (req: AuthRequest, res) => {
+  try {
+    const userId = req.user!.userId;
+    const chunks = await KnowledgeCacheService.getCachedChunks(userId);
+    const count = await KnowledgeCacheService.getCount(userId);
+
+    res.json({
+      chunks,
+      count,
+    });
+  } catch (error) {
+    console.error('Get cache error:', error);
+    res.status(500).json({ error: 'Failed to get cache' });
+  }
+});
+
+router.post('/knowledge/cache', authMiddleware, async (req: AuthRequest, res) => {
+  try {
+    const userId = req.user!.userId;
+    const { chunkIds } = req.body;
+
+    if (!chunkIds || !Array.isArray(chunkIds)) {
+      return res.status(400).json({ error: 'chunkIds array is required' });
+    }
+
+    await KnowledgeCacheService.addChunks(userId, chunkIds);
+    const count = await KnowledgeCacheService.getCount(userId);
+
+    res.json({
+      success: true,
+      count,
+    });
+  } catch (error) {
+    console.error('Add to cache error:', error);
+    res.status(500).json({ error: 'Failed to add to cache' });
+  }
+});
+
+router.delete('/knowledge/cache/:chunkId', authMiddleware, async (req: AuthRequest, res) => {
+  try {
+    const userId = req.user!.userId;
+    const { chunkId } = req.params;
+
+    await KnowledgeCacheService.removeChunk(userId, chunkId);
+
+    res.json({
+      success: true,
+    });
+  } catch (error) {
+    console.error('Remove from cache error:', error);
+    res.status(500).json({ error: 'Failed to remove from cache' });
+  }
+});
+
+router.delete('/knowledge/cache', authMiddleware, async (req: AuthRequest, res) => {
+  try {
+    const userId = req.user!.userId;
+    await KnowledgeCacheService.clearCache(userId);
+
+    res.json({
+      success: true,
+    });
+  } catch (error) {
+    console.error('Clear cache error:', error);
+    res.status(500).json({ error: 'Failed to clear cache' });
   }
 });
 

@@ -182,7 +182,7 @@
             </div>
 
             <div v-if="selectedTask.outputs?.[0]?.metadata?.retrievedChunks?.length" class="border border-gray-200 rounded-xl p-4">
-              <h4 class="text-sm font-medium text-gray-700 mb-3">参考知识库内容 ({{ selectedTask.outputs[0]?.metadata?.retrievedChunks?.length }} 条)</h4>
+              <h4 class="text-sm font-medium text-gray-700 mb-3">单一知识库内容 ({{ selectedTask.outputs[0]?.metadata?.retrievedChunks?.length }} 条)</h4>
               <div class="space-y-3">
                 <div v-for="(chunk, index) in selectedTask.outputs[0]?.metadata?.retrievedChunks || []" :key="index" class="bg-amber-50 rounded-lg p-3">
                   <p class="text-xs text-amber-600 mb-1">来源：{{ chunk.index }}</p>

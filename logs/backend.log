@@ -19,17 +19,1121 @@ Redis initialized successfully
 
 Starting job worker...
 Server running on http://localhost:3001
-[POST] /login - 165ms - 200
 Prisma database connected successfully
 MinIO connected successfully. Buckets: ai4write, dify-bucket
 Embedding API connected successfully. Vector dimension: 1024
 LLM API connected successfully. Response: connected
-[SLOW REQUEST] GET / - 2178ms
-[GET] / - 2178ms - 200
-[GET] / - 82ms - 200
-[GET] / - 96ms - 200
+[SLOW REQUEST] GET / - 1847ms
+[GET] / - 1847ms - 200
+[GET] /knowledge/cache - 105ms - 200
+[GET] / - 186ms - 200
+[GET] / - 183ms - 200
+[GET] / - 283ms - 200
+[GET] / - 113ms - 200
+[GET] / - 29ms - 200
+[GET] / - 351ms - 200
+[GET] / - 141ms - 200
+[GET] /knowledge/cache - 24ms - 200
+[GET] / - 42ms - 200
+[GET] / - 40ms - 200
+[GET] / - 14ms - 200
+[GET] / - 68ms - 200
+[GET] /knowledge/cache - 29ms - 200
+[GET] / - 13ms - 200
+[GET] / - 93ms - 200
+[GET] / - 28ms - 200
+[GET] / - 14ms - 200
+[GET] / - 39ms - 200
+[GET] / - 112ms - 200
+[GET] / - 20ms - 200
+[GET] / - 219ms - 200
+[GET] / - 165ms - 200
+[GET] / - 69ms - 200
+[GET] / - 42ms - 200
+prisma:query 
+      SELECT
+        kc.id,
+        kc.content,
+        kc.chunk_index AS "chunkIndex",
+        kd.title AS "documentTitle",
+        kco.name AS "collectionName",
+        1 - (kc.embedding <=> $1::vector) AS similarity
+      FROM kb_chunks kc
+      INNER JOIN kb_document_versions kdv ON kc.version_id = kdv.id
+      INNER JOIN kb_documents kd ON kdv.document_id = kd.id
+      LEFT JOIN kb_collections kco ON kd.collection_id = kco.id
+      WHERE kd.user_id = $2
+        AND kd.status = 'ready'
+        AND kc.embedding IS NOT NULL
+        AND (1 - (kc.embedding <=> $3::vector)) > $4
+        $5
+      ORDER BY kc.embedding <=> $6::vector
+      LIMIT $7
+    
+prisma:error 
+Invalid `prisma.$queryRaw()` invocation:
+
+
+Raw query failed. Code: `42601`. Message: `ERROR: syntax error at or near "$5"`
+Error in vector search: PrismaClientKnownRequestError: 
+Invalid `prisma.$queryRaw()` invocation:
+
+
+Raw query failed. Code: `42601`. Message: `ERROR: syntax error at or near "$5"`
+    at ei.handleRequestError (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:7268)
+    at ei.handleAndLogRequestError (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:6593)
+    at ei.request (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:6300)
+    at async a (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:134:9551)
+    at async searchSimilarChunks (/Users/xuhuayong/projects/ai4write/backend/src/services/vectorSearch.ts:38:21)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:468:20) {
+  code: 'P2010',
+  meta: { code: '42601', message: 'ERROR: syntax error at or near "$5"' },
+  clientVersion: '6.19.1'
+}
+Knowledge search error: Error: Failed to perform vector search
+    at searchSimilarChunks (/Users/xuhuayong/projects/ai4write/backend/src/services/vectorSearch.ts:62:11)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:468:20)
+[POST] /knowledge/search - 347ms - 500
+prisma:query 
+      SELECT
+        kc.id,
+        kc.content,
+        kc.chunk_index AS "chunkIndex",
+        kd.title AS "documentTitle",
+        kco.name AS "collectionName",
+        1 - (kc.embedding <=> $1::vector) AS similarity
+      FROM kb_chunks kc
+      INNER JOIN kb_document_versions kdv ON kc.version_id = kdv.id
+      INNER JOIN kb_documents kd ON kdv.document_id = kd.id
+      LEFT JOIN kb_collections kco ON kd.collection_id = kco.id
+      WHERE kd.user_id = $2
+        AND kd.status = 'ready'
+        AND kc.embedding IS NOT NULL
+        AND (1 - (kc.embedding <=> $3::vector)) > $4
+        $5
+      ORDER BY kc.embedding <=> $6::vector
+      LIMIT $7
+    
+prisma:error 
+Invalid `prisma.$queryRaw()` invocation:
+
+
+Raw query failed. Code: `42601`. Message: `ERROR: syntax error at or near "$5"`
+Error in vector search: PrismaClientKnownRequestError: 
+Invalid `prisma.$queryRaw()` invocation:
+
+
+Raw query failed. Code: `42601`. Message: `ERROR: syntax error at or near "$5"`
+    at ei.handleRequestError (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:7268)
+    at ei.handleAndLogRequestError (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:6593)
+    at ei.request (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:6300)
+    at async a (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:134:9551)
+    at async searchSimilarChunks (/Users/xuhuayong/projects/ai4write/backend/src/services/vectorSearch.ts:38:21)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:468:20) {
+  code: 'P2010',
+  meta: { code: '42601', message: 'ERROR: syntax error at or near "$5"' },
+  clientVersion: '6.19.1'
+}
+Knowledge search error: Error: Failed to perform vector search
+    at searchSimilarChunks (/Users/xuhuayong/projects/ai4write/backend/src/services/vectorSearch.ts:62:11)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:468:20)
+[POST] /knowledge/search - 53ms - 500
+[GET] /knowledge/cache - 113ms - 200
+[GET] / - 116ms - 200
+[GET] / - 123ms - 200
+[GET] / - 14ms - 200
+[GET] / - 147ms - 200
+[GET] / - 169ms - 200
+[GET] / - 24ms - 200
+[GET] / - 70ms - 200
+[GET] / - 12ms - 200
+[GET] / - 13ms - 200
+[GET] / - 21ms - 200
+[GET] /knowledge/cache - 25ms - 200
+[GET] / - 13ms - 200
 [GET] / - 10ms - 200
-[GET] / - 117ms - 200
-[GET] / - 26ms - 200
-[GET] / - 151ms - 200
+[GET] /knowledge/cache - 18ms - 200
+[GET] / - 22ms - 200
+[GET] / - 18ms - 200
+[GET] / - 14ms - 200
+[GET] / - 76ms - 200
+[GET] / - 29ms - 200
+[GET] / - 19ms - 200
+[GET] / - 62ms - 200
+[GET] / - 143ms - 200
+[GET] / - 148ms - 200
+11:52:41 AM [tsx] change in ./src/services/vectorSearch.ts Restarting...
+SIGTERM received, shutting down...
+Redis disconnected
+11:52:46 AM [tsx] Process didn't exit in 5s. Force killing...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+node:events:496
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at Server.listen (node:net:2067:7)
+    at Function.listen (/Users/xuhuayong/projects/ai4write/backend/node_modules/express/lib/application.js:635:24)
+    at startServer (/Users/xuhuayong/projects/ai4write/backend/src/index.ts:100:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 3001
+}
+
+Node.js v20.18.3
+11:57:21 AM [tsx] change in ./src/services/vectorSearch.ts Rerunning...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+Server running on http://localhost:3001
+[GET] /knowledge/cache - 23ms - 200
+[GET] /knowledge/cache - 22ms - 200
+[GET] / - 170ms - 200
+[GET] / - 170ms - 200
+[GET] / - 220ms - 200
+[GET] / - 46ms - 200
+[GET] / - 57ms - 200
+[GET] / - 12ms - 200
+[GET] / - 258ms - 200
+[GET] / - 10ms - 200
+[GET] / - 40ms - 200
+[GET] / - 23ms - 200
+[GET] / - 22ms - 200
+[GET] / - 255ms - 200
+[GET] / - 201ms - 200
+[GET] / - 108ms - 200
+[GET] / - 17ms - 200
+Error in vector search: TypeError: import_client.Prisma.sql is not a function
+    at searchSimilarChunks (/Users/xuhuayong/projects/ai4write/backend/src/services/vectorSearch.ts:47:40)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:468:20)
+Knowledge search error: Error: Failed to perform vector search
+    at searchSimilarChunks (/Users/xuhuayong/projects/ai4write/backend/src/services/vectorSearch.ts:64:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:468:20)
+[POST] /knowledge/search - 81ms - 500
+Error in vector search: TypeError: import_client.Prisma.sql is not a function
+    at searchSimilarChunks (/Users/xuhuayong/projects/ai4write/backend/src/services/vectorSearch.ts:47:40)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:468:20)
+Knowledge search error: Error: Failed to perform vector search
+    at searchSimilarChunks (/Users/xuhuayong/projects/ai4write/backend/src/services/vectorSearch.ts:64:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:468:20)
+[POST] /knowledge/search - 44ms - 500
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Embedding API connected successfully. Vector dimension: 1024
+[GET] /knowledge/cache - 32ms - 200
+[GET] / - 36ms - 200
+[GET] / - 41ms - 200
+[GET] / - 44ms - 200
 [GET] / - 96ms - 200
+[GET] / - 183ms - 200
+[GET] / - 142ms - 200
+[GET] / - 88ms - 200
+LLM API connected successfully. Response: Connected
+[SLOW REQUEST] GET / - 2786ms
+[GET] / - 2786ms - 200
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: Connected
+[SLOW REQUEST] GET / - 2437ms
+[GET] / - 2437ms - 200
+[GET] /knowledge/cache - 45ms - 200
+[GET] / - 47ms - 200
+[GET] / - 59ms - 200
+[GET] / - 11ms - 200
+[GET] / - 89ms - 200
+[GET] / - 103ms - 200
+[GET] / - 22ms - 200
+[GET] / - 64ms - 200
+[GET] / - 10ms - 200
+[GET] /knowledge/cache - 23ms - 200
+[GET] / - 25ms - 200
+[GET] / - 24ms - 200
+[GET] / - 11ms - 200
+[GET] / - 106ms - 200
+[GET] / - 150ms - 200
+[GET] / - 58ms - 200
+[GET] / - 10ms - 200
+[GET] / - 85ms - 200
+[GET] /knowledge/cache - 191ms - 200
+[GET] / - 194ms - 200
+[GET] / - 193ms - 200
+[GET] / - 44ms - 200
+[GET] / - 402ms - 200
+[GET] / - 172ms - 200
+[GET] /knowledge/cache - 72ms - 200
+[GET] / - 75ms - 200
+[GET] / - 74ms - 200
+[GET] / - 74ms - 200
+[GET] / - 10ms - 200
+[GET] / - 28ms - 200
+[GET] / - 124ms - 200
+[GET] / - 202ms - 200
+[GET] / - 26ms - 200
+[GET] / - 25ms - 200
+[GET] /knowledge/cache - 25ms - 200
+[GET] / - 38ms - 200
+[GET] / - 10ms - 200
+[GET] / - 142ms - 200
+[GET] / - 186ms - 200
+[GET] / - 88ms - 200
+[GET] /knowledge/cache - 117ms - 200
+[GET] / - 140ms - 200
+[GET] / - 25ms - 200
+[GET] / - 194ms - 200
+[GET] / - 193ms - 200
+[GET] / - 12ms - 200
+[GET] / - 292ms - 200
+[GET] / - 172ms - 200
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+[SLOW REQUEST] GET / - 2670ms
+[GET] / - 2670ms - 200
+[GET] /knowledge/cache - 63ms - 200
+[GET] / - 66ms - 200
+[GET] / - 77ms - 200
+[GET] / - 9ms - 200
+[GET] / - 103ms - 200
+[GET] / - 113ms - 200
+[GET] / - 41ms - 200
+[GET] / - 217ms - 200
+[GET] /knowledge/cache - 61ms - 200
+[GET] / - 61ms - 200
+[GET] / - 66ms - 200
+[GET] / - 22ms - 200
+[GET] / - 88ms - 200
+[GET] / - 28ms - 200
+[GET] / - 123ms - 200
+[GET] / - 159ms - 200
+[GET] / - 48ms - 200
+Error in vector search: TypeError: import_client.Prisma.sql is not a function
+    at searchSimilarChunks (/Users/xuhuayong/projects/ai4write/backend/src/services/vectorSearch.ts:47:40)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:468:20)
+Knowledge search error: Error: Failed to perform vector search
+    at searchSimilarChunks (/Users/xuhuayong/projects/ai4write/backend/src/services/vectorSearch.ts:64:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:468:20)
+[POST] /knowledge/search - 97ms - 500
+Error in vector search: TypeError: import_client.Prisma.sql is not a function
+    at searchSimilarChunks (/Users/xuhuayong/projects/ai4write/backend/src/services/vectorSearch.ts:47:40)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:468:20)
+Knowledge search error: Error: Failed to perform vector search
+    at searchSimilarChunks (/Users/xuhuayong/projects/ai4write/backend/src/services/vectorSearch.ts:64:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:468:20)
+[POST] /knowledge/search - 38ms - 500
+Error in vector search: TypeError: import_client.Prisma.sql is not a function
+    at searchSimilarChunks (/Users/xuhuayong/projects/ai4write/backend/src/services/vectorSearch.ts:35:16)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:468:20)
+Knowledge search error: Error: Failed to perform vector search
+    at searchSimilarChunks (/Users/xuhuayong/projects/ai4write/backend/src/services/vectorSearch.ts:64:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:468:20)
+[POST] /knowledge/search - 164ms - 500
+Error in vector search: TypeError: import_client.Prisma.sql is not a function
+    at searchSimilarChunks (/Users/xuhuayong/projects/ai4write/backend/src/services/vectorSearch.ts:35:16)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:468:20)
+Knowledge search error: Error: Failed to perform vector search
+    at searchSimilarChunks (/Users/xuhuayong/projects/ai4write/backend/src/services/vectorSearch.ts:64:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:468:20)
+[POST] /knowledge/search - 61ms - 500
+[GET] /knowledge/cache - 27ms - 200
+[GET] / - 27ms - 200
+[GET] / - 26ms - 200
+[GET] / - 38ms - 200
+[GET] / - 14ms - 200
+[GET] /knowledge/cache - 33ms - 200
+[GET] / - 13ms - 200
+[GET] / - 78ms - 200
+[GET] / - 42ms - 200
+[GET] / - 35ms - 200
+[GET] / - 13ms - 200
+[GET] / - 33ms - 200
+[GET] / - 19ms - 200
+[GET] / - 270ms - 200
+[GET] / - 158ms - 200
+[GET] / - 63ms - 200
+12:06:03 PM [tsx] change in ./src/routes/writing-tasks.ts Restarting...
+SIGTERM received, shutting down...
+Redis disconnected
+12:06:08 PM [tsx] Process didn't exit in 5s. Force killing...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+node:events:496
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at Server.listen (node:net:2067:7)
+    at Function.listen (/Users/xuhuayong/projects/ai4write/backend/node_modules/express/lib/application.js:635:24)
+    at startServer (/Users/xuhuayong/projects/ai4write/backend/src/index.ts:100:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 3001
+}
+
+Node.js v20.18.3
+12:06:41 PM [tsx] change in ./src/routes/writing-tasks.ts Rerunning...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+Server running on http://localhost:3001
+[GET] / - 30ms - 200
+Error in vector search: TypeError: import_client.Prisma.sql is not a function
+    at searchSimilarChunks (/Users/xuhuayong/projects/ai4write/backend/src/services/vectorSearch.ts:47:40)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:517:20)
+Knowledge search error: Error: Failed to perform vector search
+    at searchSimilarChunks (/Users/xuhuayong/projects/ai4write/backend/src/services/vectorSearch.ts:64:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:517:20)
+[POST] /knowledge/search - 84ms - 500
+Error in vector search: TypeError: import_client.Prisma.sql is not a function
+    at searchSimilarChunks (/Users/xuhuayong/projects/ai4write/backend/src/services/vectorSearch.ts:47:40)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:517:20)
+Knowledge search error: Error: Failed to perform vector search
+    at searchSimilarChunks (/Users/xuhuayong/projects/ai4write/backend/src/services/vectorSearch.ts:64:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:517:20)
+[POST] /knowledge/search - 55ms - 500
+Error in vector search: TypeError: import_client.Prisma.sql is not a function
+    at searchSimilarChunks (/Users/xuhuayong/projects/ai4write/backend/src/services/vectorSearch.ts:35:16)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:517:20)
+Knowledge search error: Error: Failed to perform vector search
+    at searchSimilarChunks (/Users/xuhuayong/projects/ai4write/backend/src/services/vectorSearch.ts:64:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:517:20)
+[POST] /knowledge/search - 80ms - 500
+Error in vector search: TypeError: import_client.Prisma.sql is not a function
+    at searchSimilarChunks (/Users/xuhuayong/projects/ai4write/backend/src/services/vectorSearch.ts:35:16)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:517:20)
+Knowledge search error: Error: Failed to perform vector search
+    at searchSimilarChunks (/Users/xuhuayong/projects/ai4write/backend/src/services/vectorSearch.ts:64:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:517:20)
+[POST] /knowledge/search - 45ms - 500
+Error in vector search: TypeError: import_client.Prisma.sql is not a function
+    at searchSimilarChunks (/Users/xuhuayong/projects/ai4write/backend/src/services/vectorSearch.ts:35:16)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:517:20)
+Knowledge search error: Error: Failed to perform vector search
+    at searchSimilarChunks (/Users/xuhuayong/projects/ai4write/backend/src/services/vectorSearch.ts:64:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:517:20)
+[POST] /knowledge/search - 80ms - 500
+Error in vector search: TypeError: import_client.Prisma.sql is not a function
+    at searchSimilarChunks (/Users/xuhuayong/projects/ai4write/backend/src/services/vectorSearch.ts:35:16)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:517:20)
+Knowledge search error: Error: Failed to perform vector search
+    at searchSimilarChunks (/Users/xuhuayong/projects/ai4write/backend/src/services/vectorSearch.ts:64:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:517:20)
+[POST] /knowledge/search - 37ms - 500
+Error in vector search: TypeError: import_client.Prisma.sql is not a function
+    at searchSimilarChunks (/Users/xuhuayong/projects/ai4write/backend/src/services/vectorSearch.ts:35:16)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:517:20)
+Knowledge search error: Error: Failed to perform vector search
+    at searchSimilarChunks (/Users/xuhuayong/projects/ai4write/backend/src/services/vectorSearch.ts:64:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:517:20)
+[POST] /knowledge/search - 127ms - 500
+Error in vector search: TypeError: import_client.Prisma.sql is not a function
+    at searchSimilarChunks (/Users/xuhuayong/projects/ai4write/backend/src/services/vectorSearch.ts:35:16)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:517:20)
+Knowledge search error: Error: Failed to perform vector search
+    at searchSimilarChunks (/Users/xuhuayong/projects/ai4write/backend/src/services/vectorSearch.ts:64:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:517:20)
+[POST] /knowledge/search - 93ms - 500
+12:09:31 PM [tsx] change in ./src/services/vectorSearch.ts Restarting...
+SIGTERM received, shutting down...
+Redis disconnected
+12:09:36 PM [tsx] Process didn't exit in 5s. Force killing...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+node:events:496
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at Server.listen (node:net:2067:7)
+    at Function.listen (/Users/xuhuayong/projects/ai4write/backend/node_modules/express/lib/application.js:635:24)
+    at startServer (/Users/xuhuayong/projects/ai4write/backend/src/index.ts:100:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 3001
+}
+
+Node.js v20.18.3
+12:09:43 PM [tsx] change in ./src/services/vectorSearch.ts Rerunning...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: Connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+Server running on http://localhost:3001
+Cache empty, performing vector search
+[SLOW REQUEST] POST /generate/stream - 3893ms
+[POST] /generate/stream - 3893ms - 200
+[GET] / - 117ms - 200
+[GET] / - 166ms - 200
+[GET] / - 60ms - 200
+[POST] /knowledge/search - 114ms - 200
+prisma:query SELECT "public"."kb_chunks"."id", "public"."kb_chunks"."version_id", "public"."kb_chunks"."chunk_index", "public"."kb_chunks"."content", "public"."kb_chunks"."created_at" FROM "public"."kb_chunks" LEFT JOIN "public"."kb_document_versions" AS "j0" ON ("j0"."id") = ("public"."kb_chunks"."version_id") LEFT JOIN "public"."kb_documents" AS "j1" ON ("j1"."id") = ("j0"."document_id") WHERE ("public"."kb_chunks"."id" IN ($1,$2) AND ("j1"."user_id" = $3 AND "j1"."status" = $4 AND ("j1"."id" IS NOT NULL) AND ("j0"."id" IS NOT NULL))) OFFSET $5
+prisma:query SELECT "public"."kb_document_versions"."id", "public"."kb_document_versions"."document_id", "public"."kb_document_versions"."version", "public"."kb_document_versions"."raw_path", "public"."kb_document_versions"."md_path", "public"."kb_document_versions"."status", "public"."kb_document_versions"."error", "public"."kb_document_versions"."created_at" FROM "public"."kb_document_versions" WHERE "public"."kb_document_versions"."id" IN ($1,$2) OFFSET $3
+prisma:query SELECT "public"."kb_documents"."id", "public"."kb_documents"."user_id", "public"."kb_documents"."collection_id", "public"."kb_documents"."title", "public"."kb_documents"."description", "public"."kb_documents"."status", "public"."kb_documents"."latest_version", "public"."kb_documents"."created_at", "public"."kb_documents"."updated_at" FROM "public"."kb_documents" WHERE "public"."kb_documents"."id" IN ($1,$2) OFFSET $3
+prisma:query SELECT "public"."kb_collections"."id", "public"."kb_collections"."name" FROM "public"."kb_collections" WHERE "public"."kb_collections"."id" IN ($1) OFFSET $2
+[POST] /knowledge/cache - 310ms - 200
+[GET] /knowledge/cache - 42ms - 200
+[GET] / - 17ms - 200
+12:10:39 PM [tsx] change in ./src/services/vectorSearch.ts Restarting...
+SIGTERM received, shutting down...
+Redis disconnected
+12:10:44 PM [tsx] Process didn't exit in 5s. Force killing...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: Connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+node:events:496
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at Server.listen (node:net:2067:7)
+    at Function.listen (/Users/xuhuayong/projects/ai4write/backend/node_modules/express/lib/application.js:635:24)
+    at startServer (/Users/xuhuayong/projects/ai4write/backend/src/index.ts:100:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 3001
+}
+
+Node.js v20.18.3
+12:11:03 PM [tsx] change in ./src/routes/writing-tasks.ts Rerunning...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+Server running on http://localhost:3001
+[POST] /knowledge/search - 207ms - 200
+[DELETE] /knowledge/cache - 119ms - 200
+[GET] / - 36ms - 200
+[POST] /knowledge/search - 206ms - 200
+[POST] /knowledge/search - 113ms - 200
+prisma:query SELECT "public"."kb_chunks"."id", "public"."kb_chunks"."version_id", "public"."kb_chunks"."chunk_index", "public"."kb_chunks"."content", "public"."kb_chunks"."created_at" FROM "public"."kb_chunks" LEFT JOIN "public"."kb_document_versions" AS "j0" ON ("j0"."id") = ("public"."kb_chunks"."version_id") LEFT JOIN "public"."kb_documents" AS "j1" ON ("j1"."id") = ("j0"."document_id") WHERE ("public"."kb_chunks"."id" IN ($1) AND ("j1"."user_id" = $2 AND "j1"."status" = $3 AND ("j1"."id" IS NOT NULL) AND ("j0"."id" IS NOT NULL))) OFFSET $4
+prisma:query SELECT "public"."kb_document_versions"."id", "public"."kb_document_versions"."document_id", "public"."kb_document_versions"."version", "public"."kb_document_versions"."raw_path", "public"."kb_document_versions"."md_path", "public"."kb_document_versions"."status", "public"."kb_document_versions"."error", "public"."kb_document_versions"."created_at" FROM "public"."kb_document_versions" WHERE "public"."kb_document_versions"."id" IN ($1) OFFSET $2
+prisma:query SELECT "public"."kb_documents"."id", "public"."kb_documents"."user_id", "public"."kb_documents"."collection_id", "public"."kb_documents"."title", "public"."kb_documents"."description", "public"."kb_documents"."status", "public"."kb_documents"."latest_version", "public"."kb_documents"."created_at", "public"."kb_documents"."updated_at" FROM "public"."kb_documents" WHERE "public"."kb_documents"."id" IN ($1) OFFSET $2
+prisma:query SELECT "public"."kb_collections"."id", "public"."kb_collections"."name" FROM "public"."kb_collections" WHERE "public"."kb_collections"."id" IN ($1) OFFSET $2
+[POST] /knowledge/cache - 304ms - 200
+[GET] /knowledge/cache - 45ms - 200
+[GET] / - 13ms - 200
+[POST] /knowledge/search - 193ms - 200
+[POST] /knowledge/search - 162ms - 200
+prisma:query SELECT 1
+prisma:query SELECT "public"."kb_chunks"."id", "public"."kb_chunks"."version_id", "public"."kb_chunks"."chunk_index", "public"."kb_chunks"."content", "public"."kb_chunks"."created_at" FROM "public"."kb_chunks" LEFT JOIN "public"."kb_document_versions" AS "j0" ON ("j0"."id") = ("public"."kb_chunks"."version_id") LEFT JOIN "public"."kb_documents" AS "j1" ON ("j1"."id") = ("j0"."document_id") WHERE ("public"."kb_chunks"."id" IN ($1) AND ("j1"."user_id" = $2 AND "j1"."status" = $3 AND ("j1"."id" IS NOT NULL) AND ("j0"."id" IS NOT NULL))) OFFSET $4
+prisma:query SELECT "public"."kb_document_versions"."id", "public"."kb_document_versions"."document_id", "public"."kb_document_versions"."version", "public"."kb_document_versions"."raw_path", "public"."kb_document_versions"."md_path", "public"."kb_document_versions"."status", "public"."kb_document_versions"."error", "public"."kb_document_versions"."created_at" FROM "public"."kb_document_versions" WHERE "public"."kb_document_versions"."id" IN ($1) OFFSET $2
+prisma:query SELECT "public"."kb_documents"."id", "public"."kb_documents"."user_id", "public"."kb_documents"."collection_id", "public"."kb_documents"."title", "public"."kb_documents"."description", "public"."kb_documents"."status", "public"."kb_documents"."latest_version", "public"."kb_documents"."created_at", "public"."kb_documents"."updated_at" FROM "public"."kb_documents" WHERE "public"."kb_documents"."id" IN ($1) OFFSET $2
+prisma:query SELECT "public"."kb_collections"."id", "public"."kb_collections"."name" FROM "public"."kb_collections" WHERE "public"."kb_collections"."id" IN ($1) OFFSET $2
+[POST] /knowledge/cache - 209ms - 200
+[GET] /knowledge/cache - 45ms - 200
+[SLOW REQUEST] POST /generate/stream - 4809ms
+[POST] /generate/stream - 4809ms - 200
+[GET] / - 208ms - 200
+[GET] / - 146ms - 200
+[GET] / - 15ms - 200
+200
+[GET] / - 24ms - 200
+[GET] / - 195ms - 200
+[GET] / - 73ms - 200
+[GET] / - 64ms - 200
+[GET] / - 26ms - 200
+[GET] / - 26ms - 200
+[GET] /knowledge/cache - 41ms - 200
+[GET] / - 41ms - 200
+[GET] / - 12ms - 200
+[GET] / - 11ms - 200
+[GET] / - 15ms - 200
+[GET] /knowledge/cache - 31ms - 200
+[GET] / - 17ms - 200
+[GET] / - 90ms - 200
+[GET] / - 59ms - 200
+[GET] / - 28ms - 200
+[GET] / - 24ms - 200
+[GET] / - 72ms - 200
+[GET] / - 63ms - 200
+[GET] / - 168ms - 200
+[GET] / - 92ms - 200
+[GET] /knowledge/cache - 100ms - 200
+[GET] / - 9ms - 200
+[GET] / - 115ms - 200
+[GET] / - 114ms - 200
+[GET] / - 11ms - 200
+[GET] /knowledge/cache - 29ms - 200
+[GET] / - 35ms - 200
+[GET] / - 56ms - 200
+[GET] / - 48ms - 200
+[GET] / - 187ms - 200
+[GET] / - 103ms - 200
+[GET] / - 24ms - 200
+[GET] / - 200ms - 200
+[GET] / - 79ms - 200
+[GET] / - 153ms - 200
+[GET] / - 33ms - 200
+[GET] / - 35ms - 200
+[GET] /knowledge/cache - 46ms - 200
+[GET] / - 21ms - 200
+[GET] / - 65ms - 200
+[GET] / - 179ms - 200
+[GET] / - 24ms - 200
+[GET] / - 59ms - 200
+[GET] / - 71ms - 200
+[GET] / - 150ms - 200
+[GET] /knowledge/cache - 72ms - 200
+[GET] / - 75ms - 200
+[GET] / - 72ms - 200
+[GET] / - 81ms - 200
+[GET] / - 14ms - 200
+[GET] / - 136ms - 200
+[GET] / - 50ms - 200
+[GET] / - 61ms - 200
+[GET] / - 30ms - 200
+[GET] / - 57ms - 200
+[GET] /knowledge/cache - 65ms - 200
+[GET] / - 69ms - 200
+[GET] / - 10ms - 200
+[GET] / - 78ms - 200
+[GET] / - 13ms - 200
+[GET] /knowledge/cache - 26ms - 200
+[GET] / - 12ms - 200
+[GET] / - 20ms - 200
+[GET] / - 25ms - 200
+[GET] / - 137ms - 200
+[GET] / - 34ms - 200
+[GET] / - 20ms - 200
+[GET] / - 249ms - 200
+[GET] / - 70ms - 200
+[GET] / - 167ms - 200
+[GET] / - 92ms - 200
+[GET] / - 92ms - 200
+[GET] /knowledge/cache - 95ms - 200
+[GET] / - 26ms - 200
+[GET] / - 130ms - 200
+[GET] / - 173ms - 200
+[GET] / - 38ms - 200
+[GET] / - 146ms - 200
+[GET] /knowledge/cache - 25ms - 200
+[GET] / - 26ms - 200
+[GET] / - 24ms - 200
+[GET] / - 37ms - 200
+[GET] / - 13ms - 200
+[GET] / - 34ms - 200
+[GET] / - 77ms - 200
+[GET] / - 187ms - 200
+[GET] / - 11ms - 200
+prisma:query 
+      SELECT
+        kc.id,
+        kc.content,
+        kc.chunk_index AS "chunkIndex",
+        kd.title AS "documentTitle",
+        kco.name AS "collectionName",
+        1 - (kc.embedding <=> $1::vector) AS similarity
+      FROM kb_chunks kc
+      INNER JOIN kb_document_versions kdv ON kc.version_id = kdv.id
+      INNER JOIN kb_documents kd ON kdv.document_id = kd.id
+      LEFT JOIN kb_collections kco ON kd.collection_id = kco.id
+      WHERE kd.user_id = $2
+        AND kd.status = 'ready'
+        AND kc.embedding IS NOT NULL
+        AND (1 - (kc.embedding <=> $3::vector)) > $4
+        $5
+      ORDER BY kc.embedding <=> $6::vector
+      LIMIT $7
+    
+prisma:error 
+Invalid `prisma.$queryRaw()` invocation:
+
+
+Raw query failed. Code: `42601`. Message: `ERROR: syntax error at or near "$5"`
+Error in vector search: PrismaClientKnownRequestError: 
+Invalid `prisma.$queryRaw()` invocation:
+
+
+Raw query failed. Code: `42601`. Message: `ERROR: syntax error at or near "$5"`
+    at ei.handleRequestError (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:7268)
+    at ei.handleAndLogRequestError (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:6593)
+    at ei.request (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:6300)
+    at async a (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:134:9551)
+    at async searchSimilarChunks (/Users/xuhuayong/projects/ai4write/backend/src/services/vectorSearch.ts:40:21)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:468:20) {
+  code: 'P2010',
+  meta: { code: '42601', message: 'ERROR: syntax error at or near "$5"' },
+  clientVersion: '6.19.1'
+}
+Knowledge search error: Error: Failed to perform vector search
+    at searchSimilarChunks (/Users/xuhuayong/projects/ai4write/backend/src/services/vectorSearch.ts:64:11)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:468:20)
+[POST] /knowledge/search - 184ms - 500
+prisma:query 
+      SELECT
+        kc.id,
+        kc.content,
+        kc.chunk_index AS "chunkIndex",
+        kd.title AS "documentTitle",
+        kco.name AS "collectionName",
+        1 - (kc.embedding <=> $1::vector) AS similarity
+      FROM kb_chunks kc
+      INNER JOIN kb_document_versions kdv ON kc.version_id = kdv.id
+      INNER JOIN kb_documents kd ON kdv.document_id = kd.id
+      LEFT JOIN kb_collections kco ON kd.collection_id = kco.id
+      WHERE kd.user_id = $2
+        AND kd.status = 'ready'
+        AND kc.embedding IS NOT NULL
+        AND (1 - (kc.embedding <=> $3::vector)) > $4
+        $5
+      ORDER BY kc.embedding <=> $6::vector
+      LIMIT $7
+    
+prisma:error 
+Invalid `prisma.$queryRaw()` invocation:
+
+
+Raw query failed. Code: `42601`. Message: `ERROR: syntax error at or near "$5"`
+Error in vector search: PrismaClientKnownRequestError: 
+Invalid `prisma.$queryRaw()` invocation:
+
+
+Raw query failed. Code: `42601`. Message: `ERROR: syntax error at or near "$5"`
+    at ei.handleRequestError (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:7268)
+    at ei.handleAndLogRequestError (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:6593)
+    at ei.request (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:6300)
+    at async a (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:134:9551)
+    at async searchSimilarChunks (/Users/xuhuayong/projects/ai4write/backend/src/services/vectorSearch.ts:40:21)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:468:20) {
+  code: 'P2010',
+  meta: { code: '42601', message: 'ERROR: syntax error at or near "$5"' },
+  clientVersion: '6.19.1'
+}
+Knowledge search error: Error: Failed to perform vector search
+    at searchSimilarChunks (/Users/xuhuayong/projects/ai4write/backend/src/services/vectorSearch.ts:64:11)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:468:20)
+[POST] /knowledge/search - 162ms - 500
+[GET] / - 31ms - 200
+[GET] /knowledge/cache - 34ms - 200
+[GET] / - 36ms - 200
+[GET] / - 11ms - 200
+[GET] / - 50ms - 200
+[GET] / - 79ms - 200
+[GET] / - 135ms - 200
+[GET] / - 211ms - 200
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Embedding API connected successfully. Vector dimension: 1024
+[GET] / - 29ms - 200
+[GET] / - 25ms - 200
+[GET] /knowledge/cache - 32ms - 200
+[GET] / - 34ms - 200
+[GET] / - 12ms - 200
+[GET] / - 80ms - 200
+[GET] / - 210ms - 200
+LLM API connected successfully. Response: connected
+[SLOW REQUEST] GET / - 2132ms
+[GET] / - 2132ms - 200
+[GET] / - 149ms - 200
+11:57:21 AM [tsx] change in ./src/services/vectorSearch.ts Restarting...
+SIGTERM received, shutting down...
+Redis disconnected
+11:57:26 AM [tsx] Process didn't exit in 5s. Force killing...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: Connected.
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+node:events:496
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at Server.listen (node:net:2067:7)
+    at Function.listen (/Users/xuhuayong/projects/ai4write/backend/node_modules/express/lib/application.js:635:24)
+    at startServer (/Users/xuhuayong/projects/ai4write/backend/src/index.ts:100:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 3001
+}
+
+Node.js v20.18.3
+12:06:03 PM [tsx] change in ./src/routes/writing-tasks.ts Rerunning...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+Server running on http://localhost:3001
+12:06:41 PM [tsx] change in ./src/routes/writing-tasks.ts Restarting...
+SIGTERM received, shutting down...
+Redis disconnected
+12:06:46 PM [tsx] Process didn't exit in 5s. Force killing...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+node:events:496
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at Server.listen (node:net:2067:7)
+    at Function.listen (/Users/xuhuayong/projects/ai4write/backend/node_modules/express/lib/application.js:635:24)
+    at startServer (/Users/xuhuayong/projects/ai4write/backend/src/index.ts:100:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 3001
+}
+
+Node.js v20.18.3
+12:09:31 PM [tsx] change in ./src/services/vectorSearch.ts Rerunning...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+Server running on http://localhost:3001
+Cache empty, performing vector search
+Error in vector search: TypeError: import_client.Prisma.sql is not a function
+    at searchSimilarChunks (/Users/xuhuayong/projects/ai4write/backend/src/services/vectorSearch.ts:35:16)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async retrieveRelevantChunks (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:36:27)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:178:26)
+Error retrieving chunks: Error: Failed to perform vector search
+    at searchSimilarChunks (/Users/xuhuayong/projects/ai4write/backend/src/services/vectorSearch.ts:64:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async retrieveRelevantChunks (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:36:27)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/writing-tasks.ts:178:26)
+[SLOW REQUEST] POST /generate/stream - 2980ms
+[POST] /generate/stream - 2980ms - 200
+[GET] / - 336ms - 200
+[GET] / - 84ms - 200
+12:09:43 PM [tsx] change in ./src/services/vectorSearch.ts Restarting...
+SIGTERM received, shutting down...
+Redis disconnected
+12:09:48 PM [tsx] Process didn't exit in 5s. Force killing...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+node:events:496
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at Server.listen (node:net:2067:7)
+    at Function.listen (/Users/xuhuayong/projects/ai4write/backend/node_modules/express/lib/application.js:635:24)
+    at startServer (/Users/xuhuayong/projects/ai4write/backend/src/index.ts:100:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 3001
+}
+
+Node.js v20.18.3
+12:10:39 PM [tsx] change in ./src/services/vectorSearch.ts Rerunning...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: Connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+Server running on http://localhost:3001
+[POST] /knowledge/search - 217ms - 200
+prisma:query SELECT "public"."kb_chunks"."id", "public"."kb_chunks"."version_id", "public"."kb_chunks"."chunk_index", "public"."kb_chunks"."content", "public"."kb_chunks"."created_at" FROM "public"."kb_chunks" LEFT JOIN "public"."kb_document_versions" AS "j0" ON ("j0"."id") = ("public"."kb_chunks"."version_id") LEFT JOIN "public"."kb_documents" AS "j1" ON ("j1"."id") = ("j0"."document_id") WHERE ("public"."kb_chunks"."id" IN ($1) AND ("j1"."user_id" = $2 AND "j1"."status" = $3 AND ("j1"."id" IS NOT NULL) AND ("j0"."id" IS NOT NULL))) OFFSET $4
+prisma:query SELECT "public"."kb_document_versions"."id", "public"."kb_document_versions"."document_id", "public"."kb_document_versions"."version", "public"."kb_document_versions"."raw_path", "public"."kb_document_versions"."md_path", "public"."kb_document_versions"."status", "public"."kb_document_versions"."error", "public"."kb_document_versions"."created_at" FROM "public"."kb_document_versions" WHERE "public"."kb_document_versions"."id" IN ($1) OFFSET $2
+prisma:query SELECT "public"."kb_documents"."id", "public"."kb_documents"."user_id", "public"."kb_documents"."collection_id", "public"."kb_documents"."title", "public"."kb_documents"."description", "public"."kb_documents"."status", "public"."kb_documents"."latest_version", "public"."kb_documents"."created_at", "public"."kb_documents"."updated_at" FROM "public"."kb_documents" WHERE "public"."kb_documents"."id" IN ($1) OFFSET $2
+prisma:query SELECT "public"."kb_collections"."id", "public"."kb_collections"."name" FROM "public"."kb_collections" WHERE "public"."kb_collections"."id" IN ($1) OFFSET $2
+[POST] /knowledge/cache - 404ms - 200
+[GET] /knowledge/cache - 133ms - 200
+[GET] / - 66ms - 200
+12:11:03 PM [tsx] change in ./src/routes/writing-tasks.ts Restarting...
+SIGTERM received, shutting down...
+Redis disconnected
+12:11:08 PM [tsx] Process didn't exit in 5s. Force killing...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+node:events:496
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at Server.listen (node:net:2067:7)
+    at Function.listen (/Users/xuhuayong/projects/ai4write/backend/node_modules/express/lib/application.js:635:24)
+    at startServer (/Users/xuhuayong/projects/ai4write/backend/src/index.ts:100:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 3001
+}
+
+Node.js v20.18.3
