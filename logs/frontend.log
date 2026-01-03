@@ -46,3 +46,7 @@
 ℹ hmr update /components/WritingHistory.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct (x2)
 ✔ Vite server hmr 17 files in 54.649ms
 ℹ hmr update /components/WritingHistory.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct (x3)
+ℹ hmr update /components/PromptTemplateManager.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct
+ℹ hmr update /components/WritingStyleManager.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct
+ℹ hmr update /components/PromptTemplateManager.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct
+ℹ hmr update /components/WritingStyleManager.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct
