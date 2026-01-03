@@ -36,4 +36,11 @@ export default defineNuxtConfig({
       proxy: 'http://localhost:3001/api/**',
     },
   },
+
+  nitro: {
+    // 确保静态资源正确提供
+    serveStatic: true,
+    // 设置生产预设
+    preset: 'node-server',
+  },
 })
