@@ -47,9 +47,9 @@ EXPOSE 3000
 ENV HOST=0.0.0.0
 ENV PORT=3000
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
-    CMD wget --quiet --tries=1 --spider http://localhost:3000 || exit 1
+# Health check (using wget which is pre-installed in alpine)
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+    CMD wget --no-verbose --tries=1 --spider http://localhost:3000 || exit 1
 
 # Run the application
 CMD ["node", ".output/server/index.mjs"]

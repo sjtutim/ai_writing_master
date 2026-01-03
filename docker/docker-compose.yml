@@ -62,7 +62,7 @@ services:
       - frontend
       - backend
     ports:
-      - "8088:80"
+      - "${PROXY_PORT:-8089}:80"
       # 如需 HTTPS，可在此添加 443 并挂载证书
       # - "443:443"
     volumes:

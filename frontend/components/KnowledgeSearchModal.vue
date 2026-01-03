@@ -201,7 +201,7 @@ watch(() => props.visible, (newVal) => {
 
 async function loadCollections() {
   try {
-    collections.value = await get<Collection[]>('/api/collections')
+    collections.value = await get<Collection[]>('/collections')
   } catch (error) {
     console.error('Failed to load collections:', error)
   }
@@ -215,7 +215,7 @@ async function handleSearch() {
 
   try {
     const response = await post<{ chunks: SearchResult[]; total: number }>(
-      '/api/writing-tasks/knowledge/search',
+      '/writing-tasks/knowledge/search',
       {
         query: searchQuery.value,
         collectionId: selectedCollection.value,

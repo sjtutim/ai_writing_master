@@ -183,7 +183,7 @@ const form = reactive({
 
 async function loadTemplates() {
   try {
-    templates.value = await get<PromptTemplate[]>('/api/prompt-templates')
+    templates.value = await get<PromptTemplate[]>('/prompt-templates')
   } catch (error) {
     console.error('Failed to load templates:', error)
   }
@@ -219,9 +219,9 @@ async function saveTemplate() {
   saving.value = true
   try {
     if (isEditing.value && editingId.value) {
-      await put(`/api/prompt-templates/${editingId.value}`, form)
+      await put(`/prompt-templates/${editingId.value}`, form)
     } else {
-      await post('/api/prompt-templates', form)
+      await post('/prompt-templates', form)
     }
 
     await loadTemplates()

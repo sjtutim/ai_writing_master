@@ -137,7 +137,7 @@ const handleSubmit = async () => {
   loading.value = true
 
   try {
-    const response = await api.post<{ user: any; token: string }>('/api/auth/login', {
+    const response = await api.post<{ user: any; token: string }>('/auth/login', {
       email: email.value,
       password: password.value,
     })

@@ -352,7 +352,7 @@ interface CachedChunk {
 
 async function loadCollections() {
   try {
-    collections.value = await get<Collection[]>('/api/collections')
+    collections.value = await get<Collection[]>('/collections')
   } catch (error) {
     console.error('Failed to load collections:', error)
   }
@@ -360,7 +360,7 @@ async function loadCollections() {
 
 async function loadStyles() {
   try {
-    styles.value = await get<WritingStyle[]>('/api/writing-styles')
+    styles.value = await get<WritingStyle[]>('/writing-styles')
   } catch (error) {
     console.error('Failed to load writing styles:', error)
   }
@@ -368,7 +368,7 @@ async function loadStyles() {
 
 async function loadPrompts() {
   try {
-    prompts.value = await get<PromptTemplate[]>('/api/prompt-templates')
+    prompts.value = await get<PromptTemplate[]>('/prompt-templates')
   } catch (error) {
     console.error('Failed to load prompts:', error)
   }
@@ -376,7 +376,7 @@ async function loadPrompts() {
 
 async function loadCache() {
   try {
-    const data = await get<{ chunks: CachedChunk[]; count: number }>('/api/writing-tasks/knowledge/cache')
+    const data = await get<{ chunks: CachedChunk[]; count: number }>('/writing-tasks/knowledge/cache')
     cachedChunks.value = data.chunks
   } catch (error) {
     console.error('Failed to load cache:', error)
@@ -385,7 +385,7 @@ async function loadCache() {
 
 async function addToCache(chunkIds: string[]) {
   try {
-    await post('/api/writing-tasks/knowledge/cache', { chunkIds })
+    await post('/writing-tasks/knowledge/cache', { chunkIds })
     await loadCache()
   } catch (error) {
     console.error('Failed to add to cache:', error)
@@ -395,7 +395,7 @@ async function addToCache(chunkIds: string[]) {
 
 async function removeChunk(chunkId: string) {
   try {
-    await del(`/api/writing-tasks/knowledge/cache/${chunkId}`)
+    await del(`/writing-tasks/knowledge/cache/${chunkId}`)
     await loadCache()
   } catch (error) {
     console.error('Failed to remove chunk:', error)
@@ -408,7 +408,7 @@ async function clearCache() {
     return
   }
   try {
-    await del('/api/writing-tasks/knowledge/cache')
+    await del('/writing-tasks/knowledge/cache')
     cachedChunks.value = []
   } catch (error) {
     console.error('Failed to clear cache:', error)

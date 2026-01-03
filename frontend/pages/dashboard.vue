@@ -158,7 +158,7 @@ async function fetchHealth() {
   loading.value = true
   healthError.value = ''
   try {
-    healthData.value = await api.get('/api/health')
+    healthData.value = await api.get('/health')
   } catch (e: any) {
     healthError.value = e.message || '获取状态失败'
   } finally {

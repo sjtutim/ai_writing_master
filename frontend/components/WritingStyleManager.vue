@@ -161,7 +161,7 @@ const form = reactive({
 // 加载风格列表
 async function loadStyles() {
   try {
-    styles.value = await get<WritingStyle[]>('/api/writing-styles')
+    styles.value = await get<WritingStyle[]>('/writing-styles')
   } catch (error) {
     console.error('Failed to load styles:', error)
   }
@@ -194,9 +194,9 @@ async function saveStyle() {
   saving.value = true
   try {
     if (isEditing.value && editingId.value) {
-      await put(`/api/writing-styles/${editingId.value}`, form)
+      await put(`/writing-styles/${editingId.value}`, form)
     } else {
-      await post('/api/writing-styles', form)
+      await post('/writing-styles', form)
     }
     
     await loadStyles()
