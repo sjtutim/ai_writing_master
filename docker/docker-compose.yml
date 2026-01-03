@@ -62,7 +62,7 @@ services:
       - frontend
       - backend
     ports:
-      - "80:80"
+      - "8088:80"
       # 如需 HTTPS，可在此添加 443 并挂载证书
       # - "443:443"
     volumes:
