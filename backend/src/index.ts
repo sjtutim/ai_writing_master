@@ -21,7 +21,22 @@ import usersRoutes from './routes/users';
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: true,
+  credentials: true,
+}));
+
+// Allow private network requests for Chromium-based browsers
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Private-Network', 'true');
+  next();
+});
+
+// Preflight handling
+app.options('*', cors({
+  origin: true,
+  credentials: true,
+}));
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
