@@ -12,10 +12,8 @@ RUN npm ci --only=production=false
 # Copy source code
 COPY . .
 
-# Generate Prisma client (with placeholder DATABASE_URL)
-RUN DATABASE_URL="postgresql://placeholder:placeholder@localhost:5432/placeholder" npx prisma generate
-
-# Build the application
+# Generate Prisma client and build (with placeholder DATABASE_URL)
+ENV DATABASE_URL="postgresql://placeholder:placeholder@localhost:5432/placeholder"
 RUN npm run build
 
 # Production stage
