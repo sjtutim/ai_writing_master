@@ -13,7 +13,9 @@ RUN npm config set registry https://registry.npmmirror.com && npm ci
 COPY . .
 
 # Build the Nuxt application
-RUN npm run build
+RUN npm run build && \
+    ls -la .output && \
+    ls -la .output/public/_nuxt || echo "Warning: _nuxt directory not found"
 
 # Production stage
 FROM node:20-alpine AS production
@@ -30,8 +32,8 @@ COPY package*.json ./
 # Install production dependencies only (use China mirror)
 RUN npm config set registry https://registry.npmmirror.com && npm ci --only=production
 
-# Copy built application
-COPY --from=builder /app/.output ./.output
+# Copy entire built application output
+COPY --from=builder /app/.output/ ./.output/
 
 # Change ownership
 RUN chown -R nuxtjs:nodejs /app
