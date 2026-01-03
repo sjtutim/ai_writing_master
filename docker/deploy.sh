@@ -8,8 +8,8 @@ cd "$PROJECT_DIR"
 echo "🚀 开始部署 AI4Write..."
 
 # 拉取最新代码
-echo "📥 拉取最新代码..."
-git pull
+# echo "📥 拉取最新代码..."
+# git pull
 
 # 构建并启动
 echo "🔨 构建镜像（不使用缓存）..."
