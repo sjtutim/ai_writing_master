@@ -28,7 +28,7 @@ echo "   ✅ 后端 PID: $BACKEND_PID"
 sleep 2
 
 # 启动前端
-echo "🎨 启动前端服务 (端口 3000)..."
+echo "🎨 启动前端服务 (端口 3007)..."
 cd "$PROJECT_DIR/frontend"
 npm run dev > "$LOG_DIR/frontend.log" 2>&1 &
 FRONTEND_PID=$!
@@ -39,7 +39,7 @@ echo ""
 echo "=============================================="
 echo "🎉 AI4Write 系统已启动！"
 echo ""
-echo "   前端地址: http://localhost:3000"
+echo "   前端地址: http://localhost:3007"
 echo "   后端地址: http://localhost:3001"
 echo ""
 echo "   日志文件:"

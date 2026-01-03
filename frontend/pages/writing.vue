@@ -26,74 +26,29 @@
     <div v-show="activeTab === 'workspace'" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <!-- 左侧：输入区 -->
       <div class="lg:col-span-2 space-y-6">
-        <!-- 主输入卡片 -->
+        <!-- 写作主题 -->
         <div class="card p-6">
-          <div class="flex items-center gap-3 mb-6 pb-4 border-b border-gray-100">
-            <div class="w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center">
-              <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center">
+              <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
               </svg>
             </div>
             <div>
-              <h2 class="text-lg font-semibold text-gray-900">写作配置</h2>
-              <p class="text-sm text-gray-500">设置参数以获得更好的生成效果</p>
+              <h2 class="text-lg font-semibold text-gray-900">开始写作</h2>
+              <p class="text-sm text-gray-500">输入写作要求，AI 将根据知识库生成内容</p>
             </div>
           </div>
 
-          <!-- 选择提示词模板 -->
-          <div class="mb-6 p-4 bg-purple-50 rounded-xl border border-purple-100">
-            <div class="flex items-center gap-2 mb-3">
-              <svg class="w-4 h-4 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-              <label class="block text-sm font-semibold text-gray-800">
-                提示词模板
-              </label>
-              <span class="text-xs text-purple-600 bg-purple-100 px-2 py-0.5 rounded-full">可选</span>
-            </div>
-            <div class="flex items-center gap-3">
-              <div class="relative flex-1 min-w-0">
-                <select
-                  v-model="selectedPromptId"
-                  class="input select-field"
-                >
-                  <option :value="null">不使用模板限制</option>
-                  <option v-for="prompt in prompts" :key="prompt.id" :value="prompt.id">
-                    {{ prompt.name }}
-                  </option>
-                </select>
-                <svg class="select-caret" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                </svg>
-              </div>
-              <button
-                @click="activeTab = 'prompts'"
-                class="btn btn-secondary text-sm flex-shrink-0 whitespace-nowrap"
-              >
-                管理模板
-              </button>
-            </div>
-            <div v-if="selectedPrompt" class="mt-2 text-xs text-gray-500 truncate">
-              {{ selectedPrompt.content }}
-            </div>
-          </div>
-
-          <!-- 写作主题 -->
-          <div class="mb-6">
-            <div class="flex items-center gap-2 mb-2">
-              <svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-              </svg>
-              <label class="block text-sm font-semibold text-gray-800">
-                重要的写作要求<span class="text-red-500">*</span>
-              </label>
-            </div>
+          <div class="mb-6 p-4 bg-amber-50 rounded-xl border border-amber-100">
+            <label class="block text-sm font-semibold text-gray-800 mb-2">
+              重要的写作要求<span class="text-red-500">*</span>
+            </label>
             <textarea
               v-model="query"
               rows="4"
-              class="input"
-              :placeholder="selectedPrompt ? '已选择模板，请输入具体的写作需求...' : '请输入您想要创作的主题、大纲或核心观点...'"
+              class="input px-3"
+              placeholder="请输入您想要创作的主题、大纲或核心观点..."
             ></textarea>
           </div>
 
@@ -109,7 +64,6 @@
               <span class="text-xs text-blue-600 bg-blue-100 px-2 py-0.5 rounded-full">可选</span>
             </div>
 
-            <!-- Tab切换 -->
             <div class="flex border-b border-gray-200 mb-3">
               <button
                 @click="knowledgeTab = 'basic'"
@@ -134,7 +88,6 @@
               </button>
             </div>
 
-            <!-- 单一知识库选择 -->
             <div v-show="knowledgeTab === 'basic'">
               <div class="relative">
                 <select
@@ -155,7 +108,6 @@
               </p>
             </div>
 
-            <!-- 跨知识库（缓存） -->
             <div v-show="knowledgeTab === 'advanced'">
               <div class="flex items-center justify-between mb-3">
                 <div class="flex items-center gap-2">
@@ -190,41 +142,6 @@
             </div>
           </div>
 
-          <!-- 选择写作风格 -->
-          <div class="mb-6 p-4 bg-green-50 rounded-xl border border-green-100">
-            <div class="flex items-center gap-2 mb-3">
-              <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
-              </svg>
-              <label class="block text-sm font-semibold text-gray-800">
-                写作风格范文
-              </label>
-              <span class="text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full">可选</span>
-            </div>
-            <div class="flex items-center gap-3">
-              <div class="relative flex-1 min-w-0">
-                <select
-                  v-model="selectedStyleId"
-                  class="input select-field"
-                >
-                  <option :value="null">无特定风格</option>
-                  <option v-for="style in styles" :key="style.id" :value="style.id">
-                    {{ style.name }}
-                  </option>
-                </select>
-                <svg class="select-caret" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                </svg>
-              </div>
-              <button
-                @click="activeTab = 'styles'"
-                class="btn btn-secondary text-sm flex-shrink-0 whitespace-nowrap"
-              >
-                管理风格
-              </button>
-            </div>
-          </div>
-
           <!-- 生成按钮 -->
           <button
             @click="handleGenerate"
@@ -245,12 +162,78 @@
         </div>
       </div>
 
-      <!-- 右侧：历史记录 -->
-      <div class="card p-6 lg:sticky lg:top-24 max-h-[calc(100vh-8rem)] overflow-hidden flex flex-col">
-        <h3 class="text-lg font-semibold text-gray-900 mb-4 flex-shrink-0">最近撰写记录</h3>
-        <div class="flex-1 overflow-y-auto">
-          <WritingHistory ref="historyRef" @reuse-task="reuseTask" @task-deleted="onTaskDeleted" />
+      <!-- 右侧：模板和风格 -->
+      <div class="space-y-6">
+        <!-- 提示词模板 -->
+        <div class="card p-6">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              <h3 class="text-base font-semibold text-gray-900">提示词模板</h3>
+            </div>
+            <button
+              @click="activeTab = 'prompts'"
+              class="text-sm text-purple-600 hover:text-purple-800"
+            >
+              管理
+            </button>
+          </div>
+          <div class="relative">
+            <select
+              v-model="selectedPromptId"
+              class="input select-field"
+            >
+              <option :value="null">不使用模板</option>
+              <option v-for="prompt in prompts" :key="prompt.id" :value="prompt.id">
+                {{ prompt.name }}
+              </option>
+            </select>
+            <svg class="select-caret" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+          <p v-if="selectedPrompt" class="mt-2 text-xs text-gray-500 line-clamp-5">
+            {{ selectedPrompt.content }}
+          </p>
         </div>
+
+        <!-- 写作风格 -->
+        <div class="card p-6">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+              </svg>
+              <h3 class="text-base font-semibold text-gray-900">写作风格</h3>
+            </div>
+            <button
+              @click="activeTab = 'styles'"
+              class="text-sm text-green-600 hover:text-green-800"
+            >
+              管理
+            </button>
+          </div>
+          <div class="relative">
+            <select
+              v-model="selectedStyleId"
+              class="input select-field"
+            >
+              <option :value="null">无特定风格</option>
+              <option v-for="style in styles" :key="style.id" :value="style.id">
+                {{ style.name }}
+              </option>
+            </select>
+            <svg class="select-caret" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+          <p v-if="selectedStyle" class="mt-2 text-xs text-gray-500 line-clamp-5">
+            {{ selectedStyle.content }}
+          </p>
+        </div>
+
       </div>
     </div>
 
@@ -287,6 +270,7 @@
       v-model:visible="showResultModal"
       v-model:content="output"
       :generating="generating"
+      :output-id="currentOutputId"
     />
   </div>
 </template>
@@ -294,7 +278,6 @@
 <script setup lang="ts">
 import WritingStyleManager from '~/components/WritingStyleManager.vue'
 import PromptTemplateManager from '~/components/PromptTemplateManager.vue'
-import WritingHistory from '~/components/WritingHistory.vue'
 import KnowledgeCachePanel from '~/components/KnowledgeCachePanel.vue'
 import KnowledgeSearchModal from '~/components/KnowledgeSearchModal.vue'
 import GenerateResultModal from '~/components/GenerateResultModal.vue'
@@ -314,6 +297,7 @@ interface Collection {
 interface WritingStyle {
   id: string
   name: string
+  content?: string | null
 }
 
 interface PromptTemplate {
@@ -327,6 +311,7 @@ interface WritingTask {
   id: string
   query: string
   promptId?: string
+  outputs?: { id: string; content: string }[]
   styleId?: string
   kbScope?: any
 }
@@ -341,6 +326,7 @@ const tabs = [
 const activeTab = ref('workspace')
 const query = ref('')
 const output = ref('')
+const currentOutputId = ref<string | null>(null)
 const generating = ref(false)
 const selectedCollectionId = ref<string | null>(null)
 const selectedPromptId = ref<string | null>(null)
@@ -348,7 +334,6 @@ const selectedStyleId = ref<string | null>(null)
 const collections = ref<Collection[]>([])
 const styles = ref<WritingStyle[]>([])
 const prompts = ref<PromptTemplate[]>([])
-const historyRef = ref<InstanceType<typeof WritingHistory> | null>(null)
 const historyFullRef = ref<InstanceType<typeof WritingHistory> | null>(null)
 
 const knowledgeTab = ref<'advanced' | 'basic'>('basic')
@@ -439,11 +424,16 @@ const selectedPrompt = computed(() => {
   return prompts.value.find(p => p.id === selectedPromptId.value) || null
 })
 
+const selectedStyle = computed(() => {
+  return styles.value.find(s => s.id === selectedStyleId.value) || null
+})
+
 async function handleGenerate() {
   if (!query.value) return
 
   generating.value = true
   output.value = ''
+  currentOutputId.value = null
   showResultModal.value = true
 
   const payload: any = {
@@ -514,9 +504,7 @@ async function handleGenerate() {
               output.value += data.content
             } else if (data.type === 'done') {
               generating.value = false
-              if (historyRef.value) {
-                historyRef.value.loadTasks()
-              }
+              currentOutputId.value = data.outputId || null
               if (historyFullRef.value) {
                 historyFullRef.value.loadTasks()
               }
@@ -541,6 +529,7 @@ function reuseTask(task: WritingTask) {
   query.value = task.query
   selectedPromptId.value = task.promptId || null
   selectedStyleId.value = task.styleId || null
+  currentOutputId.value = task.outputs?.[0]?.id || null
   if (task.kbScope?.collectionIds?.length > 0) {
     selectedCollectionId.value = task.kbScope.collectionIds[0]
   }
@@ -587,7 +576,7 @@ watch(activeTab, (newTab) => {
 
 <style scoped>
 .select-field {
-  @apply pr-10 cursor-pointer font-medium bg-white;
+  @apply pr-10 pl-3 cursor-pointer font-medium bg-white;
   /* 隐藏原生下拉箭头 */
   -webkit-appearance: none;
   -moz-appearance: none;

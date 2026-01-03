@@ -109,6 +109,7 @@ const props = defineProps<{
   visible: boolean
   content: string
   generating: boolean
+  outputId?: string | null
 }>()
 
 const emit = defineEmits<{
@@ -116,9 +117,12 @@ const emit = defineEmits<{
   'update:content': [value: string]
 }>()
 
+const { put } = useApi()
+
 const isEditing = ref(false)
 const editingContent = ref('')
 const copySuccess = ref(false)
+const saving = ref(false)
 
 watch(() => props.visible, (newVal) => {
   if (!newVal) {
@@ -133,8 +137,22 @@ function startEdit() {
   isEditing.value = true
 }
 
-function saveEdit() {
+async function saveEdit() {
   emit('update:content', editingContent.value)
+
+  if (props.outputId) {
+    saving.value = true
+    try {
+      await put(`/api/writing-tasks/outputs/${props.outputId}`, { content: editingContent.value })
+    } catch (error) {
+      console.error('Failed to save:', error)
+      alert('保存失败，请重试')
+      saving.value = false
+      return
+    }
+    saving.value = false
+  }
+
   isEditing.value = false
 }
 

@@ -52,10 +52,19 @@ async function retrieveRelevantChunks(
 router.get('/', authMiddleware, async (req: AuthRequest, res) => {
   try {
     const userId = req.user!.userId;
-    const { limit = 20, offset = 0 } = req.query;
+    const { limit = 20, offset = 0, keyword } = req.query;
+
+    const where: any = { userId };
+    if (keyword) {
+      const kw = String(keyword);
+      where.OR = [
+        { query: { contains: kw } },
+        { outputs: { some: { content: { contains: kw } } } },
+      ];
+    }
 
     const tasks = await prisma.writingTask.findMany({
-      where: { userId },
+      where,
       orderBy: { createdAt: 'desc' },
       take: Number(limit),
       skip: Number(offset),
@@ -80,7 +89,7 @@ router.get('/', authMiddleware, async (req: AuthRequest, res) => {
     });
 
     const total = await prisma.writingTask.count({
-      where: { userId },
+      where,
     });
 
     res.json({ tasks, total });
@@ -502,6 +511,40 @@ router.delete('/:id', authMiddleware, async (req: AuthRequest, res) => {
   } catch (error) {
     console.error('Delete writing task error:', error);
     res.status(500).json({ error: 'Failed to delete writing task' });
+  }
+});
+
+// 更新写作输出内容（保存编辑后的内容）
+router.put('/outputs/:outputId', authMiddleware, async (req: AuthRequest, res) => {
+  try {
+    const userId = req.user!.userId;
+    const { outputId } = req.params;
+    const { content } = req.body;
+
+    if (!content) {
+      return res.status(400).json({ error: 'Content is required' });
+    }
+
+    const output = await prisma.writingOutput.findFirst({
+      where: {
+        id: outputId,
+        task: { userId },
+      },
+    });
+
+    if (!output) {
+      return res.status(404).json({ error: 'Output not found' });
+    }
+
+    await prisma.writingOutput.update({
+      where: { id: outputId },
+      data: { content },
+    });
+
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Update output error:', error);
+    res.status(500).json({ error: 'Failed to update output' });
   }
 });
 

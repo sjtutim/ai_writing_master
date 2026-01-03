@@ -50,7 +50,7 @@ services:
       NODE_ENV: ${NODE_ENV:-production}
       NUXT_PUBLIC_API_BASE_URL: ${NUXT_PUBLIC_API_BASE_URL:-http://backend:3001}
     ports:
-      - "${FRONTEND_PORT:-3000}:3000"
+      - "${FRONTEND_PORT:-3007}:3000"
     networks:
       - ai4write-network
     depends_on:

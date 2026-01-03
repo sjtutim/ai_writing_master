@@ -25,6 +25,10 @@ export default defineNuxtConfig({
     },
   },
 
+  devServer: {
+    port: 3007,
+  },
+
   compatibilityDate: '2024-01-01',
 
   routeRules: {

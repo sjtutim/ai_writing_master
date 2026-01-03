@@ -119,13 +119,13 @@ npm run seed  # 可选：初始化测试数据
 # 启动后端 (端口 3001)
 npm run dev:backend
 
-# 新终端中启动前端 (端口 3000)
+# 新终端中启动前端 (端口 3007)
 cd frontend && npm run dev:frontend
 ```
 
 6. **访问应用**
 
-打开浏览器访问 http://localhost:3000
+打开浏览器访问 http://localhost:3007
 
 ### 默认账号
 
@@ -161,43 +161,70 @@ ai4write/
 
 ## 🔧 配置说明
 
-### 后端环境变量
+### Docker 部署
 
-```env
-# 数据库
-DATABASE_URL="postgresql://user:password@localhost:5432/ai4write?schema=public"
-
-# JWT
-JWT_SECRET="your-jwt-secret-key"
-JWT_EXPIRES_IN="7d"
-
-# MinIO
-MINIO_ENDPOINT="localhost"
-MINIO_PORT=9000
-MINIO_ACCESS_KEY="minioadmin"
-MINIO_SECRET_KEY="minioadmin"
-MINIO_BUCKET="ai4write"
-
-# Redis
-REDIS_URL="redis://localhost:6379/0"
-
-# DeepSeek API
-DEEPSEEK_API_KEY="sk-xxx"
-DEEPSEEK_BASE_URL="https://api.deepseek.com"
-
-# bge-m3 Embedding
-BGE_API_URL="http://localhost:8000"
-BGE_API_KEY="your-bge-api-key"
-```
-
-### Docker 部署 (可选)
+使用 Docker Compose 一键启动所有服务：
 
 ```bash
-# 使用 Docker Compose 启动基础设施
-docker-compose up -d postgres minio
+# 进入 docker 目录
+cd docker
 
-# 启动应用
-docker-compose up -d backend frontend
+# 复制并配置环境变量
+cp .env.example .env
+# 编辑 .env 文件，配置数据库连接、MinIO、API Key 等
+
+# 启动所有服务
+docker-compose up -d
+```
+
+> **注意**: 当前 Docker 配置假设 PostgreSQL、MinIO、Redis 等基础设施已在外部运行或单独部署。如需完整容器化部署，请参考 `docker-compose.override.yml` 示例。
+
+### 环境变量配置
+
+在 `docker` 目录下创建 `.env` 文件：
+
+```env
+# Node 环境
+NODE_ENV=production
+
+# 后端服务端口
+BACKEND_PORT=3001
+FRONTEND_PORT=3007
+
+# PostgreSQL (外部服务)
+POSTGRES_USER=ai4write
+POSTGRES_PASSWORD=your_password
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
+POSTGRES_DB=ai4write
+
+# MinIO (对象存储)
+MINIO_ENDPOINT=localhost
+MINIO_PORT=9000
+MINIO_USE_SSL=false
+MINIO_ACCESS_KEY=minioadmin
+MINIO_SECRET_KEY=minioadmin
+MINIO_BUCKET=ai4write
+
+# Redis (外部服务)
+REDIS_HOST=localhost
+REDIS_PORT=6379
+
+# Embedding API
+EMBEDDING_API_URL=http://localhost:8000
+EMBEDDING_MODEL=BAAI/bge-m3
+
+# DeepSeek API
+DEEPSEEK_BASE_URL=https://api.deepseek.com
+DEEPSEEK_API_KEY=sk-xxx
+DEEPSEEK_MODEL=deepseek-chat
+
+# JWT 配置
+JWT_SECRET=your-jwt-secret-key
+JWT_EXPIRES_IN=7d
+
+# 前端 API 地址 (生产环境使用域名)
+NUXT_PUBLIC_API_BASE_URL=http://localhost:3001
 ```
 
 ## 📖 使用指南
