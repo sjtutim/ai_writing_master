@@ -654,7 +654,7 @@ const _inlineRuntimeConfig = {
     }
   },
   "public": {
-    "apiBaseUrl": "http://localhost:3001"
+    "apiBaseUrl": ""
   }
 };
 const envOptions = {

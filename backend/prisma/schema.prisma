@@ -11,6 +11,8 @@ datasource db {
   provider   = "postgresql"
   url        = env("DATABASE_URL")
   extensions = [vector]
+  // 优化：数据库连接池配置
+  // 在DATABASE_URL中添加参数: ?connection_limit=20&pool_timeout=10
 }
 
 // ==================== 用户与权限管理 ====================

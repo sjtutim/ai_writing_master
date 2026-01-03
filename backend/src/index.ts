@@ -6,6 +6,7 @@ import { testMinioConnection, ensureBucket } from './services/minio';
 import { testEmbeddingConnection } from './services/embedding';
 import { testLLMConnection } from './services/llm';
 import { startWorker } from './services/worker';
+import { initRedis, disconnectRedis } from './services/redis';
 
 // Import routes
 import healthRoutes from './routes/health';
@@ -27,6 +28,27 @@ app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 // 确保所有响应使用 UTF-8 编码
 app.use((req, res, next) => {
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
+  next();
+});
+
+// 性能监控中间件
+app.use((req, res, next) => {
+  const startTime = Date.now();
+
+  res.on('finish', () => {
+    const duration = Date.now() - startTime;
+
+    // 记录慢请求（超过1秒）
+    if (duration > 1000) {
+      console.warn(`[SLOW REQUEST] ${req.method} ${req.path} - ${duration}ms`);
+    }
+
+    // 记录所有请求（仅在开发环境）
+    if (config.server.env === 'development') {
+      console.log(`[${req.method}] ${req.path} - ${duration}ms - ${res.statusCode}`);
+    }
+  });
+
   next();
 });
 
@@ -62,6 +84,11 @@ async function startServer() {
   await testEmbeddingConnection();
   await testLLMConnection();
 
+  // 初始化 Redis（可选，如果未配置则跳过）
+  if (config.redis.url) {
+    await initRedis(config.redis.url);
+  }
+
   console.log('--- Connection Tests Complete ---\n');
 
   // Start job worker
@@ -78,6 +105,7 @@ async function startServer() {
   process.on('SIGTERM', async () => {
     console.log('SIGTERM received, shutting down...');
     await disconnectPrisma();
+    await disconnectRedis();
     server.close();
   });
 }

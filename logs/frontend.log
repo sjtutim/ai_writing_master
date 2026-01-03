@@ -10,33 +10,11 @@
 
 [nuxt:tailwindcss] ℹ Using default Tailwind CSS file
 [nuxt:tailwindcss] ℹ Tailwind Viewer: http:/localhost:3000/_tailwind/
-✔ Vite client built in 17ms
-✔ Vite server built in 550ms
-[nitro] ✔ Nuxt Nitro server built in 390ms
+✔ Vite client built in 19ms
+✔ Vite server built in 567ms
+[nitro] ✔ Nuxt Nitro server built in 508ms
 ℹ Vite client warmed up in 1ms
-ℹ Vite server warmed up in 643ms
-WARN  [Vue Router warn]: No match found for location with path "/.well-known/appspecific/com.chrome.devtools.json"
-WARN  [Vue Router warn]: No match found for location with path "/.well-known/appspecific/com.chrome.devtools.json"
-WARN  [Vue Router warn]: No match found for location with path "/.well-known/appspecific/com.chrome.devtools.json"
-WARN  [Vue Router warn]: No match found for location with path "/.well-known/appspecific/com.chrome.devtools.json"
-ℹ nuxt.config.ts updated. Restarting Nuxt...
-[nuxt:tailwindcss] ℹ Using default Tailwind CSS file
-[nuxt:tailwindcss] ℹ Tailwind Viewer: http:/localhost:3000/_tailwind/
-✔ Vite client built in 9ms
-✔ Vite server built in 388ms
-[nitro] ✔ Nuxt Nitro server built in 353ms
-ℹ Vite client warmed up in 0ms
-ℹ Vite server warmed up in 592ms
-WARN  [Vue Router warn]: No match found for location with path "/.well-known/appspecific/com.chrome.devtools.json"
-WARN  [Vue Router warn]: No match found for location with path "/.well-known/appspecific/com.chrome.devtools.json"
-ℹ .nuxt/dist directory has been removed. Restarting Nuxt...
-[nuxt:tailwindcss] ℹ Using default Tailwind CSS file
-[nuxt:tailwindcss] ℹ Tailwind Viewer: http:/localhost:3000/_tailwind/
-✔ Vite client built in 6ms
-✔ Vite server built in 465ms
-[nitro] ✔ Nuxt Nitro server built in 382ms
-ℹ Vite client warmed up in 1ms
-ℹ Vite server warmed up in 620ms
+ℹ Vite server warmed up in 689ms
 WARN  [Vue Router warn]: No match found for location with path "/.well-known/appspecific/com.chrome.devtools.json"
 WARN  [Vue Router warn]: No match found for location with path "/.well-known/appspecific/com.chrome.devtools.json"
 WARN  [Vue Router warn]: No match found for location with path "/.well-known/appspecific/com.chrome.devtools.json"

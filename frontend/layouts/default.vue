@@ -81,6 +81,17 @@
               </div>
             </div>
 
+            <!-- Change password -->
+            <button
+              @click="openChangePasswordModal"
+              class="p-2 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors"
+              title="修改密码"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16.5 10.5V7a4.5 4.5 0 00-9 0v3.5m-.75 0h10.5a.75.75 0 01.75.75v6a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75v-6a.75.75 0 01.75-.75z" />
+              </svg>
+            </button>
+
             <!-- Logout button -->
             <button
               @click="handleLogout"
@@ -120,6 +131,74 @@
       </div>
     </nav>
 
+    <!-- Change Password Modal -->
+    <div
+      v-if="showChangePasswordModal"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900/50 backdrop-blur-sm px-4"
+    >
+      <div class="bg-white rounded-xl shadow-2xl w-full max-w-md p-6 relative">
+        <h3 class="text-lg font-semibold text-gray-900 mb-1">修改密码</h3>
+        <p class="text-sm text-gray-500 mb-4">请输入当前密码并设置新密码</p>
+
+        <form class="space-y-4" @submit.prevent="submitChangePassword">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">当前密码</label>
+            <input
+              v-model="changePasswordForm.currentPassword"
+              type="password"
+              class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+              placeholder="输入当前密码"
+              autocomplete="current-password"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">新密码</label>
+            <input
+              v-model="changePasswordForm.newPassword"
+              type="password"
+              class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+              placeholder="至少 6 位字符"
+              autocomplete="new-password"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">确认新密码</label>
+            <input
+              v-model="changePasswordForm.confirmPassword"
+              type="password"
+              class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+              placeholder="再次输入新密码"
+              autocomplete="new-password"
+            />
+          </div>
+
+          <div v-if="changePasswordError" class="p-3 rounded-lg bg-red-50 border border-red-100 text-sm text-red-600">
+            {{ changePasswordError }}
+          </div>
+          <div v-if="changePasswordSuccess" class="p-3 rounded-lg bg-green-50 border border-green-100 text-sm text-green-700">
+            {{ changePasswordSuccess }}
+          </div>
+
+          <div class="flex justify-end gap-2 pt-2">
+            <button
+              type="button"
+              @click="closeChangePasswordModal"
+              class="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg"
+            >
+              取消
+            </button>
+            <button
+              type="submit"
+              :disabled="changingPassword"
+              class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-60"
+            >
+              {{ changingPassword ? '保存中...' : '保存修改' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <main class="animate-fade-in">
       <slot />
     </main>
@@ -131,6 +210,71 @@ import { useAuthStore } from '~/stores/auth'
 
 const authStore = useAuthStore()
 const router = useRouter()
+const api = useApi()
+
+const showChangePasswordModal = ref(false)
+const changingPassword = ref(false)
+const changePasswordError = ref('')
+const changePasswordSuccess = ref('')
+const changePasswordForm = reactive({
+  currentPassword: '',
+  newPassword: '',
+  confirmPassword: '',
+})
+
+const resetChangePasswordForm = () => {
+  changePasswordForm.currentPassword = ''
+  changePasswordForm.newPassword = ''
+  changePasswordForm.confirmPassword = ''
+}
+
+const openChangePasswordModal = () => {
+  resetChangePasswordForm()
+  changePasswordError.value = ''
+  changePasswordSuccess.value = ''
+  showChangePasswordModal.value = true
+}
+
+const closeChangePasswordModal = () => {
+  showChangePasswordModal.value = false
+  changePasswordError.value = ''
+  changePasswordSuccess.value = ''
+}
+
+const submitChangePassword = async () => {
+  changePasswordError.value = ''
+  changePasswordSuccess.value = ''
+
+  if (!changePasswordForm.currentPassword || !changePasswordForm.newPassword || !changePasswordForm.confirmPassword) {
+    changePasswordError.value = '请完整填写所有字段'
+    return
+  }
+
+  if (changePasswordForm.newPassword.length < 6) {
+    changePasswordError.value = '新密码长度至少为 6 位'
+    return
+  }
+
+  if (changePasswordForm.newPassword !== changePasswordForm.confirmPassword) {
+    changePasswordError.value = '两次输入的新密码不一致'
+    return
+  }
+
+  changingPassword.value = true
+  try {
+    const response = await api.post<{ message: string }>('/api/auth/change-password', {
+      currentPassword: changePasswordForm.currentPassword,
+      newPassword: changePasswordForm.newPassword,
+    })
+    changePasswordSuccess.value = response.message || '密码修改成功'
+    resetChangePasswordForm()
+    setTimeout(() => closeChangePasswordModal(), 800)
+  } catch (error: any) {
+    changePasswordError.value = error.message || '修改失败，请重试'
+  } finally {
+    changingPassword.value = false
+  }
+}
 
 const handleLogout = () => {
   authStore.logout()

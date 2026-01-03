@@ -1,6 +1,14 @@
 import { PrismaClient } from '../generated/prisma';
 
-export const prisma = new PrismaClient();
+// 优化：配置Prisma连接池和性能参数
+export const prisma = new PrismaClient({
+  log: ['warn', 'error'],
+  datasources: {
+    db: {
+      url: process.env.DATABASE_URL,
+    },
+  },
+});
 
 export async function testPrismaConnection(): Promise<boolean> {
   try {

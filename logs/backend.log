@@ -11,24 +11,479 @@ MinIO connected successfully. Buckets: ai4write, dify-bucket
 Bucket "ai4write" already exists
 Bucket "ai4write" write permission: OK
 Embedding API connected successfully. Vector dimension: 1024
-LLM API connected successfully. Response: Connected
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+node:events:496
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at Server.listen (node:net:2067:7)
+    at Function.listen (/Users/xuhuayong/projects/ai4write/backend/node_modules/express/lib/application.js:635:24)
+    at startServer (/Users/xuhuayong/projects/ai4write/backend/src/index.ts:100:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 3001
+}
+
+Node.js v20.18.3
+9:07:41 AM [tsx] change in ./src/routes/auth.ts Rerunning...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+9:07:42 AM [tsx] change in ./src/routes/auth.ts Restarting...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
 --- Connection Tests Complete ---
 
 Starting job worker...
 Server running on http://localhost:3001
+prisma:error 
+Invalid `prisma.$queryRaw()` invocation:
+
+
+Raw query failed. Code: `42P01`. Message: `relation "Role" does not exist`
+Login error: PrismaClientKnownRequestError: 
+Invalid `prisma.$queryRaw()` invocation:
+
+
+Raw query failed. Code: `42P01`. Message: `relation "Role" does not exist`
+    at ei.handleRequestError (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:7268)
+    at ei.handleAndLogRequestError (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:6593)
+    at ei.request (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:6300)
+    at async a (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:134:9551)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/auth.ts:117:19) {
+  code: 'P2010',
+  meta: { code: '42P01', message: 'relation "Role" does not exist' },
+  clientVersion: '6.19.1'
+}
+[POST] /login - 197ms - 500
+prisma:error 
+Invalid `prisma.$queryRaw()` invocation:
+
+
+Raw query failed. Code: `42P01`. Message: `relation "Role" does not exist`
+Login error: PrismaClientKnownRequestError: 
+Invalid `prisma.$queryRaw()` invocation:
+
+
+Raw query failed. Code: `42P01`. Message: `relation "Role" does not exist`
+    at ei.handleRequestError (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:7268)
+    at ei.handleAndLogRequestError (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:6593)
+    at ei.request (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:6300)
+    at async a (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:134:9551)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/auth.ts:117:19) {
+  code: 'P2010',
+  meta: { code: '42P01', message: 'relation "Role" does not exist' },
+  clientVersion: '6.19.1'
+}
+[POST] /login - 200ms - 500
+prisma:error 
+Invalid `prisma.$queryRaw()` invocation:
+
+
+Raw query failed. Code: `42P01`. Message: `relation "Role" does not exist`
+Login error: PrismaClientKnownRequestError: 
+Invalid `prisma.$queryRaw()` invocation:
+
+
+Raw query failed. Code: `42P01`. Message: `relation "Role" does not exist`
+    at ei.handleRequestError (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:7268)
+    at ei.handleAndLogRequestError (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:6593)
+    at ei.request (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:6300)
+    at async a (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:134:9551)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/auth.ts:117:19) {
+  code: 'P2010',
+  meta: { code: '42P01', message: 'relation "Role" does not exist' },
+  clientVersion: '6.19.1'
+}
+[POST] /login - 139ms - 500
+prisma:error 
+Invalid `prisma.$queryRaw()` invocation:
+
+
+Raw query failed. Code: `42P01`. Message: `relation "Role" does not exist`
+Login error: PrismaClientKnownRequestError: 
+Invalid `prisma.$queryRaw()` invocation:
+
+
+Raw query failed. Code: `42P01`. Message: `relation "Role" does not exist`
+    at ei.handleRequestError (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:7268)
+    at ei.handleAndLogRequestError (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:6593)
+    at ei.request (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:6300)
+    at async a (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:134:9551)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/auth.ts:117:19) {
+  code: 'P2010',
+  meta: { code: '42P01', message: 'relation "Role" does not exist' },
+  clientVersion: '6.19.1'
+}
+[POST] /login - 127ms - 500
+prisma:error 
+Invalid `prisma.$queryRaw()` invocation:
+
+
+Raw query failed. Code: `42P01`. Message: `relation "Role" does not exist`
+Login error: PrismaClientKnownRequestError: 
+Invalid `prisma.$queryRaw()` invocation:
+
+
+Raw query failed. Code: `42P01`. Message: `relation "Role" does not exist`
+    at ei.handleRequestError (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:7268)
+    at ei.handleAndLogRequestError (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:6593)
+    at ei.request (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:6300)
+    at async a (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:134:9551)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/auth.ts:117:19) {
+  code: 'P2010',
+  meta: { code: '42P01', message: 'relation "Role" does not exist' },
+  clientVersion: '6.19.1'
+}
+[POST] /login - 141ms - 500
+prisma:error 
+Invalid `prisma.$queryRaw()` invocation:
+
+
+Raw query failed. Code: `42P01`. Message: `relation "Role" does not exist`
+Login error: PrismaClientKnownRequestError: 
+Invalid `prisma.$queryRaw()` invocation:
+
+
+Raw query failed. Code: `42P01`. Message: `relation "Role" does not exist`
+    at ei.handleRequestError (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:7268)
+    at ei.handleAndLogRequestError (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:6593)
+    at ei.request (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:6300)
+    at async a (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:134:9551)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/auth.ts:117:19) {
+  code: 'P2010',
+  meta: { code: '42P01', message: 'relation "Role" does not exist' },
+  clientVersion: '6.19.1'
+}
+[POST] /login - 124ms - 500
+9:10:08 AM [tsx] change in ./src/generated/prisma/runtime/library.js Restarting...
+SIGTERM received, shutting down...
+Redis disconnected
+9:10:13 AM [tsx] Process didn't exit in 5s. Force killing...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
 Prisma database connected successfully
 MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
 Embedding API connected successfully. Vector dimension: 1024
 LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+node:events:496
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at Server.listen (node:net:2067:7)
+    at Function.listen (/Users/xuhuayong/projects/ai4write/backend/node_modules/express/lib/application.js:635:24)
+    at startServer (/Users/xuhuayong/projects/ai4write/backend/src/index.ts:100:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 3001
+}
+
+Node.js v20.18.3
+9:10:48 AM [tsx] change in ./src/routes/auth.ts Rerunning...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
 Prisma database connected successfully
 MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+Server running on http://localhost:3001
+SIGTERM received, shutting down...
+Redis disconnected
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 prisma:error 
+Invalid `prisma.$queryRaw()` invocation:
+
+
+Raw query failed. Code: `42P01`. Message: `relation "Role" does not exist`
+Login error: PrismaClientKnownRequestError: 
+Invalid `prisma.$queryRaw()` invocation:
+
+
+Raw query failed. Code: `42P01`. Message: `relation "Role" does not exist`
+    at ei.handleRequestError (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:7268)
+    at ei.handleAndLogRequestError (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:6593)
+    at ei.request (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:6300)
+    at async a (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:134:9551)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/auth.ts:117:19) {
+  code: 'P2010',
+  meta: { code: '42P01', message: 'relation "Role" does not exist' },
+  clientVersion: '6.19.1'
+}
+[POST] /login - 480ms - 500
+prisma:error 
+Invalid `prisma.$queryRaw()` invocation:
+
+
+Raw query failed. Code: `42P01`. Message: `relation "Role" does not exist`
+Login error: PrismaClientKnownRequestError: 
+Invalid `prisma.$queryRaw()` invocation:
+
+
+Raw query failed. Code: `42P01`. Message: `relation "Role" does not exist`
+    at ei.handleRequestError (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:7268)
+    at ei.handleAndLogRequestError (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:6593)
+    at ei.request (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:6300)
+    at async a (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:134:9551)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/auth.ts:117:19) {
+  code: 'P2010',
+  meta: { code: '42P01', message: 'relation "Role" does not exist' },
+  clientVersion: '6.19.1'
+}
+[POST] /login - 481ms - 500
+prisma:error 
+Invalid `prisma.$queryRaw()` invocation:
+
+
+Raw query failed. Code: `42P01`. Message: `relation "Role" does not exist`
+Login error: PrismaClientKnownRequestError: 
+Invalid `prisma.$queryRaw()` invocation:
+
+
+Raw query failed. Code: `42P01`. Message: `relation "Role" does not exist`
+    at ei.handleRequestError (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:7268)
+    at ei.handleAndLogRequestError (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:6593)
+    at ei.request (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:6300)
+    at async a (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:134:9551)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/auth.ts:117:19) {
+  code: 'P2010',
+  meta: { code: '42P01', message: 'relation "Role" does not exist' },
+  clientVersion: '6.19.1'
+}
+[POST] /login - 170ms - 500
+9:07:41 AM [tsx] change in ./src/routes/auth.ts Restarting...
+SIGTERM received, shutting down...
+Redis disconnected
+9:07:42 AM [tsx] change in ./src/routes/auth.ts Process hasn't exited. Killing process...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: Connected.
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+node:events:496
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at Server.listen (node:net:2067:7)
+    at Function.listen (/Users/xuhuayong/projects/ai4write/backend/node_modules/express/lib/application.js:635:24)
+    at startServer (/Users/xuhuayong/projects/ai4write/backend/src/index.ts:100:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 3001
+}
+
+Node.js v20.18.3
+9:10:08 AM [tsx] change in ./src/generated/prisma/runtime/library.js Rerunning...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
 Embedding API connected successfully. Vector dimension: 1024
 LLM API connected successfully. Response: Connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+Server running on http://localhost:3001
+prisma:error 
+Invalid `prisma.$queryRaw()` invocation:
+
+
+Raw query failed. Code: `42P01`. Message: `relation "Role" does not exist`
+Login error: PrismaClientKnownRequestError: 
+Invalid `prisma.$queryRaw()` invocation:
+
+
+Raw query failed. Code: `42P01`. Message: `relation "Role" does not exist`
+    at ei.handleRequestError (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:7268)
+    at ei.handleAndLogRequestError (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:6593)
+    at ei.request (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:6300)
+    at async a (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:134:9551)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/auth.ts:117:19) {
+  code: 'P2010',
+  meta: { code: '42P01', message: 'relation "Role" does not exist' },
+  clientVersion: '6.19.1'
+}
+[POST] /login - 299ms - 500
+prisma:error 
+Invalid `prisma.$queryRaw()` invocation:
+
+
+Raw query failed. Code: `42P01`. Message: `relation "Role" does not exist`
+Login error: PrismaClientKnownRequestError: 
+Invalid `prisma.$queryRaw()` invocation:
+
+
+Raw query failed. Code: `42P01`. Message: `relation "Role" does not exist`
+    at ei.handleRequestError (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:7268)
+    at ei.handleAndLogRequestError (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:6593)
+    at ei.request (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:6300)
+    at async a (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:134:9551)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/auth.ts:117:19) {
+  code: 'P2010',
+  meta: { code: '42P01', message: 'relation "Role" does not exist' },
+  clientVersion: '6.19.1'
+}
+[POST] /login - 299ms - 500
+prisma:error 
+Invalid `prisma.$queryRaw()` invocation:
+
+
+Raw query failed. Code: `42P01`. Message: `relation "Role" does not exist`
+Login error: PrismaClientKnownRequestError: 
+Invalid `prisma.$queryRaw()` invocation:
+
+
+Raw query failed. Code: `42P01`. Message: `relation "Role" does not exist`
+    at ei.handleRequestError (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:7268)
+    at ei.handleAndLogRequestError (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:6593)
+    at ei.request (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:6300)
+    at async a (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:134:9551)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/auth.ts:117:19) {
+  code: 'P2010',
+  meta: { code: '42P01', message: 'relation "Role" does not exist' },
+  clientVersion: '6.19.1'
+}
+[POST] /login - 305ms - 500
+9:10:48 AM [tsx] change in ./src/routes/auth.ts Restarting...
+SIGTERM received, shutting down...
+Redis disconnected
+prisma:error 
+Invalid `prisma.$queryRaw()` invocation:
+
+
+Raw query failed. Code: `42P01`. Message: `relation "Role" does not exist`
+Login error: PrismaClientKnownRequestError: 
+Invalid `prisma.$queryRaw()` invocation:
+
+
+Raw query failed. Code: `42P01`. Message: `relation "Role" does not exist`
+    at ei.handleRequestError (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:7268)
+    at ei.handleAndLogRequestError (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:6593)
+    at ei.request (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:125:6300)
+    at async a (/Users/xuhuayong/projects/ai4write/backend/src/generated/prisma/runtime/library.js:134:9551)
+    at async <anonymous> (/Users/xuhuayong/projects/ai4write/backend/src/routes/auth.ts:117:19) {
+  code: 'P2010',
+  meta: { code: '42P01', message: 'relation "Role" does not exist' },
+  clientVersion: '6.19.1'
+}
+[POST] /login - 166ms - 500
+9:10:53 AM [tsx] Process didn't exit in 5s. Force killing...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
 Prisma database connected successfully
 MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
 Embedding API connected successfully. Vector dimension: 1024
-LLM API connected successfully. Response: connected
-Prisma database connected successfully
-MinIO connected successfully. Buckets: ai4write, dify-bucket
-Embedding API connected successfully. Vector dimension: 1024
-LLM API connected successfully. Response: connected
+LLM API connected successfully. Response: Connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+node:events:496
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at Server.listen (node:net:2067:7)
+    at Function.listen (/Users/xuhuayong/projects/ai4write/backend/node_modules/express/lib/application.js:635:24)
+    at startServer (/Users/xuhuayong/projects/ai4write/backend/src/index.ts:100:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 3001
+}
+
+Node.js v20.18.3
