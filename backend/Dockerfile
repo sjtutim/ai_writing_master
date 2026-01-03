@@ -6,8 +6,8 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies
-RUN npm ci --only=production=false
+# Install dependencies (use China mirror for better connectivity)
+RUN npm config set registry https://registry.npmmirror.com && npm ci --only=production=false
 
 # Copy source code
 COPY . .
@@ -28,17 +28,14 @@ RUN addgroup --system --gid 1001 nodejs && \
 # Copy package files
 COPY package*.json ./
 
-# Install production dependencies only
-RUN npm ci --only=production
+# Install production dependencies only (use China mirror)
+RUN npm config set registry https://registry.npmmirror.com && npm ci --only=production
 
-# Copy Prisma schema for runtime
-COPY prisma ./prisma
+# Copy Prisma schema (needed for migrations at runtime, optional)
 
-# Generate Prisma client in production (with placeholder DATABASE_URL)
-RUN DATABASE_URL="postgresql://placeholder:placeholder@localhost:5432/placeholder" npx prisma generate
-
-# Copy built application
+# Copy built application and generated Prisma client
 COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/src/generated ./dist/generated
 
 # Change ownership
 RUN chown -R expressjs:nodejs /app

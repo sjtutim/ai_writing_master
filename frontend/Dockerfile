@@ -6,8 +6,8 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies
-RUN npm ci
+# Install dependencies (use China mirror for better connectivity)
+RUN npm config set registry https://registry.npmmirror.com && npm ci
 
 # Copy source code
 COPY . .
@@ -27,8 +27,8 @@ RUN addgroup --system --gid 1001 nodejs && \
 # Copy package files
 COPY package*.json ./
 
-# Install production dependencies only
-RUN npm ci --only=production
+# Install production dependencies only (use China mirror)
+RUN npm config set registry https://registry.npmmirror.com && npm ci --only=production
 
 # Copy built application
 COPY --from=builder /app/.output ./.output
