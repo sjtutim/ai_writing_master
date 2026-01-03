@@ -12,8 +12,8 @@ RUN npm ci --only=production=false
 # Copy source code
 COPY . .
 
-# Generate Prisma client
-RUN npx prisma generate
+# Generate Prisma client (with placeholder DATABASE_URL)
+RUN DATABASE_URL="postgresql://placeholder:placeholder@localhost:5432/placeholder" npx prisma generate
 
 # Build the application
 RUN npm run build
@@ -36,8 +36,8 @@ RUN npm ci --only=production
 # Copy Prisma schema for runtime
 COPY prisma ./prisma
 
-# Generate Prisma client in production
-RUN npx prisma generate
+# Generate Prisma client in production (with placeholder DATABASE_URL)
+RUN DATABASE_URL="postgresql://placeholder:placeholder@localhost:5432/placeholder" npx prisma generate
 
 # Copy built application
 COPY --from=builder /app/dist ./dist
