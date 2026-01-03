@@ -56,3 +56,5 @@ WARN  [Vue Router warn]: No match found for location with path "/.well-known/app
 ℹ hmr update /components/WritingHistory.vue, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css
 ℹ hmr update /components/WritingHistory.vue, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css (x2)
 ℹ hmr update /assets/css/main.css, /assets/css/main.css?direct
+✔ Vite server hmr 20 files in 189.467ms
+✔ Vite server hmr 20 files in 189.467ms (repeated 2 times)
