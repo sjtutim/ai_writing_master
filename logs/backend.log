@@ -11,7 +11,7 @@ MinIO connected successfully. Buckets: ai4write, dify-bucket
 Bucket "ai4write" already exists
 Bucket "ai4write" write permission: OK
 Embedding API connected successfully. Vector dimension: 1024
-LLM API connected successfully. Response: Connected
+LLM API connected successfully. Response: connected
 Redis connected
 Redis ready to use
 Redis initialized successfully

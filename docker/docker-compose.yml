@@ -21,7 +21,7 @@ services:
       MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
       MINIO_BUCKET: ${MINIO_BUCKET}
       # Redis - 外部服务
-      REDIS_URL: redis://${REDIS_HOST}:${REDIS_PORT}
+      REDIS_URL: ${REDIS_URL}
       # Embedding API
       EMBEDDING_API_URL: ${EMBEDDING_API_URL}
       EMBEDDING_MODEL: ${EMBEDDING_MODEL}

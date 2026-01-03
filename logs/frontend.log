@@ -10,15 +10,14 @@
 
 [nuxt:tailwindcss] ℹ Using default Tailwind CSS file
 [nuxt:tailwindcss] ℹ Tailwind Viewer: http:/localhost:3007/_tailwind/
-✔ Vite client built in 19ms
-✔ Vite server built in 525ms
-[nitro] ✔ Nuxt Nitro server built in 356ms
+✔ Vite client built in 23ms
+✔ Vite server built in 360ms
+[nitro] ✔ Nuxt Nitro server built in 406ms
 ℹ Vite client warmed up in 1ms
-ℹ Vite server warmed up in 611ms
+ℹ Vite server warmed up in 675ms
 [useApi] Runtime config: { baseUrl: '/api', fullConfig: { apiBaseUrl: '/api' }, envVar: undefined }
 WARN  [Vue Router warn]: No match found for location with path "/.well-known/appspecific/com.chrome.devtools.json"
 WARN  [Vue Router warn]: No match found for location with path "/.well-known/appspecific/com.chrome.devtools.json"
-ℹ hmr update /components/WritingStyleManager.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css?direct, /node_modules/tailwindcss/tailwind.css?direct
-ℹ hmr update /layouts/default.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css?direct, /node_modules/tailwindcss/tailwind.css?direct
-ℹ hmr update /pages/writing.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css?direct, /node_modules/tailwindcss/tailwind.css?direct, /pages/writing.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs
-ℹ hmr update /pages/writing.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css?direct, /node_modules/tailwindcss/tailwind.css?direct, /pages/writing.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x2)
+[useApi] Runtime config: { baseUrl: '/api', fullConfig: { apiBaseUrl: '/api' }, envVar: undefined }
+WARN  [Vue Router warn]: No match found for location with path "/.well-known/appspecific/com.chrome.devtools.json"
+WARN  [Vue Router warn]: No match found for location with path "/.well-known/appspecific/com.chrome.devtools.json"
