@@ -10,7 +10,7 @@ services:
     restart: unless-stopped
     environment:
       NODE_ENV: ${NODE_ENV:-production}
-      PORT: ${BACKEND_PORT:-3001}
+      PORT: 3001
       # PostgreSQL - 外部服务
       DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}?schema=public&connection_limit=20&pool_timeout=10
       # MinIO - 外部服务
