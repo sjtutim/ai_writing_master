@@ -1,0 +1,12 @@
+node_modules
+npm-debug.log
+.env
+.env.local
+dist
+.git
+.gitignore
+*.md
+.DS_Store
+coverage
+.nyc_output
+*.log

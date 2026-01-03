@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  # Backend API Service
+  backend:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    container_name: ai4write-backend
+    restart: unless-stopped
+    environment:
+      NODE_ENV: ${NODE_ENV:-production}
+      PORT: ${BACKEND_PORT:-3001}
+      # PostgreSQL - 外部服务
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}?schema=public&connection_limit=20&pool_timeout=10
+      # MinIO - 外部服务
+      MINIO_ENDPOINT: ${MINIO_ENDPOINT}
+      MINIO_PORT: ${MINIO_PORT}
+      MINIO_USE_SSL: ${MINIO_USE_SSL:-false}
+      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
+      MINIO_BUCKET: ${MINIO_BUCKET}
+      # Redis - 外部服务
+      REDIS_URL: redis://${REDIS_HOST}:${REDIS_PORT}
+      # Embedding API
+      EMBEDDING_API_URL: ${EMBEDDING_API_URL}
+      EMBEDDING_MODEL: ${EMBEDDING_MODEL}
+      # LLM Configuration
+      DEEPSEEK_BASE_URL: ${DEEPSEEK_BASE_URL}
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY}
+      DEEPSEEK_MODEL: ${DEEPSEEK_MODEL}
+      # JWT Configuration
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-7d}
+    ports:
+      - "${BACKEND_PORT:-3001}:3001"
+    networks:
+      - ai4write-network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  # Frontend Nuxt.js Application
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    container_name: ai4write-frontend
+    restart: unless-stopped
+    environment:
+      NODE_ENV: ${NODE_ENV:-production}
+      NUXT_PUBLIC_API_BASE_URL: ${NUXT_PUBLIC_API_BASE_URL:-http://backend:3001}
+    ports:
+      - "${FRONTEND_PORT:-3000}:3000"
+    networks:
+      - ai4write-network
+    depends_on:
+      - backend
+
+networks:
+  ai4write-network:
+    driver: bridge
