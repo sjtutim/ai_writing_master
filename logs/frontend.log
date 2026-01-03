@@ -42,3 +42,7 @@
 ℹ hmr update /pages/writing.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/writing.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x4)
 ℹ hmr update /pages/writing.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/writing.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x5)
 ℹ hmr update /components/KnowledgeSearchModal.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct
+ℹ hmr update /components/WritingHistory.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct
+ℹ hmr update /components/WritingHistory.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct (x2)
+✔ Vite server hmr 17 files in 54.649ms
+ℹ hmr update /components/WritingHistory.vue, /node_modules/tailwindcss/tailwind.css, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct (x3)

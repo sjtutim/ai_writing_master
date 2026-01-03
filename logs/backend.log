@@ -693,46 +693,35 @@ prisma:query SELECT "public"."kb_collections"."id", "public"."kb_collections"."n
 [GET] / - 208ms - 200
 [GET] / - 146ms - 200
 [GET] / - 15ms - 200
-200
-[GET] / - 24ms - 200
-[GET] / - 195ms - 200
-[GET] / - 73ms - 200
-[GET] / - 64ms - 200
-[GET] / - 26ms - 200
-[GET] / - 26ms - 200
-[GET] /knowledge/cache - 41ms - 200
-[GET] / - 41ms - 200
-[GET] / - 12ms - 200
-[GET] / - 11ms - 200
-[GET] / - 15ms - 200
-[GET] /knowledge/cache - 31ms - 200
-[GET] / - 17ms - 200
-[GET] / - 90ms - 200
-[GET] / - 59ms - 200
+[GET] / - 264ms - 200
+[GET] / - 95ms - 200
+[GET] / - 95ms - 200
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Embedding API connected successfully. Vector dimension: 1024
+[GET] /knowledge/cache - 48ms - 200
+[GET] / - 81ms - 200
+[GET] / - 89ms - 200
+[GET] / - 97ms - 200
+[GET] / - 98ms - 200
+[GET] / - 204ms - 200
 [GET] / - 28ms - 200
-[GET] / - 24ms - 200
-[GET] / - 72ms - 200
-[GET] / - 63ms - 200
-[GET] / - 168ms - 200
-[GET] / - 92ms - 200
-[GET] /knowledge/cache - 100ms - 200
-[GET] / - 9ms - 200
-[GET] / - 115ms - 200
-[GET] / - 114ms - 200
-[GET] / - 11ms - 200
-[GET] /knowledge/cache - 29ms - 200
-[GET] / - 35ms - 200
-[GET] / - 56ms - 200
-[GET] / - 48ms - 200
-[GET] / - 187ms - 200
-[GET] / - 103ms - 200
-[GET] / - 24ms - 200
-[GET] / - 200ms - 200
-[GET] / - 79ms - 200
-[GET] / - 153ms - 200
-[GET] / - 33ms - 200
-[GET] / - 35ms - 200
-[GET] /knowledge/cache - 46ms - 200
+[GET] / - 169ms - 200
+LLM API connected successfully. Response: Connected.
+[SLOW REQUEST] GET / - 2159ms
+[GET] / - 2159ms - 200
+[GET] / - 304ms - 200
+[GET] / - 136ms - 200
+[GET] / - 133ms - 200
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+[SLOW REQUEST] GET / - 2105ms
+[GET] / - 2105ms - 200
+[GET] / - 23ms - 200
+[GET] / - 53ms - 200
+he - 46ms - 200
 [GET] / - 21ms - 200
 [GET] / - 65ms - 200
 [GET] / - 179ms - 200

@@ -165,12 +165,48 @@
                 </div>
                 <div><span class="text-gray-500">创建时间：</span>{{ formatFullDate(selectedTask.createdAt) }}</div>
                 <div v-if="selectedTask.outputs?.[0]?.tokens"><span class="text-gray-500">Token：</span>{{ selectedTask.outputs[0].tokens }}</div>
+                <div v-if="selectedTask.prompt?.name"><span class="text-gray-500">使用模板：</span>{{ selectedTask.prompt.name }}</div>
+                <div v-if="selectedTask.style?.name"><span class="text-gray-500">使用风格：</span>{{ selectedTask.style.name }}</div>
               </div>
             </div>
 
             <div class="border border-gray-200 rounded-xl p-4">
               <h4 class="text-sm font-medium text-gray-700 mb-2">写作要求</h4>
               <p class="text-sm text-gray-900 whitespace-pre-wrap">{{ selectedTask.query }}</p>
+            </div>
+
+            <!-- 模板内容 -->
+            <div v-if="selectedTask.outputs?.[0]?.metadata?.promptContent" class="border border-purple-200 rounded-xl p-4 bg-purple-50/50">
+              <div class="flex items-center justify-between mb-2">
+                <h4 class="text-sm font-medium text-purple-700">提示词模板内容</h4>
+                <button
+                  @click="toggleDetailExpand('prompt')"
+                  class="text-xs text-purple-600 hover:text-purple-800"
+                >
+                  {{ detailExpandState.prompt ? '收起' : '展开' }}
+                </button>
+              </div>
+              <p
+                class="text-sm text-gray-700 whitespace-pre-wrap"
+                :class="{ 'line-clamp-3': !detailExpandState.prompt }"
+              >{{ selectedTask.outputs[0].metadata.promptContent }}</p>
+            </div>
+
+            <!-- 风格范文 -->
+            <div v-if="selectedTask.outputs?.[0]?.metadata?.styleContent" class="border border-green-200 rounded-xl p-4 bg-green-50/50">
+              <div class="flex items-center justify-between mb-2">
+                <h4 class="text-sm font-medium text-green-700">写作风格范文</h4>
+                <button
+                  @click="toggleDetailExpand('style')"
+                  class="text-xs text-green-600 hover:text-green-800"
+                >
+                  {{ detailExpandState.style ? '收起' : '展开' }}
+                </button>
+              </div>
+              <p
+                class="text-sm text-gray-700 whitespace-pre-wrap"
+                :class="{ 'line-clamp-3': !detailExpandState.style }"
+              >{{ selectedTask.outputs[0].metadata.styleContent }}</p>
             </div>
 
             <div v-if="selectedTask.outputs?.[0]?.content" class="border border-gray-200 rounded-xl p-4">
@@ -182,7 +218,7 @@
             </div>
 
             <div v-if="selectedTask.outputs?.[0]?.metadata?.retrievedChunks?.length" class="border border-gray-200 rounded-xl p-4">
-              <h4 class="text-sm font-medium text-gray-700 mb-3">单一知识库内容 ({{ selectedTask.outputs[0]?.metadata?.retrievedChunks?.length }} 条)</h4>
+              <h4 class="text-sm font-medium text-gray-700 mb-3">参考知识库内容 ({{ selectedTask.outputs[0]?.metadata?.retrievedChunks?.length }} 条)</h4>
               <div class="space-y-3">
                 <div v-for="(chunk, index) in selectedTask.outputs[0]?.metadata?.retrievedChunks || []" :key="index" class="bg-amber-50 rounded-lg p-3">
                   <p class="text-xs text-amber-600 mb-1">来源：{{ chunk.index }}</p>
@@ -248,8 +284,13 @@ const page = ref(1)
 const pageSize = 10
 const total = ref(0)
 const expandedTaskIds = ref<string[]>([])
+const detailExpandState = ref<{ prompt: boolean; style: boolean }>({ prompt: false, style: false })
 
 const totalPage = computed(() => Math.ceil(total.value / pageSize))
+
+function toggleDetailExpand(type: 'prompt' | 'style') {
+  detailExpandState.value[type] = !detailExpandState.value[type]
+}
 
 function toggleExpand(taskId: string) {
   const index = expandedTaskIds.value.indexOf(taskId)
