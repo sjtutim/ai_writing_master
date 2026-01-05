@@ -28,12 +28,14 @@ model User {
   updatedAt    DateTime @updatedAt @map("updated_at")
 
   // 关联
-  userRoles       UserRole[]
-  collections     KbCollection[]
-  documents       KbDocument[]
-  promptTemplates PromptTemplate[]
-  writingStyles   WritingStyle[]
-  writingTasks    WritingTask[]
+  userRoles                UserRole[]
+  collections              KbCollection[]
+  documents                KbDocument[]
+  promptTemplates          PromptTemplate[]
+  writingStyles            WritingStyle[]
+  writingTasks             WritingTask[]
+  promptTemplateFavorites  PromptTemplateFavorite[]
+  writingStyleFavorites    WritingStyleFavorite[]
 
   @@map("users")
 }
@@ -208,40 +210,76 @@ model Job {
 
 /// 提示词模板表
 model PromptTemplate {
-  id        String   @id @default(uuid())
-  userId    String   @map("user_id")
-  name      String
-  content   String
-  category  String?  // 分类，如：技术写作、医学写作
-  isPublic  Boolean  @default(false) @map("is_public")
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  id          String   @id @default(uuid())
+  userId      String   @map("user_id")
+  name        String
+  content     String
+  category    String?  // 分类，如：技术写作、医学写作
+  isPublic    Boolean  @default(false) @map("is_public")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
 
   // 关联
-  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user         User                       @relation(fields: [userId], references: [id], onDelete: Cascade)
   writingTasks WritingTask[]
+  favorites    PromptTemplateFavorite[]
 
   @@index([userId])
   @@index([category])
   @@map("prompt_templates")
 }
 
-/// 写作风格表
-model WritingStyle {
-  id        String   @id @default(uuid())
-  userId    String   @map("user_id")
-  name      String
-  content   String   // 风格范文或描述
-  isPublic  Boolean  @default(false) @map("is_public")
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+/// 提示词模板收藏表（每个用户独立的收藏标记）
+model PromptTemplateFavorite {
+  id         String   @id @default(uuid())
+  userId     String   @map("user_id")
+  templateId String   @map("template_id")
+  createdAt  DateTime @default(now()) @map("created_at")
 
   // 关联
-  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user     User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  template PromptTemplate @relation(fields: [templateId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, templateId])
+  @@index([userId])
+  @@index([templateId])
+  @@map("prompt_template_favorites")
+}
+
+/// 写作风格表
+model WritingStyle {
+  id          String   @id @default(uuid())
+  userId      String   @map("user_id")
+  name        String
+  content     String   // 风格范文或描述
+  isPublic    Boolean  @default(false) @map("is_public")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  // 关联
+  user         User                    @relation(fields: [userId], references: [id], onDelete: Cascade)
   writingTasks WritingTask[]
+  favorites    WritingStyleFavorite[]
 
   @@index([userId])
   @@map("writing_styles")
+}
+
+/// 写作风格收藏表（每个用户独立的收藏标记）
+model WritingStyleFavorite {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  styleId   String   @map("style_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // 关联
+  user  User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  style WritingStyle @relation(fields: [styleId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, styleId])
+  @@index([userId])
+  @@index([styleId])
+  @@map("writing_style_favorites")
 }
 
 // ==================== 写作任务管理 ====================

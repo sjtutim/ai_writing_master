@@ -11,7 +11,1712 @@ MinIO connected successfully. Buckets: ai4write, dify-bucket
 Bucket "ai4write" already exists
 Bucket "ai4write" write permission: OK
 Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: Connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+Server running on http://localhost:3001
+[DELETE] /f134e011-b717-4abc-893a-c877eeac9d17 - 204ms - 200
+[GET] / - 63ms - 200
+Deleted 1 files from folder: kb-raw/0105e736-1bff-4787-8233-26939cf63082/f134e011-b717-4abc-893a-c877eeac9d17/
+Deleted 1 files from folder: kb-md/0105e736-1bff-4787-8233-26939cf63082/f134e011-b717-4abc-893a-c877eeac9d17/
+[GET] / - 195ms - 200
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: Connected
+[SLOW REQUEST] GET / - 1571ms
+[GET] / - 1571ms - 200
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Embedding API connected successfully. Vector dimension: 1024
+[GET] / - 25ms - 200
+[GET] / - 24ms - 200
 LLM API connected successfully. Response: connected
+[SLOW REQUEST] GET / - 1419ms
+[GET] / - 1419ms - 200
+[POST] /upload - 431ms - 201
+[GET] / - 24ms - 200
+[GET] / - 71ms - 200
+[GET] / - 78ms - 200
+[GET] / - 52ms - 200
+[GET] / - 50ms - 200
+[GET] / - 51ms - 200
+[GET] / - 124ms - 200
+Processing job 1caf055a-4625-41af-922f-b290cbdc2553 (parse)
+[GET] / - 51ms - 200
+Processing parse job for document d2c711ed-5f9c-490e-b060-65aabb83e8e9, file: 若依.pdf, mimetype: application/pdf
+File type detection: filename="若依.pdf", mimetype="application/pdf"
+Detected as PDF document, using pdf-parse converter
+Starting PDF parsing, buffer size: 700267 bytes
+PDF parse result: {
+  numpages: 17,
+  numrender: 17,
+  info: {
+    PDFFormatVersion: '1.7',
+    IsAcroFormPresent: false,
+    IsXFAPresent: false,
+    Title: '',
+    Author: '',
+    Subject: '',
+    Creator: 'Typora',
+    Producer: 'Typora, Electron',
+    CreationDate: '20211108142908',
+    ModDate: 'D:20211108142908Z'
+  },
+  textLength: 3894
+}
+PDF parsed successfully: 17 pages, 3387 characters
+PDF file converted: 若依.pdf, content length: 3387
+Parse job completed for document d2c711ed-5f9c-490e-b060-65aabb83e8e9
+[GET] / - 75ms - 200
+Processing job 5875d12c-f720-4092-891d-4cfce7b25418 (embed)
+Processing embed job for document d2c711ed-5f9c-490e-b060-65aabb83e8e9
+Total chunks: 9, already embedded: 0, to embed: 9
+Embedding 9 chunks in 2 batches (batchSize: 5, delay: 500ms)
+Processing batch 1/2 (5 chunks)...
+[GET] / - 49ms - 200
+Batch 1/2 completed. Progress: 55.6% (5 success, 0 errors)
+Processing batch 2/2 (4 chunks)...
+Batch 2/2 completed. Progress: 100.0% (9 success, 0 errors)
+Embedding completed: 9 success, 0 errors out of 9 chunks
+Embed job completed successfully for document d2c711ed-5f9c-490e-b060-65aabb83e8e9
+[GET] / - 51ms - 200
+[GET] /d2c711ed-5f9c-490e-b060-65aabb83e8e9 - 126ms - 200
+[GET] /d2c711ed-5f9c-490e-b060-65aabb83e8e9/preview/md - 122ms - 200
+[DELETE] /d2c711ed-5f9c-490e-b060-65aabb83e8e9 - 114ms - 200
+[GET] / - 25ms - 200
+[GET] / - 47ms - 200
+Deleted 1 files from folder: kb-raw/0105e736-1bff-4787-8233-26939cf63082/d2c711ed-5f9c-490e-b060-65aabb83e8e9/
+Deleted 1 files from folder: kb-md/0105e736-1bff-4787-8233-26939cf63082/d2c711ed-5f9c-490e-b060-65aabb83e8e9/
+1:32:23 PM [tsx] change in ./src/services/worker.ts Restarting...
+SIGTERM received, shutting down...
+Redis disconnected
+1:32:28 PM [tsx] Process didn't exit in 5s. Force killing...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+node:events:496
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at Server.listen (node:net:2067:7)
+    at Function.listen (/Users/xuhuayong/projects/ai4write/backend/node_modules/express/lib/application.js:635:24)
+    at startServer (/Users/xuhuayong/projects/ai4write/backend/src/index.ts:115:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 3001
+}
+
+Node.js v20.18.3
+1:32:57 PM [tsx] change in ./src/services/worker.ts Rerunning...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: Connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+Server running on http://localhost:3001
+1:33:41 PM [tsx] change in ./src/generated/prisma/runtime/library.js Restarting...
+SIGTERM received, shutting down...
+Redis disconnected
+1:33:46 PM [tsx] Process didn't exit in 5s. Force killing...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: Connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+node:events:496
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at Server.listen (node:net:2067:7)
+    at Function.listen (/Users/xuhuayong/projects/ai4write/backend/node_modules/express/lib/application.js:635:24)
+    at startServer (/Users/xuhuayong/projects/ai4write/backend/src/index.ts:115:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 3001
+}
+
+Node.js v20.18.3
+1:35:59 PM [tsx] change in ./src/services/document.ts Rerunning...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: Connected.
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+Server running on http://localhost:3001
+[GET] / - 93ms - 200
+1:36:10 PM [tsx] change in ./src/generated/prisma/index.js Restarting...
+SIGTERM received, shutting down...
+Redis disconnected
+1:36:15 PM [tsx] Process didn't exit in 5s. Force killing...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: Connected.
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+node:events:496
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at Server.listen (node:net:2067:7)
+    at Function.listen (/Users/xuhuayong/projects/ai4write/backend/node_modules/express/lib/application.js:635:24)
+    at startServer (/Users/xuhuayong/projects/ai4write/backend/src/index.ts:115:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 3001
+}
+
+Node.js v20.18.3
+1:42:48 PM [tsx] change in ./src/routes/writing-tasks.ts Rerunning...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+Server running on http://localhost:3001
+1:43:15 PM [tsx] change in ./src/routes/writing-tasks.ts Restarting...
+SIGTERM received, shutting down...
+Redis disconnected
+1:43:20 PM [tsx] Process didn't exit in 5s. Force killing...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+node:events:496
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at Server.listen (node:net:2067:7)
+    at Function.listen (/Users/xuhuayong/projects/ai4write/backend/node_modules/express/lib/application.js:635:24)
+    at startServer (/Users/xuhuayong/projects/ai4write/backend/src/index.ts:115:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 3001
+}
+
+Node.js v20.18.3
+1:43:31 PM [tsx] change in ./src/routes/writing-tasks.ts Rerunning...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+Server running on http://localhost:3001
+1:44:01 PM [tsx] change in ./src/routes/writing-tasks.ts Restarting...
+SIGTERM received, shutting down...
+Redis disconnected
+1:44:06 PM [tsx] Process didn't exit in 5s. Force killing...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+node:events:496
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at Server.listen (node:net:2067:7)
+    at Function.listen (/Users/xuhuayong/projects/ai4write/backend/node_modules/express/lib/application.js:635:24)
+    at startServer (/Users/xuhuayong/projects/ai4write/backend/src/index.ts:115:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 3001
+}
+
+Node.js v20.18.3
+1:44:30 PM [tsx] change in ./src/generated/prisma/index.js Rerunning...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: Connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+Server running on http://localhost:3001
+[SLOW REQUEST] POST /generate/stream - 3499ms
+[POST] /generate/stream - 3499ms - 200
+[GET] / - 193ms - 200
+[SLOW REQUEST] POST /generate/stream - 3681ms
+[POST] /generate/stream - 3681ms - 200
+[GET] / - 124ms - 200
+[SLOW REQUEST] GET / - 1163ms
+[GET] / - 1163ms - 200
+[POST] /login - 172ms - 200
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+[SLOW REQUEST] GET / - 1856ms
+[GET] / - 1856ms - 200
+[GET] /knowledge/cache - 81ms - 200
+[GET] / - 135ms - 200
+[GET] / - 43ms - 200
+[GET] / - 299ms - 200
+[GET] / - 467ms - 200
+[GET] /users/list - 476ms - 200
+[GET] / - 97ms - 200
+[SLOW REQUEST] GET / - 2853ms
+[GET] / - 2853ms - 200
+[SLOW REQUEST] GET / - 1785ms
+[GET] / - 1785ms - 200
+[GET] / - 53ms - 200
+[GET] / - 628ms - 200
+[GET] /users/list - 23ms - 200
+[GET] / - 825ms - 200
+[GET] /users/list - 23ms - 200
+[GET] / - 606ms - 200
+[GET] /users/list - 24ms - 200
+[GET] / - 639ms - 200
+[GET] / - 54ms - 200
+[GET] /users/list - 29ms - 200
+[GET] / - 26ms - 200
+[GET] /knowledge/cache - 48ms - 200
+[GET] / - 69ms - 200
+[GET] /users/list - 69ms - 200
+[GET] / - 23ms - 200
+[GET] / - 113ms - 200
+[GET] / - 46ms - 200
+[GET] / - 785ms - 200
+[SLOW REQUEST] GET / - 1566ms
+[GET] / - 1566ms - 200
+[GET] / - 47ms - 200
+[GET] / - 50ms - 200
+[POST] /login - 143ms - 200
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: Connected
+[SLOW REQUEST] GET / - 1496ms
+[GET] / - 1496ms - 200
+[GET] / - 26ms - 200
+[GET] / - 100ms - 200
+[POST] /f98105d1-67ae-4c68-b354-fbec47f95d34/reprocess - 453ms - 200
+[GET] / - 138ms - 200
+[GET] /f98105d1-67ae-4c68-b354-fbec47f95d34 - 142ms - 200
+[GET] / - 47ms - 200
+Processing job 795bae5d-7947-4ac0-8d63-4adf9bb4f736 (chunk)
+Processing chunk job for document f98105d1-67ae-4c68-b354-fbec47f95d34
+Downloading content from MinIO: kb-md/0105e736-1bff-4787-8233-26939cf63082/f98105d1-67ae-4c68-b354-fbec47f95d34/1/document.md
+[GET] / - 46ms - 200
+[GET] / - 47ms - 200
+[GET] / - 70ms - 200
+[GET] / - 48ms - 200
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+[SLOW REQUEST] GET / - 2375ms
+[GET] / - 2375ms - 200
+[GET] / - 306ms - 200
+[GET] / - 329ms - 200
+[GET] / - 23ms - 200
+[GET] /knowledge/cache - 353ms - 200
+[GET] / - 398ms - 200
+[GET] / - 149ms - 200
+[GET] / - 825ms - 200
+[GET] / - 70ms - 200
+[SLOW REQUEST] POST /knowledge/search - 1316ms
+[POST] /knowledge/search - 1316ms - 200
+prisma:query SELECT "public"."kb_chunks"."id", "public"."kb_chunks"."version_id", "public"."kb_chunks"."chunk_index", "public"."kb_chunks"."content", "public"."kb_chunks"."created_at" FROM "public"."kb_chunks" LEFT JOIN "public"."kb_document_versions" AS "j0" ON ("j0"."id") = ("public"."kb_chunks"."version_id") LEFT JOIN "public"."kb_documents" AS "j1" ON ("j1"."id") = ("j0"."document_id") WHERE ("public"."kb_chunks"."id" IN ($1) AND ("j1"."user_id" = $2 AND "j1"."status" = $3 AND ("j1"."id" IS NOT NULL) AND ("j0"."id" IS NOT NULL))) OFFSET $4
+prisma:query SELECT "public"."kb_document_versions"."id", "public"."kb_document_versions"."document_id", "public"."kb_document_versions"."version", "public"."kb_document_versions"."raw_path", "public"."kb_document_versions"."md_path", "public"."kb_document_versions"."status", "public"."kb_document_versions"."error", "public"."kb_document_versions"."created_at" FROM "public"."kb_document_versions" WHERE "public"."kb_document_versions"."id" IN ($1) OFFSET $2
+prisma:query SELECT "public"."kb_documents"."id", "public"."kb_documents"."user_id", "public"."kb_documents"."collection_id", "public"."kb_documents"."title", "public"."kb_documents"."description", "public"."kb_documents"."status", "public"."kb_documents"."latest_version", "public"."kb_documents"."created_at", "public"."kb_documents"."updated_at" FROM "public"."kb_documents" WHERE "public"."kb_documents"."id" IN ($1) OFFSET $2
+[POST] /knowledge/cache - 375ms - 200
+[GET] /knowledge/cache - 111ms - 200
+[GET] / - 26ms - 200
+[POST] /knowledge/search - 921ms - 200
+prisma:query SELECT "public"."kb_chunks"."id", "public"."kb_chunks"."version_id", "public"."kb_chunks"."chunk_index", "public"."kb_chunks"."content", "public"."kb_chunks"."created_at" FROM "public"."kb_chunks" LEFT JOIN "public"."kb_document_versions" AS "j0" ON ("j0"."id") = ("public"."kb_chunks"."version_id") LEFT JOIN "public"."kb_documents" AS "j1" ON ("j1"."id") = ("j0"."document_id") WHERE ("public"."kb_chunks"."id" IN ($1) AND ("j1"."user_id" = $2 AND "j1"."status" = $3 AND ("j1"."id" IS NOT NULL) AND ("j0"."id" IS NOT NULL))) OFFSET $4
+prisma:query SELECT "public"."kb_document_versions"."id", "public"."kb_document_versions"."document_id", "public"."kb_document_versions"."version", "public"."kb_document_versions"."raw_path", "public"."kb_document_versions"."md_path", "public"."kb_document_versions"."status", "public"."kb_document_versions"."error", "public"."kb_document_versions"."created_at" FROM "public"."kb_document_versions" WHERE "public"."kb_document_versions"."id" IN ($1) OFFSET $2
+prisma:query SELECT "public"."kb_documents"."id", "public"."kb_documents"."user_id", "public"."kb_documents"."collection_id", "public"."kb_documents"."title", "public"."kb_documents"."description", "public"."kb_documents"."status", "public"."kb_documents"."latest_version", "public"."kb_documents"."created_at", "public"."kb_documents"."updated_at" FROM "public"."kb_documents" WHERE "public"."kb_documents"."id" IN ($1) OFFSET $2
+[POST] /knowledge/cache - 326ms - 200
+[GET] /knowledge/cache - 116ms - 200
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Embedding API connected successfully. Vector dimension: 1024
+[GET] /knowledge/cache - 111ms - 200
+[GET] / - 262ms - 200
+[GET] / - 264ms - 200
+[GET] / - 305ms - 200
+[GET] / - 46ms - 200
+[GET] / - 24ms - 200
+[GET] / - 718ms - 200
+LLM API connected successfully. Response: connected
+[SLOW REQUEST] GET / - 2773ms
+[GET] / - 2773ms - 200
+[GET] / - 25ms - 200
+Downloaded content from MinIO: 6034570 characters
+Job 795bae5d-7947-4ac0-8d63-4adf9bb4f736 failed: Error: Content appears to be binary data, not text
+    at processChunkJob (/Users/xuhuayong/projects/ai4write/backend/src/services/worker.ts:142:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async processJob (/Users/xuhuayong/projects/ai4write/backend/src/services/worker.ts:353:7)
+    at async Timeout.processNextJob (/Users/xuhuayong/projects/ai4write/backend/src/services/worker.ts:388:11)
+[POST] /knowledge/search - 884ms - 200
+prisma:query SELECT 1
+prisma:query SELECT "public"."kb_chunks"."id", "public"."kb_chunks"."version_id", "public"."kb_chunks"."chunk_index", "public"."kb_chunks"."content", "public"."kb_chunks"."created_at" FROM "public"."kb_chunks" LEFT JOIN "public"."kb_document_versions" AS "j0" ON ("j0"."id") = ("public"."kb_chunks"."version_id") LEFT JOIN "public"."kb_documents" AS "j1" ON ("j1"."id") = ("j0"."document_id") WHERE ("public"."kb_chunks"."id" IN ($1) AND ("j1"."user_id" = $2 AND "j1"."status" = $3 AND ("j1"."id" IS NOT NULL) AND ("j0"."id" IS NOT NULL))) OFFSET $4
+prisma:query SELECT "public"."kb_document_versions"."id", "public"."kb_document_versions"."document_id", "public"."kb_document_versions"."version", "public"."kb_document_versions"."raw_path", "public"."kb_document_versions"."md_path", "public"."kb_document_versions"."status", "public"."kb_document_versions"."error", "public"."kb_document_versions"."created_at" FROM "public"."kb_document_versions" WHERE "public"."kb_document_versions"."id" IN ($1) OFFSET $2
+prisma:query SELECT "public"."kb_documents"."id", "public"."kb_documents"."user_id", "public"."kb_documents"."collection_id", "public"."kb_documents"."title", "public"."kb_documents"."description", "public"."kb_documents"."status", "public"."kb_documents"."latest_version", "public"."kb_documents"."created_at", "public"."kb_documents"."updated_at" FROM "public"."kb_documents" WHERE "public"."kb_documents"."id" IN ($1) OFFSET $2
+[POST] /knowledge/cache - 208ms - 200
+[GET] /knowledge/cache - 115ms - 200
+[GET] / - 53ms - 200
+[POST] /knowledge/search - 239ms - 200
+prisma:query SELECT 1
+prisma:query SELECT "public"."kb_chunks"."id", "public"."kb_chunks"."version_id", "public"."kb_chunks"."chunk_index", "public"."kb_chunks"."content", "public"."kb_chunks"."created_at" FROM "public"."kb_chunks" LEFT JOIN "public"."kb_document_versions" AS "j0" ON ("j0"."id") = ("public"."kb_chunks"."version_id") LEFT JOIN "public"."kb_documents" AS "j1" ON ("j1"."id") = ("j0"."document_id") WHERE ("public"."kb_chunks"."id" IN ($1) AND ("j1"."user_id" = $2 AND "j1"."status" = $3 AND ("j1"."id" IS NOT NULL) AND ("j0"."id" IS NOT NULL))) OFFSET $4
+prisma:query SELECT "public"."kb_document_versions"."id", "public"."kb_document_versions"."document_id", "public"."kb_document_versions"."version", "public"."kb_document_versions"."raw_path", "public"."kb_document_versions"."md_path", "public"."kb_document_versions"."status", "public"."kb_document_versions"."error", "public"."kb_document_versions"."created_at" FROM "public"."kb_document_versions" WHERE "public"."kb_document_versions"."id" IN ($1) OFFSET $2
+prisma:query SELECT "public"."kb_documents"."id", "public"."kb_documents"."user_id", "public"."kb_documents"."collection_id", "public"."kb_documents"."title", "public"."kb_documents"."description", "public"."kb_documents"."status", "public"."kb_documents"."latest_version", "public"."kb_documents"."created_at", "public"."kb_documents"."updated_at" FROM "public"."kb_documents" WHERE "public"."kb_documents"."id" IN ($1) OFFSET $2
+[POST] /knowledge/cache - 221ms - 200
+[GET] /knowledge/cache - 121ms - 200
+[GET] / - 50ms - 200
+[GET] / - 26ms - 200
+[GET] / - 105ms - 200
+[GET] /knowledge/cache - 121ms - 200
+[GET] / - 53ms - 200
+[GET] / - 175ms - 200
+[GET] / - 33ms - 200
+[GET] / - 50ms - 200
+[GET] / - 222ms - 200
+[GET] / - 25ms - 200
+[GET] /knowledge/cache - 119ms - 200
+[GET] / - 26ms - 200
+[GET] / - 48ms - 200
+[GET] / - 196ms - 200
+[GET] / - 30ms - 200
+[POST] /knowledge/search - 224ms - 200
+prisma:query SELECT 1
+prisma:query SELECT "public"."kb_chunks"."id", "public"."kb_chunks"."version_id", "public"."kb_chunks"."chunk_index", "public"."kb_chunks"."content", "public"."kb_chunks"."created_at" FROM "public"."kb_chunks" LEFT JOIN "public"."kb_document_versions" AS "j0" ON ("j0"."id") = ("public"."kb_chunks"."version_id") LEFT JOIN "public"."kb_documents" AS "j1" ON ("j1"."id") = ("j0"."document_id") WHERE ("public"."kb_chunks"."id" IN ($1) AND ("j1"."user_id" = $2 AND "j1"."status" = $3 AND ("j1"."id" IS NOT NULL) AND ("j0"."id" IS NOT NULL))) OFFSET $4
+prisma:query SELECT "public"."kb_document_versions"."id", "public"."kb_document_versions"."document_id", "public"."kb_document_versions"."version", "public"."kb_document_versions"."raw_path", "public"."kb_document_versions"."md_path", "public"."kb_document_versions"."status", "public"."kb_document_versions"."error", "public"."kb_document_versions"."created_at" FROM "public"."kb_document_versions" WHERE "public"."kb_document_versions"."id" IN ($1) OFFSET $2
+prisma:query SELECT "public"."kb_documents"."id", "public"."kb_documents"."user_id", "public"."kb_documents"."collection_id", "public"."kb_documents"."title", "public"."kb_documents"."description", "public"."kb_documents"."status", "public"."kb_documents"."latest_version", "public"."kb_documents"."created_at", "public"."kb_documents"."updated_at" FROM "public"."kb_documents" WHERE "public"."kb_documents"."id" IN ($1) OFFSET $2
+[POST] /knowledge/cache - 220ms - 200
+[GET] /knowledge/cache - 121ms - 200
+[GET] / - 25ms - 200
+[POST] /knowledge/search - 185ms - 200
+prisma:query SELECT "public"."kb_chunks"."id", "public"."kb_chunks"."version_id", "public"."kb_chunks"."chunk_index", "public"."kb_chunks"."content", "public"."kb_chunks"."created_at" FROM "public"."kb_chunks" LEFT JOIN "public"."kb_document_versions" AS "j0" ON ("j0"."id") = ("public"."kb_chunks"."version_id") LEFT JOIN "public"."kb_documents" AS "j1" ON ("j1"."id") = ("j0"."document_id") WHERE ("public"."kb_chunks"."id" IN ($1) AND ("j1"."user_id" = $2 AND "j1"."status" = $3 AND ("j1"."id" IS NOT NULL) AND ("j0"."id" IS NOT NULL))) OFFSET $4
+prisma:query SELECT "public"."kb_document_versions"."id", "public"."kb_document_versions"."document_id", "public"."kb_document_versions"."version", "public"."kb_document_versions"."raw_path", "public"."kb_document_versions"."md_path", "public"."kb_document_versions"."status", "public"."kb_document_versions"."error", "public"."kb_document_versions"."created_at" FROM "public"."kb_document_versions" WHERE "public"."kb_document_versions"."id" IN ($1) OFFSET $2
+prisma:query SELECT "public"."kb_documents"."id", "public"."kb_documents"."user_id", "public"."kb_documents"."collection_id", "public"."kb_documents"."title", "public"."kb_documents"."description", "public"."kb_documents"."status", "public"."kb_documents"."latest_version", "public"."kb_documents"."created_at", "public"."kb_documents"."updated_at" FROM "public"."kb_documents" WHERE "public"."kb_documents"."id" IN ($1) OFFSET $2
+[POST] /knowledge/cache - 195ms - 200
+[GET] /knowledge/cache - 116ms - 200
+[GET] / - 38ms - 200
+1:52:41 PM [tsx] change in ./src/services/knowledgeCache.ts Restarting...
+SIGTERM received, shutting down...
+Redis disconnected
+1:52:46 PM [tsx] Process didn't exit in 5s. Force killing...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+node:events:496
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at Server.listen (node:net:2067:7)
+    at Function.listen (/Users/xuhuayong/projects/ai4write/backend/node_modules/express/lib/application.js:635:24)
+    at startServer (/Users/xuhuayong/projects/ai4write/backend/src/index.ts:115:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 3001
+}
+
+Node.js v20.18.3
+2:04:02 PM [tsx] change in ./src/routes/prompt-templates.ts Rerunning...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+Server running on http://localhost:3001
+[DELETE] /08403d6a-2f71-49f4-b2a8-508d48a9c1d3 - 101ms - 200
+2:04:06 PM [tsx] change in ./src/routes/writing-styles.ts Restarting...
+SIGTERM received, shutting down...
+Redis disconnected
+2:04:11 PM [tsx] Process didn't exit in 5s. Force killing...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+node:events:496
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at Server.listen (node:net:2067:7)
+    at Function.listen (/Users/xuhuayong/projects/ai4write/backend/node_modules/express/lib/application.js:635:24)
+    at startServer (/Users/xuhuayong/projects/ai4write/backend/src/index.ts:115:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 3001
+}
+
+Node.js v20.18.3
+2:09:33 PM [tsx] change in ./src/generated/prisma/runtime/library.js Rerunning...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+2:09:35 PM [tsx] change in ./src/generated/prisma/runtime/library.js Restarting...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+node:events:496
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at Server.listen (node:net:2067:7)
+    at Function.listen (/Users/xuhuayong/projects/ai4write/backend/node_modules/express/lib/application.js:635:24)
+    at startServer (/Users/xuhuayong/projects/ai4write/backend/src/index.ts:115:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 3001
+}
+
+Node.js v20.18.3
+2:09:52 PM [tsx] change in ./src/routes/prompt-templates.ts Rerunning...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+Server running on http://localhost:3001
+[GET] / - 97ms - 200
+[GET] / - 99ms - 200
+2:10:04 PM [tsx] change in ./src/routes/writing-styles.ts Restarting...
+SIGTERM received, shutting down...
+Redis disconnected
+2:10:09 PM [tsx] Process didn't exit in 5s. Force killing...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+node:events:496
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at Server.listen (node:net:2067:7)
+    at Function.listen (/Users/xuhuayong/projects/ai4write/backend/node_modules/express/lib/application.js:635:24)
+    at startServer (/Users/xuhuayong/projects/ai4write/backend/src/index.ts:115:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 3001
+}
+
+Node.js v20.18.3
+2:11:22 PM [tsx] change in ./src/routes/prompt-templates.ts Rerunning...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+Server running on http://localhost:3001
+2:11:27 PM [tsx] change in ./src/routes/prompt-templates.ts Restarting...
+SIGTERM received, shutting down...
+Redis disconnected
+2:11:31 PM [tsx] change in ./src/routes/writing-styles.ts Process hasn't exited. Killing process...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+Server running on http://localhost:3001
+2:11:40 PM [tsx] change in ./src/routes/writing-styles.ts Restarting...
+SIGTERM received, shutting down...
+Redis disconnected
+2:11:45 PM [tsx] Process didn't exit in 5s. Force killing...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+node:events:496
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at Server.listen (node:net:2067:7)
+    at Function.listen (/Users/xuhuayong/projects/ai4write/backend/node_modules/express/lib/application.js:635:24)
+    at startServer (/Users/xuhuayong/projects/ai4write/backend/src/index.ts:115:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 3001
+}
+
+Node.js v20.18.3
+2:12:18 PM [tsx] change in ./src/routes/prompt-templates.ts Rerunning...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+Server running on http://localhost:3001
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Embedding API connected successfully. Vector dimension: 1024
+[GET] / - 51ms - 200
+[GET] /knowledge/cache - 47ms - 200
+[GET] / - 53ms - 200
+[GET] / - 227ms - 200
+[GET] / - 253ms - 200
+[GET] / - 49ms - 200
+[GET] / - 295ms - 200
+LLM API connected successfully. Response: connected
+[SLOW REQUEST] GET / - 1582ms
+[GET] / - 1582ms - 200
+[GET] / - 97ms - 200
+[GET] / - 48ms - 200
+[GET] / - 51ms - 200
+2:12:32 PM [tsx] change in ./src/routes/writing-styles.ts Restarting...
+SIGTERM received, shutting down...
+Redis disconnected
+2:12:37 PM [tsx] Process didn't exit in 5s. Force killing...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+node:events:496
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at Server.listen (node:net:2067:7)
+    at Function.listen (/Users/xuhuayong/projects/ai4write/backend/node_modules/express/lib/application.js:635:24)
+    at startServer (/Users/xuhuayong/projects/ai4write/backend/src/index.ts:115:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 3001
+}
+
+Node.js v20.18.3
+2:13:39 PM [tsx] change in ./src/routes/prompt-templates.ts Rerunning...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+Server running on http://localhost:3001
+2:13:45 PM [tsx] change in ./src/routes/writing-styles.ts Restarting...
+SIGTERM received, shutting down...
+Redis disconnected
+2:13:50 PM [tsx] Process didn't exit in 5s. Force killing...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+node:events:496
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at Server.listen (node:net:2067:7)
+    at Function.listen (/Users/xuhuayong/projects/ai4write/backend/node_modules/express/lib/application.js:635:24)
+    at startServer (/Users/xuhuayong/projects/ai4write/backend/src/index.ts:115:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 3001
+}
+
+Node.js v20.18.3
+2:13:53 PM [tsx] change in ./src/routes/prompt-templates.ts Rerunning...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: Connected.
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+Server running on http://localhost:3001
+2:14:01 PM [tsx] change in ./src/routes/writing-styles.ts Restarting...
+SIGTERM received, shutting down...
+Redis disconnected
+2:14:06 PM [tsx] Process didn't exit in 5s. Force killing...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+node:events:496
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at Server.listen (node:net:2067:7)
+    at Function.listen (/Users/xuhuayong/projects/ai4write/backend/node_modules/express/lib/application.js:635:24)
+    at startServer (/Users/xuhuayong/projects/ai4write/backend/src/index.ts:115:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 3001
+}
+
+Node.js v20.18.3
+2:15:12 PM [tsx] change in ./src/routes/prompt-templates.ts Rerunning...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+Server running on http://localhost:3001
+[GET] / - 99ms - 200
+2:15:21 PM [tsx] change in ./src/routes/writing-styles.ts Restarting...
+SIGTERM received, shutting down...
+Redis disconnected
+2:15:26 PM [tsx] Process didn't exit in 5s. Force killing...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+node:events:496
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at Server.listen (node:net:2067:7)
+    at Function.listen (/Users/xuhuayong/projects/ai4write/backend/node_modules/express/lib/application.js:635:24)
+    at startServer (/Users/xuhuayong/projects/ai4write/backend/src/index.ts:115:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 3001
+}
+
+Node.js v20.18.3
+2:17:49 PM [tsx] change in ./src/routes/prompt-templates.ts Rerunning...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+Server running on http://localhost:3001
+2:17:55 PM [tsx] change in ./src/routes/writing-styles.ts Restarting...
+SIGTERM received, shutting down...
+Redis disconnected
+2:18:00 PM [tsx] Process didn't exit in 5s. Force killing...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: Connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+node:events:496
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at Server.listen (node:net:2067:7)
+    at Function.listen (/Users/xuhuayong/projects/ai4write/backend/node_modules/express/lib/application.js:635:24)
+    at startServer (/Users/xuhuayong/projects/ai4write/backend/src/index.ts:115:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 3001
+}
+
+Node.js v20.18.3
+2:20:25 PM [tsx] change in ./src/routes/prompt-templates.ts Rerunning...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+Server running on http://localhost:3001
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Embedding API connected successfully. Vector dimension: 1024
+[GET] / - 52ms - 200
+[GET] /knowledge/cache - 47ms - 200
+[GET] / - 25ms - 200
+[GET] /users/list - 178ms - 200
+[GET] / - 178ms - 200
+[GET] / - 221ms - 200
+[GET] / - 47ms - 200
+LLM API connected successfully. Response: connected
+[SLOW REQUEST] GET / - 1615ms
+[GET] / - 1615ms - 200
+[GET] / - 50ms - 200
+[SLOW REQUEST] GET / - 1115ms
+[GET] / - 1115ms - 200
+[GET] / - 50ms - 200
+[GET] / - 383ms - 200
+[SLOW REQUEST] GET / - 1106ms
+[GET] / - 1106ms - 200
+[SLOW REQUEST] GET / - 1516ms
+[GET] / - 1516ms - 200
+[DELETE] /ab2215b7-8f42-4336-a9c0-21b8428710a7 - 107ms - 200
+[GET] / - 722ms - 200
+[SLOW REQUEST] GET / - 1199ms
+[GET] / - 1199ms - 200
+[DELETE] /d85307c9-a95b-472e-96c4-80c843f68b41 - 62ms - 200
+[GET] / - 925ms - 200
+[SLOW REQUEST] GET / - 1354ms
+[GET] / - 1354ms - 200
+[DELETE] /0bd61b6d-6a53-44cd-b6f4-21c260f4bb6b - 58ms - 200
+[GET] / - 538ms - 200
+[SLOW REQUEST] GET / - 1648ms
+[GET] / - 1648ms - 200
+[DELETE] /e8ad02a4-b20e-486c-bc88-f0f1047eba2f - 58ms - 200
+[SLOW REQUEST] GET / - 1053ms
+[GET] / - 1053ms - 200
+[SLOW REQUEST] GET / - 1007ms
+[GET] / - 1007ms - 200
+[DELETE] /4e77872c-9ec7-45b0-b238-877bbbb58731 - 72ms - 200
+[GET] / - 819ms - 200
+[SLOW REQUEST] GET / - 1318ms
+[GET] / - 1318ms - 200
+[DELETE] /3b761f4c-9573-408d-aea9-4746a2747c62 - 58ms - 200
+[GET] / - 380ms - 200
+[GET] / - 864ms - 200
+[DELETE] /9fb0e886-265f-4a15-afe5-1cf24d6ce8c0 - 62ms - 200
+[GET] / - 311ms - 200
+[GET] / - 645ms - 200
+[GET] / - 49ms - 200
+[GET] / - 50ms - 200
+2:21:39 PM [tsx] change in ./src/routes/writing-styles.ts Restarting...
+SIGTERM received, shutting down...
+Redis disconnected
+2:21:44 PM [tsx] Process didn't exit in 5s. Force killing...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: Connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+node:events:496
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at Server.listen (node:net:2067:7)
+    at Function.listen (/Users/xuhuayong/projects/ai4write/backend/node_modules/express/lib/application.js:635:24)
+    at startServer (/Users/xuhuayong/projects/ai4write/backend/src/index.ts:115:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 3001
+}
+
+Node.js v20.18.3
+2:22:06 PM [tsx] change in ./src/generated/prisma/runtime/library.js Rerunning...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+Server running on http://localhost:3001
+[GET] / - 99ms - 200
+[POST] /101a76c5-f200-4c18-a85a-16d5eb4ab16f/toggle-favorite - 100ms - 200
+[POST] /login - 166ms - 200
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Embedding API connected successfully. Vector dimension: 1024
+[GET] / - 52ms - 200
+[GET] /knowledge/cache - 50ms - 200
+[GET] / - 25ms - 200
+[GET] / - 177ms - 200
+[GET] / - 220ms - 200
+[GET] / - 225ms - 200
+[GET] / - 49ms - 200
+LLM API connected successfully. Response: connected
+[SLOW REQUEST] GET / - 1625ms
+[GET] / - 1625ms - 200
+[GET] / - 52ms - 200
+[GET] / - 101ms - 200
+[GET] / - 51ms - 200
+[GET] / - 50ms - 200
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Embedding API connected successfully. Vector dimension: 1024
+[GET] / - 27ms - 200
+[GET] /knowledge/cache - 48ms - 200
+[GET] / - 23ms - 200
+[GET] / - 74ms - 200
+[GET] / - 97ms - 200
+[GET] / - 98ms - 200
+[GET] / - 48ms - 200
+LLM API connected successfully. Response: connected
+[SLOW REQUEST] GET / - 1902ms
+[GET] / - 1902ms - 200
+[GET] / - 76ms - 200
+[GET] / - 52ms - 200
+[GET] / - 111ms - 200
+2:23:46 PM [tsx] change in ./src/routes/writing-styles.ts Restarting...
+SIGTERM received, shutting down...
+Redis disconnected
+2:23:51 PM [tsx] Process didn't exit in 5s. Force killing...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+node:events:496
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at Server.listen (node:net:2067:7)
+    at Function.listen (/Users/xuhuayong/projects/ai4write/backend/node_modules/express/lib/application.js:635:24)
+    at startServer (/Users/xuhuayong/projects/ai4write/backend/src/index.ts:115:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 3001
+}
+
+Node.js v20.18.3
+2:24:55 PM [tsx] change in ./src/routes/writing-styles.ts Rerunning...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+Server running on http://localhost:3001
+[POST] /login - 233ms - 200
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Embedding API connected successfully. Vector dimension: 1024
+[GET] / - 52ms - 200
+[GET] / - 51ms - 200
+[GET] /knowledge/cache - 45ms - 200
+[GET] /users/list - 179ms - 200
+[GET] / - 181ms - 200
+[GET] / - 230ms - 200
+[GET] / - 226ms - 200
+[GET] / - 329ms - 200
+LLM API connected successfully. Response: Connected
+[SLOW REQUEST] GET / - 1827ms
+[GET] / - 1827ms - 200
+[GET] / - 185ms - 200
+[GET] / - 98ms - 200
+[POST] /101a76c5-f200-4c18-a85a-16d5eb4ab16f/toggle-favorite - 106ms - 200
+[POST] /login - 154ms - 200
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Embedding API connected successfully. Vector dimension: 1024
+[GET] / - 51ms - 200
+[GET] / - 51ms - 200
+[GET] / - 52ms - 200
+[GET] / - 46ms - 200
+[GET] / - 94ms - 200
+[GET] /knowledge/cache - 47ms - 200
+[GET] / - 93ms - 200
+LLM API connected successfully. Response: Connected
+[SLOW REQUEST] GET / - 1722ms
+[GET] / - 1722ms - 200
+[GET] / - 49ms - 200
+[GET] / - 100ms - 200
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Embedding API connected successfully. Vector dimension: 1024
+[GET] / - 136ms - 200
+[GET] /knowledge/cache - 158ms - 200
+[GET] / - 25ms - 200
+[GET] / - 181ms - 200
+[GET] / - 183ms - 200
+[GET] / - 204ms - 200
+[GET] / - 46ms - 200
+LLM API connected successfully. Response: connected
+[SLOW REQUEST] GET / - 1896ms
+[GET] / - 1896ms - 200
+[GET] / - 150ms - 200
+[POST] /101a76c5-f200-4c18-a85a-16d5eb4ab16f/toggle-favorite - 109ms - 200
+[POST] /10fa4ed0-7bdb-44b4-824f-e414510d7315/toggle-favorite - 54ms - 200
+[POST] /3e0c9131-64be-4c1c-8202-dcb6961380ee/toggle-favorite - 54ms - 200
+[POST] /6827033f-92c6-49cd-ae93-11d0fa305b96/toggle-favorite - 61ms - 200
+[GET] / - 51ms - 200
+[GET] / - 50ms - 200
+[GET] / - 27ms - 200
+[GET] / - 51ms - 200
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Embedding API connected successfully. Vector dimension: 1024
+[GET] / - 27ms - 200
+[GET] / - 52ms - 200
+[GET] / - 75ms - 200
+[GET] /knowledge/cache - 50ms - 200
+[GET] / - 97ms - 200
+[GET] / - 123ms - 200
+[GET] / - 92ms - 200
+LLM API connected successfully. Response: connected
+[SLOW REQUEST] GET / - 2033ms
+[GET] / - 2033ms - 200
+[GET] / - 54ms - 200
+[POST] /login - 153ms - 200
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Embedding API connected successfully. Vector dimension: 1024
+[GET] /knowledge/cache - 58ms - 200
+[GET] / - 80ms - 200
+[GET] / - 78ms - 200
+[GET] / - 82ms - 200
+[GET] /users/list - 81ms - 200
+[GET] / - 48ms - 200
+[GET] / - 52ms - 200
+[GET] / - 317ms - 200
+2:29:00 PM [tsx] change in ./src/generated/prisma/runtime/library.js Restarting...
+SIGTERM received, shutting down...
+LLM API connected successfully. Response: Connected
+[SLOW REQUEST] GET / - 1742ms
+[GET] / - 1742ms - 200
+Redis disconnected
+2:29:05 PM [tsx] Process didn't exit in 5s. Force killing...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+node:events:496
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at Server.listen (node:net:2067:7)
+    at Function.listen (/Users/xuhuayong/projects/ai4write/backend/node_modules/express/lib/application.js:635:24)
+    at startServer (/Users/xuhuayong/projects/ai4write/backend/src/index.ts:115:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 3001
+}
+
+Node.js v20.18.3
+2:29:34 PM [tsx] change in ./src/routes/prompt-templates.ts Rerunning...
+c2:29:34 PM [tsx] change in ./src/routes/writing-styles.ts Restarting...
+Starting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+node:events:496
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at Server.listen (node:net:2067:7)
+    at Function.listen (/Users/xuhuayong/projects/ai4write/backend/node_modules/express/lib/application.js:635:24)
+    at startServer (/Users/xuhuayong/projects/ai4write/backend/src/index.ts:115:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 3001
+}
+
+Node.js v20.18.3
+2:29:56 PM [tsx] change in ./src/generated/prisma/runtime/library.js Rerunning...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+Server running on http://localhost:3001
+[GET] / - 107ms - 200
+[GET] / - 158ms - 200
+[GET] / - 100ms - 200
+[GET] / - 330ms - 200
+[GET] / - 136ms - 200
+[GET] / - 91ms - 200
+[GET] / - 72ms - 200
+[GET] /meta/roles - 46ms - 200
+[GET] / - 136ms - 200
+[GET] / - 49ms - 200
+[GET] / - 70ms - 200
+[GET] / - 69ms - 200
+[GET] / - 91ms - 200
+[GET] /knowledge/cache - 44ms - 200
+[GET] /users/list - 165ms - 200
+[GET] / - 173ms - 200
+[GET] / - 216ms - 200
+[GET] / - 275ms - 200
+[GET] / - 45ms - 200
+[GET] / - 47ms - 200
+[GET] / - 371ms - 200
+[GET] / - 27ms - 200
+[GET] /users/list - 49ms - 200
+[GET] / - 50ms - 200
+[GET] / - 74ms - 200
+[GET] /knowledge/cache - 56ms - 200
+[GET] / - 106ms - 200
+[GET] / - 104ms - 200
+[GET] / - 313ms - 200
+[GET] / - 146ms - 200
+[GET] / - 47ms - 200
+[POST] /login - 160ms - 200
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Embedding API connected successfully. Vector dimension: 1024
+[GET] /knowledge/cache - 44ms - 200
+[GET] / - 47ms - 200
+[GET] / - 44ms - 200
+[GET] / - 96ms - 200
+[GET] / - 45ms - 200
+[GET] / - 114ms - 200
+[GET] / - 107ms - 200
+LLM API connected successfully. Response: connected
+[SLOW REQUEST] GET / - 1797ms
+[GET] / - 1797ms - 200
+[GET] / - 105ms - 200
+[GET] / - 75ms - 200
+[POST] /283dee94-f1f7-42b1-adb8-c2c5e1c018df/toggle-favorite - 148ms - 200
+[GET] / - 178ms - 200
+[GET] / - 70ms - 200
+[GET] / - 69ms - 200
+[GET] / - 48ms - 200
+[GET] / - 48ms - 200
+[POST] /medical-writing-prompt/toggle-favorite - 153ms - 200
+[GET] / - 69ms - 200
+[POST] /47a00d46-809f-4b1a-b773-9c41827b3391/toggle-favorite - 80ms - 200
+[POST] /2f6b5540-3c30-476b-b29a-1cc57bf136bf/toggle-favorite - 121ms - 200
+[POST] /6827033f-92c6-49cd-ae93-11d0fa305b96/toggle-favorite - 76ms - 200
+[POST] /3e0c9131-64be-4c1c-8202-dcb6961380ee/toggle-favorite - 78ms - 200
+[POST] /10fa4ed0-7bdb-44b4-824f-e414510d7315/toggle-favorite - 79ms - 200
+[POST] /101a76c5-f200-4c18-a85a-16d5eb4ab16f/toggle-favorite - 73ms - 200
+2:31:27 PM [tsx] change in ./src/generated/prisma/index.js Restarting...
+SIGTERM received, shutting down...
+Redis disconnected
+2:31:32 PM [tsx] Process didn't exit in 5s. Force killing...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+node:events:496
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at Server.listen (node:net:2067:7)
+    at Function.listen (/Users/xuhuayong/projects/ai4write/backend/node_modules/express/lib/application.js:635:24)
+    at startServer (/Users/xuhuayong/projects/ai4write/backend/src/index.ts:115:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 3001
+}
+
+Node.js v20.18.3
+2:31:37 PM [tsx] change in ./src/generated/prisma/index.js Rerunning...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: connected
+Redis connected
+Redis ready to use
+Redis initialized successfully
+--- Connection Tests Complete ---
+
+Starting job worker...
+Server running on http://localhost:3001
+[GET] / - 98ms - 200
+[GET] / - 136ms - 200
+2:32:22 PM [tsx] change in ./src/routes/writing-styles.ts Restarting...
+SIGTERM received, shutting down...
+Redis disconnected
+2:32:27 PM [tsx] Process didn't exit in 5s. Force killing...
+cStarting AI4Write Backend...
+Environment: development
+
+--- Testing Connections ---
+Prisma database connected successfully
+MinIO connected successfully. Buckets: ai4write, dify-bucket
+Bucket "ai4write" already exists
+Bucket "ai4write" write permission: OK
+Embedding API connected successfully. Vector dimension: 1024
+LLM API connected successfully. Response: Connected
 Redis connected
 Redis ready to use
 Redis initialized successfully

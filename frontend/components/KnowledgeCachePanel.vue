@@ -27,9 +27,18 @@
                 {{ chunk.collectionName }}
               </span>
             </div>
-            <p class="text-sm text-gray-700 line-clamp-3">
+            <p
+              class="text-sm text-gray-700"
+              :class="expandedChunks.includes(chunk.id) ? '' : 'line-clamp-3'"
+            >
               {{ chunk.content }}
             </p>
+            <button
+              @click="toggleExpand(chunk.id)"
+              class="mt-2 text-xs text-blue-600 hover:text-blue-800"
+            >
+              {{ expandedChunks.includes(chunk.id) ? '收起' : '查看全文' }}
+            </button>
           </div>
           <button
             @click="$emit('remove-chunk', chunk.id)"
@@ -47,6 +56,8 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
+
 interface CachedChunk {
   id: string
   content: string
@@ -55,13 +66,24 @@ interface CachedChunk {
   addedAt: string
 }
 
-defineProps<{
+const props = defineProps<{
   cachedChunks: CachedChunk[]
 }>()
 
 defineEmits<{
   'remove-chunk': [chunkId: string]
 }>()
+
+const expandedChunks = ref<string[]>([])
+
+function toggleExpand(chunkId: string) {
+  const index = expandedChunks.value.indexOf(chunkId)
+  if (index > -1) {
+    expandedChunks.value.splice(index, 1)
+  } else {
+    expandedChunks.value.push(chunkId)
+  }
+}
 </script>
 
 <style scoped>

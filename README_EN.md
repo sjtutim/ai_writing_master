@@ -20,7 +20,7 @@
 
 ## ✨ Features
 
-- **📚 Knowledge Base Management** - Upload Word/TXT documents, automatically convert to Markdown and store with vector embeddings
+- **📚 Knowledge Base Management** - Upload Word/TXT/Markdown/PDF documents, automatically convert to Markdown and store with vector embeddings
 - **✍️ Intelligent Writing** - Generate high-quality content using LLM based on knowledge base context
 - **🎨 Templates & Styles** - Custom prompt templates and writing styles for flexible output control
 - **🔒 Local Deployment** - Fully local operation with complete data control
@@ -275,8 +275,8 @@ NUXT_PUBLIC_API_BASE_URL=
 ### 1. Create Knowledge Base
 
 1. Navigate to "Knowledge Base" page
-2. Click "New Knowledge Base" to create a category Word/TXT documents
-3. Upload or paste text directly
+2. Click "New Knowledge Base" to create a category
+3. Upload Word/TXT/Markdown/PDF documents or paste text directly
 4. System automatically parses, vectorizes and stores content
 
 ### 2. Start Writing

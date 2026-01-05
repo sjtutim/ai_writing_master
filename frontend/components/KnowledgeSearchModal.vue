@@ -120,9 +120,18 @@
                     相似度: {{ (result.similarity * 100).toFixed(1) }}%
                   </span>
                 </div>
-                <p class="text-sm text-gray-700 line-clamp-4">
+                <p
+                  class="text-sm text-gray-700"
+                  :class="expandedChunks.includes(result.id) ? '' : 'line-clamp-4'"
+                >
                   {{ result.content }}
                 </p>
+                <button
+                  @click.stop="toggleExpandChunk(result.id)"
+                  class="mt-2 text-xs text-blue-600 hover:text-blue-800"
+                >
+                  {{ expandedChunks.includes(result.id) ? '收起' : '查看全文' }}
+                </button>
               </div>
             </div>
           </div>
@@ -187,6 +196,7 @@ const searching = ref(false)
 const searched = ref(false)
 const searchResults = ref<SearchResult[]>([])
 const selectedChunks = ref<string[]>([])
+const expandedChunks = ref<string[]>([])
 const collections = ref<Collection[]>([])
 
 watch(() => props.selectedCollectionId, (newVal) => {
@@ -253,6 +263,15 @@ function toggleSelectAll() {
   }
 }
 
+function toggleExpandChunk(chunkId: string) {
+  const index = expandedChunks.value.indexOf(chunkId)
+  if (index > -1) {
+    expandedChunks.value.splice(index, 1)
+  } else {
+    expandedChunks.value.push(chunkId)
+  }
+}
+
 function handleAddToCache() {
   if (selectedChunks.value.length === 0) return
   emit('chunks-selected', selectedChunks.value)
@@ -265,6 +284,7 @@ function close() {
     searchQuery.value = ''
     searchResults.value = []
     selectedChunks.value = []
+    expandedChunks.value = []
     searched.value = false
   }, 300)
 }

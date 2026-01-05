@@ -45,10 +45,28 @@ router.post('/register', async (req, res) => {
       },
     });
 
+    // Get default user role
+    const defaultRole = await prisma.role.findFirst({
+      where: { name: 'user' },
+    });
+
+    if (defaultRole) {
+      await prisma.userRole.create({
+        data: {
+          userId: user.id,
+          roleId: defaultRole.id,
+        },
+      });
+    }
+
+    const isAdmin = false;
+    const rolesData = defaultRole ? [{ id: defaultRole.id, name: defaultRole.name }] : [];
+    const permissionsData: Array<{ code: string; name: string; type: string }> = [];
+
     // Generate token
     const signOptions: SignOptions = { expiresIn: config.jwt.expiresIn as any };
     const token = jwt.sign(
-      { userId: user.id, email: user.email },
+      { userId: user.id, email: user.email, isAdmin },
       config.jwt.secret,
       signOptions
     );
@@ -59,6 +77,9 @@ router.post('/register', async (req, res) => {
         email: user.email,
         name: user.name,
         status: user.status,
+        roles: rolesData,
+        permissions: permissionsData,
+        isAdmin,
       },
       token,
     });
@@ -134,10 +155,12 @@ router.post('/login', async (req, res) => {
       await CacheService.set(cacheKey, { roles: rolesData, permissions: permissionsData }, 3600);
     }
 
+    const isAdmin = rolesData.some((r: { name: string }) => r.name === 'admin');
+
     // Generate token
     const signOptions: SignOptions = { expiresIn: config.jwt.expiresIn as any };
     const token = jwt.sign(
-      { userId: user.id, email: user.email },
+      { userId: user.id, email: user.email, isAdmin },
       config.jwt.secret,
       signOptions
     );
@@ -150,6 +173,7 @@ router.post('/login', async (req, res) => {
         status: user.status,
         roles: rolesData,
         permissions: permissionsData,
+        isAdmin,
       },
       token,
     });
@@ -268,6 +292,8 @@ router.get('/me', authMiddleware, async (req: any, res) => {
       WHERE ur."userId" = ${userId}
     `;
 
+    const isAdmin = rolesData.some((r: { name: string }) => r.name === 'admin');
+
     const result = {
       id: user.id,
       email: user.email,
@@ -276,6 +302,7 @@ router.get('/me', authMiddleware, async (req: any, res) => {
       createdAt: user.createdAt,
       roles: rolesData,
       permissions: permissionsData,
+      isAdmin,
     };
 
     // 缓存用户信息（30分钟）

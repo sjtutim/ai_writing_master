@@ -30,12 +30,18 @@ const upload = (0, multer_1.default)({
             'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // .docx
             'application/msword', // .doc
             'text/plain', // .txt
+            'text/markdown', // .md
+            'application/pdf', // .pdf
         ];
-        if (allowedTypes.includes(file.mimetype)) {
+        // 也检查文件扩展名，因为有些系统可能将文件识别为不同的 MIME 类型
+        const filename = file.originalname.toLowerCase();
+        const isMarkdown = filename.endsWith('.md') || filename.endsWith('.markdown');
+        const isPdf = filename.endsWith('.pdf');
+        if (allowedTypes.includes(file.mimetype) || isMarkdown || isPdf) {
             cb(null, true);
         }
         else {
-            cb(new Error('不支持的文件类型，仅支持 .docx, .doc, .txt'));
+            cb(new Error('不支持的文件类型，仅支持 .docx, .doc, .txt, .md, .pdf'));
         }
     },
 });

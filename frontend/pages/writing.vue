@@ -52,6 +52,43 @@
             ></textarea>
           </div>
 
+          <!-- 严格基于知识库选项 -->
+          <div
+            class="flex items-center justify-between p-4 rounded-xl border-2 cursor-pointer transition-all mb-6"
+            :class="strictKnowledgeMode
+              ? 'bg-blue-50 border-blue-400'
+              : 'bg-gray-50 border-gray-200 hover:border-gray-300'"
+            @click="strictKnowledgeMode = !strictKnowledgeMode"
+          >
+            <div class="flex items-center gap-3">
+              <div
+                class="w-10 h-10 rounded-xl flex items-center justify-center"
+                :class="strictKnowledgeMode ? 'bg-blue-500' : 'bg-gray-300'"
+              >
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+              <div>
+                <span class="text-sm font-semibold" :class="strictKnowledgeMode ? 'text-blue-700' : 'text-gray-700'">
+                  严格基于知识库知识
+                </span>
+                <p class="text-xs text-gray-500 mt-0.5">
+                  AI 将仅基于知识库内容撰写，不引用其他来源
+                </p>
+              </div>
+            </div>
+            <div
+              class="w-12 h-6 rounded-full transition-all relative"
+              :class="strictKnowledgeMode ? 'bg-blue-500' : 'bg-gray-300'"
+            >
+              <div
+                class="absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-all"
+                :class="strictKnowledgeMode ? 'left-7' : 'left-1'"
+              ></div>
+            </div>
+          </div>
+
           <!-- 知识库选择区域 -->
           <div class="mb-6 p-4 bg-blue-50 rounded-xl border border-blue-100">
             <div class="flex items-center gap-2 mb-4">
@@ -194,9 +231,9 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
           </div>
-          <p v-if="selectedPrompt" class="mt-2 text-xs text-gray-500 line-clamp-5">
-            {{ selectedPrompt.content }}
-          </p>
+          <div v-if="selectedPrompt" class="mt-3 p-3 bg-gray-50 rounded-lg border border-gray-100">
+            <p class="text-xs text-gray-600 whitespace-pre-wrap">{{ selectedPrompt.content }}</p>
+          </div>
         </div>
 
         <!-- 写作风格 -->
@@ -229,9 +266,9 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
           </div>
-          <p v-if="selectedStyle" class="mt-2 text-xs text-gray-500 line-clamp-5">
-            {{ selectedStyle.content }}
-          </p>
+          <div v-if="selectedStyle" class="mt-3 p-3 bg-gray-50 rounded-lg border border-gray-100">
+            <p class="text-xs text-gray-600 whitespace-pre-wrap">{{ selectedStyle.content }}</p>
+          </div>
         </div>
 
       </div>
@@ -281,6 +318,7 @@ import PromptTemplateManager from '~/components/PromptTemplateManager.vue'
 import KnowledgeCachePanel from '~/components/KnowledgeCachePanel.vue'
 import KnowledgeSearchModal from '~/components/KnowledgeSearchModal.vue'
 import GenerateResultModal from '~/components/GenerateResultModal.vue'
+import WritingHistory from '~/components/WritingHistory.vue'
 
 definePageMeta({
   middleware: 'auth',
@@ -341,6 +379,7 @@ const showKnowledgeSearch = ref(false)
 const cachedChunks = ref<CachedChunk[]>([])
 const cacheCount = computed(() => cachedChunks.value.length)
 const showResultModal = ref(false)
+const strictKnowledgeMode = ref(false)
 
 interface CachedChunk {
   id: string
@@ -461,6 +500,11 @@ async function handleGenerate() {
         collectionIds: [selectedCollectionId.value],
       }
     }
+  }
+
+  // 严格基于知识库模式
+  if (strictKnowledgeMode.value) {
+    payload.strictKnowledgeMode = true
   }
 
   const token = localStorage.getItem('token')

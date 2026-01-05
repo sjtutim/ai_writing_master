@@ -6,6 +6,7 @@ export interface AuthRequest extends Request {
   user?: {
     userId: string;
     email: string;
+    isAdmin?: boolean;
   };
 }
 
@@ -29,6 +30,7 @@ export function authMiddleware(
     const decoded = jwt.verify(token, config.jwt.secret) as {
       userId: string;
       email: string;
+      isAdmin?: boolean;
     };
     req.user = decoded;
     next();

@@ -27,6 +27,12 @@ export declare const config: {
         apiUrl: string;
         model: string;
     };
+    chunking: {
+        chunkSize: number;
+        overlap: number;
+        embeddingBatchSize: number;
+        embeddingBatchDelay: number;
+    };
     deepseek: {
         baseUrl: string;
         apiKey: string;

@@ -270,11 +270,11 @@
               <input
                 ref="fileInput"
                 type="file"
-                accept=".docx,.doc,.txt"
+                accept=".docx,.doc,.txt,.md,.markdown,.pdf"
                 @change="handleFileSelect"
                 class="block w-full text-sm text-gray-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
               />
-              <p class="text-xs text-gray-500 mt-1">支持 .docx, .doc, .txt 格式，单个文件最大 50MB</p>
+              <p class="text-xs text-gray-500 mt-1">支持 .docx, .doc, .txt, .md, .pdf 格式，单个文件最大 50MB</p>
             </div>
           </div>
           <div v-if="uploadError" class="px-6 py-2 text-sm text-red-600">{{ uploadError }}</div>

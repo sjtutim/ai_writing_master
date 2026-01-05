@@ -8,23 +8,48 @@ const router = express.Router();
 router.get('/', authMiddleware, async (req: AuthRequest, res) => {
   try {
     const userId = req.user!.userId;
+    const showAll = req.query.all === 'true';
 
-    const styles = await prisma.writingStyle.findMany({
-      where: {
+    let whereClause: any;
+    if (showAll) {
+      whereClause = {
         OR: [
-          { userId },
+          { userId: userId },
           { isPublic: true }
         ]
-      },
+      };
+    } else {
+      whereClause = {
+        OR: [
+          { userId: userId, favorites: { some: { userId: userId } } },
+          { isPublic: true, favorites: { some: { userId: userId } } }
+        ]
+      };
+    }
+
+    const styles = await prisma.writingStyle.findMany({
+      where: whereClause,
       orderBy: { createdAt: 'desc' },
       include: {
         user: {
           select: { name: true }
+        },
+        favorites: {
+          where: { userId: userId },
+          select: { id: true }
         }
       }
     });
 
-    res.json(styles);
+    res.json(styles.map(s => ({
+      id: s.id,
+      name: s.name,
+      content: s.content,
+      isPublic: s.isPublic,
+      isFavorite: s.favorites.length > 0,
+      userId: s.userId,
+      user: s.user,
+    })));
   } catch (error) {
     console.error('Get writing styles error:', error);
     res.status(500).json({ error: 'Failed to fetch writing styles' });
@@ -51,7 +76,18 @@ router.get('/:id', authMiddleware, async (req: AuthRequest, res) => {
       return res.status(404).json({ error: 'Writing style not found' });
     }
 
-    res.json(style);
+    const favorite = await prisma.writingStyleFavorite.findUnique({
+      where: { userId_styleId: { userId, styleId: id } }
+    });
+
+    res.json({
+      id: style.id,
+      name: style.name,
+      content: style.content,
+      isPublic: style.isPublic,
+      isFavorite: !!favorite,
+      userId: style.userId,
+    });
   } catch (error) {
     console.error('Get writing style error:', error);
     res.status(500).json({ error: 'Failed to fetch writing style' });
@@ -94,7 +130,6 @@ router.put('/:id', authMiddleware, async (req: AuthRequest, res) => {
     const { id } = req.params;
     const { name, content, isPublic } = req.body;
 
-    // 检查权限
     const style = await prisma.writingStyle.findFirst({
       where: { id, userId },
     });
@@ -128,7 +163,6 @@ router.delete('/:id', authMiddleware, async (req: AuthRequest, res) => {
     const userId = req.user!.userId;
     const { id } = req.params;
 
-    // 检查权限
     const style = await prisma.writingStyle.findFirst({
       where: { id, userId },
     });
@@ -145,6 +179,44 @@ router.delete('/:id', authMiddleware, async (req: AuthRequest, res) => {
   } catch (error) {
     console.error('Delete writing style error:', error);
     res.status(500).json({ error: 'Failed to delete writing style' });
+  }
+});
+
+// 切换收藏状态
+router.post('/:id/toggle-favorite', authMiddleware, async (req: AuthRequest, res) => {
+  try {
+    const userId = req.user!.userId;
+    const { id } = req.params;
+
+    const style = await prisma.writingStyle.findFirst({
+      where: {
+        id,
+        OR: [{ userId }, { isPublic: true }],
+      },
+    });
+
+    if (!style) {
+      return res.status(404).json({ error: 'Writing style not found' });
+    }
+
+    const existing = await prisma.writingStyleFavorite.findUnique({
+      where: { userId_styleId: { userId, styleId: id } }
+    });
+
+    if (existing) {
+      await prisma.writingStyleFavorite.delete({
+        where: { id: existing.id }
+      });
+      res.json({ isFavorite: false });
+    } else {
+      await prisma.writingStyleFavorite.create({
+        data: { userId, styleId: id }
+      });
+      res.json({ isFavorite: true });
+    }
+  } catch (error) {
+    console.error('Toggle favorite error:', error);
+    res.status(500).json({ error: 'Failed to toggle favorite' });
   }
 });
 

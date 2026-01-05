@@ -1,5 +1,17 @@
 <template>
   <div class="space-y-3">
+    <div v-if="isAdmin && users.length > 0" class="flex items-center gap-3 mb-2">
+      <select
+        v-model="selectedUserId"
+        class="input py-1.5 text-sm"
+        @change="loadTasks"
+      >
+        <option value="">全部用户</option>
+        <option v-for="user in users" :key="user.id" :value="user.id">
+          {{ user.name || user.email }} ({{ user.taskCount }} 条)
+        </option>
+      </select>
+    </div>
     <div v-if="tasks.length > 0" class="relative">
       <input
         v-model="searchKeyword"
@@ -38,6 +50,9 @@
               {{ task.query }}
             </p>
             <div class="flex flex-wrap items-center gap-2 mt-2">
+              <span v-if="isAdmin && task.user" class="text-xs text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded">
+                {{ task.user.name || task.user.email }}
+              </span>
               <span class="text-xs text-gray-500">{{ formatDate(task.createdAt) }}</span>
               <span v-if="task.style?.name" class="badge badge-primary text-xs">
                 {{ task.style.name }}
@@ -231,6 +246,7 @@
             <div class="bg-gray-50 rounded-xl p-4">
               <h4 class="text-sm font-medium text-gray-700 mb-3">基本信息</h4>
               <div class="grid grid-cols-2 gap-3 text-sm">
+                <div v-if="isAdmin && selectedTask.user"><span class="text-gray-500">用户：</span>{{ selectedTask.user.name || selectedTask.user.email }}</div>
                 <div class="flex items-center gap-2">
                   <span class="text-gray-500">状态：</span>
                   <span
@@ -298,6 +314,22 @@
               <p class="text-sm text-gray-800 whitespace-pre-wrap leading-relaxed">{{ selectedTask.outputs[0].content }}</p>
             </div>
 
+            <div v-if="selectedTask.outputs?.[0]?.metadata?.systemPrompt" class="border border-blue-200 rounded-xl p-4 bg-blue-50/50">
+              <div class="flex items-center justify-between mb-2">
+                <h4 class="text-sm font-medium text-blue-700">系统提示词</h4>
+                <button
+                  @click="toggleDetailExpand('systemPrompt')"
+                  class="text-xs text-blue-600 hover:text-blue-800"
+                >
+                  {{ detailExpandState.systemPrompt ? '收起' : '展开' }}
+                </button>
+              </div>
+              <p
+                class="text-sm text-gray-700 whitespace-pre-wrap"
+                :class="{ 'line-clamp-4': !detailExpandState.systemPrompt }"
+              >{{ selectedTask.outputs[0].metadata.systemPrompt }}</p>
+            </div>
+
             <div v-if="selectedTask.outputs?.[0]?.metadata?.retrievedChunks?.length" class="border border-gray-200 rounded-xl p-4">
               <h4 class="text-sm font-medium text-gray-700 mb-3">参考知识库内容 ({{ selectedTask.outputs[0]?.metadata?.retrievedChunks?.length }} 条)</h4>
               <div class="space-y-3">
@@ -337,6 +369,7 @@ interface WritingTask {
   createdAt: string
   style?: { id: string; name: string }
   prompt?: { id: string; name: string }
+  user?: { id: string; name: string | null; email: string }
   outputs?: {
     id: string
     content: string
@@ -350,6 +383,10 @@ interface WritingTask {
       userQuery?: string
       kbScope?: any
       generatedAt?: string
+      generationParams?: {
+        maxTokens?: number
+        temperature?: number
+      }
     }
   }[]
   kbScope?: any
@@ -357,16 +394,25 @@ interface WritingTask {
   promptId?: string
 }
 
+interface User {
+  id: string
+  name: string | null
+  email: string
+  taskCount: number
+}
+
 const emit = defineEmits(['reuse-task', 'task-deleted'])
 
 const tasks = ref<WritingTask[]>([])
 const loading = ref(false)
 const selectedTask = ref<WritingTask | null>(null)
+const users = ref<User[]>([])
+const selectedUserId = ref('')
 const page = ref(1)
 const pageSize = 10
 const total = ref(0)
 const expandedTaskIds = ref<string[]>([])
-const detailExpandState = ref<{ prompt: boolean; style: boolean }>({ prompt: false, style: false })
+const detailExpandState = ref<{ prompt: boolean; style: boolean; systemPrompt: boolean }>({ prompt: false, style: false, systemPrompt: false })
 const searchKeyword = ref('')
 const copySuccessId = ref<string | null>(null)
 const editingTaskId = ref<string | null>(null)
@@ -376,7 +422,7 @@ let searchTimer: ReturnType<typeof setTimeout> | null = null
 
 const totalPage = computed(() => Math.ceil(total.value / pageSize))
 
-function toggleDetailExpand(type: 'prompt' | 'style') {
+function toggleDetailExpand(type: 'prompt' | 'style' | 'systemPrompt') {
   detailExpandState.value[type] = !detailExpandState.value[type]
 }
 
@@ -389,6 +435,16 @@ function toggleExpand(taskId: string) {
   }
 }
 
+async function loadUsers() {
+  if (!isAdmin.value) return
+  try {
+    const res = await get<{ users: User[] }>('/writing-tasks/users/list')
+    users.value = res.users
+  } catch (error) {
+    console.error('Failed to load users:', error)
+  }
+}
+
 async function loadTasks() {
   loading.value = true
   try {
@@ -398,6 +454,9 @@ async function loadTasks() {
     })
     if (searchKeyword.value.trim()) {
       params.append('keyword', searchKeyword.value.trim())
+    }
+    if (selectedUserId.value) {
+      params.append('targetUserId', selectedUserId.value)
     }
     const res = await get<{ tasks: WritingTask[]; total: number }>(`/writing-tasks?${params}`)
     tasks.value = res.tasks
@@ -528,7 +587,8 @@ defineExpose({
   loadTasks,
 })
 
-onMounted(() => {
+onMounted(async () => {
+  await loadUsers()
   loadTasks()
 })
 </script>

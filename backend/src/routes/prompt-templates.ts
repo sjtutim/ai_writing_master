@@ -8,15 +8,34 @@ const router = express.Router();
 router.get('/', authMiddleware, async (req: AuthRequest, res) => {
   try {
     const userId = req.user!.userId;
+    const showAll = req.query.all === 'true';
 
-    const templates = await prisma.promptTemplate.findMany({
-      where: {
+    let whereClause: any;
+    if (showAll) {
+      whereClause = {
         OR: [
-          { userId },
+          { userId: userId },
           { isPublic: true }
         ]
-      },
+      };
+    } else {
+      whereClause = {
+        OR: [
+          { userId: userId, favorites: { some: { userId: userId } } },
+          { isPublic: true, favorites: { some: { userId: userId } } }
+        ]
+      };
+    }
+
+    const templates = await prisma.promptTemplate.findMany({
+      where: whereClause,
       orderBy: { createdAt: 'desc' },
+      include: {
+        favorites: {
+          where: { userId: userId },
+          select: { id: true }
+        }
+      }
     });
 
     res.json(templates.map(t => ({
@@ -25,6 +44,8 @@ router.get('/', authMiddleware, async (req: AuthRequest, res) => {
       content: t.content,
       category: t.category,
       isPublic: t.isPublic,
+      isFavorite: t.favorites.length > 0,
+      userId: t.userId,
     })));
   } catch (error) {
     console.error('Get prompt templates error:', error);
@@ -52,12 +73,18 @@ router.get('/:id', authMiddleware, async (req: AuthRequest, res) => {
       return res.status(404).json({ error: 'Prompt template not found' });
     }
 
+    const favorite = await prisma.promptTemplateFavorite.findUnique({
+      where: { userId_templateId: { userId, templateId: id } }
+    });
+
     res.json({
       id: template.id,
       name: template.name,
       content: template.content,
       category: template.category,
       isPublic: template.isPublic,
+      isFavorite: !!favorite,
+      userId: template.userId,
     });
   } catch (error) {
     console.error('Get prompt template error:', error);
@@ -102,7 +129,6 @@ router.put('/:id', authMiddleware, async (req: AuthRequest, res) => {
     const { id } = req.params;
     const { name, content, category, isPublic } = req.body;
 
-    // 检查权限
     const template = await prisma.promptTemplate.findFirst({
       where: { id, userId },
     });
@@ -137,7 +163,6 @@ router.delete('/:id', authMiddleware, async (req: AuthRequest, res) => {
     const userId = req.user!.userId;
     const { id } = req.params;
 
-    // 检查权限
     const template = await prisma.promptTemplate.findFirst({
       where: { id, userId },
     });
@@ -154,6 +179,44 @@ router.delete('/:id', authMiddleware, async (req: AuthRequest, res) => {
   } catch (error) {
     console.error('Delete prompt template error:', error);
     res.status(500).json({ error: 'Failed to delete prompt template' });
+  }
+});
+
+// 切换收藏状态
+router.post('/:id/toggle-favorite', authMiddleware, async (req: AuthRequest, res) => {
+  try {
+    const userId = req.user!.userId;
+    const { id } = req.params;
+
+    const template = await prisma.promptTemplate.findFirst({
+      where: {
+        id,
+        OR: [{ userId }, { isPublic: true }],
+      },
+    });
+
+    if (!template) {
+      return res.status(404).json({ error: 'Prompt template not found' });
+    }
+
+    const existing = await prisma.promptTemplateFavorite.findUnique({
+      where: { userId_templateId: { userId, templateId: id } }
+    });
+
+    if (existing) {
+      await prisma.promptTemplateFavorite.delete({
+        where: { id: existing.id }
+      });
+      res.json({ isFavorite: false });
+    } else {
+      await prisma.promptTemplateFavorite.create({
+        data: { userId, templateId: id }
+      });
+      res.json({ isFavorite: true });
+    }
+  } catch (error) {
+    console.error('Toggle favorite error:', error);
+    res.status(500).json({ error: 'Failed to toggle favorite' });
   }
 });
 

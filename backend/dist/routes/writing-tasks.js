@@ -37,9 +37,19 @@ async function retrieveRelevantChunks(query, kbScope, userId, limit = 30) {
 // 获取用户的写作任务历史
 router.get('/', auth_1.authMiddleware, async (req, res) => {
     try {
-        const userId = req.user.userId;
-        const { limit = 20, offset = 0, keyword } = req.query;
-        const where = { userId };
+        const currentUserId = req.user.userId;
+        const isAdmin = req.user.isAdmin || false;
+        const { limit = 20, offset = 0, keyword, targetUserId } = req.query;
+        let where = {};
+        if (isAdmin && targetUserId) {
+            where.userId = targetUserId;
+        }
+        else if (isAdmin && !targetUserId) {
+            where = {};
+        }
+        else {
+            where.userId = currentUserId;
+        }
         if (keyword) {
             const kw = String(keyword);
             where.OR = [
@@ -63,6 +73,13 @@ router.get('/', auth_1.authMiddleware, async (req, res) => {
                     select: {
                         id: true,
                         name: true,
+                    },
+                },
+                user: {
+                    select: {
+                        id: true,
+                        name: true,
+                        email: true,
                     },
                 },
                 outputs: {
@@ -89,7 +106,8 @@ router.post('/generate/stream', auth_1.authMiddleware, async (req, res) => {
     res.setHeader('X-Accel-Buffering', 'no');
     try {
         const userId = req.user.userId;
-        const { query, styleId, promptId, kbScope, collectionIds, cachedChunkIds, // 新增：高级跨知识库模式使用的缓存chunk IDs
+        const { query, styleId, promptId, kbScope, collectionIds, cachedChunkIds, // 高级跨知识库模式使用的缓存chunk IDs
+        strictKnowledgeMode, // 严格基于知识库模式
          } = req.body;
         if (!query) {
             res.write(`data: ${JSON.stringify({ error: 'Query is required' })}\n\n`);
@@ -159,7 +177,11 @@ router.post('/generate/stream', auth_1.authMiddleware, async (req, res) => {
             const renderedPromptContent = promptContent
                 ? renderPromptTemplate(promptContent, { query, context: contextText })
                 : '';
-            const systemPrompt = `你是一个专业的写作助手。${styleContent ? `\n\n参考写作风格示例：\n${styleContent}` : ''}${renderedPromptContent ? `\n\n${renderedPromptContent}` : ''}
+            // 构建严格模式提示词
+            const strictModePrompt = strictKnowledgeMode
+                ? '\n\n【重要约束】严格基于当前搜到的知识库知识来撰写，不要从其他来源获得引用，不要编造或使用知识库以外的信息。如果知识库中没有相关内容，请明确告知用户。'
+                : '';
+            const systemPrompt = `你是一个专业的写作助手。${styleContent ? `\n\n参考写作风格示例：\n${styleContent}` : ''}${renderedPromptContent ? `\n\n${renderedPromptContent}` : ''}${strictModePrompt}
 
 写作要求：
 ${query}
@@ -227,13 +249,25 @@ ${query}
 // 获取单个写作任务详情
 router.get('/:id', auth_1.authMiddleware, async (req, res) => {
     try {
-        const userId = req.user.userId;
+        const currentUserId = req.user.userId;
+        const isAdmin = req.user.isAdmin || false;
         const { id } = req.params;
+        const where = { id };
+        if (!isAdmin) {
+            where.userId = currentUserId;
+        }
         const task = await prisma_1.prisma.writingTask.findFirst({
-            where: { id, userId },
+            where,
             include: {
                 style: true,
                 prompt: true,
+                user: {
+                    select: {
+                        id: true,
+                        name: true,
+                        email: true,
+                    },
+                },
                 outputs: {
                     orderBy: { createdAt: 'desc' },
                 },
@@ -255,7 +289,8 @@ router.post('/generate', auth_1.authMiddleware, async (req, res) => {
         const userId = req.user.userId;
         const { query, styleId, promptId, kbScope, // { documentIds: [...], collectionIds: [...] }
         collectionIds, // 向后兼容
-        cachedChunkIds, // 新增：高级跨知识库模式使用的缓存chunk IDs
+        cachedChunkIds, // 高级跨知识库模式使用的缓存chunk IDs
+        strictKnowledgeMode, // 严格基于知识库模式
          } = req.body;
         if (!query) {
             return res.status(400).json({ error: 'Query is required' });
@@ -334,9 +369,13 @@ router.post('/generate', auth_1.authMiddleware, async (req, res) => {
             const renderedPromptContent = promptContent
                 ? renderPromptTemplate(promptContent, { query, context: contextText })
                 : '';
+            // 构建严格模式提示词
+            const strictModePrompt = strictKnowledgeMode
+                ? '\n\n【重要约束】严格基于当前搜到的知识库知识来撰写，不要从其他来源获得引用，不要编造或使用知识库以外的信息。如果知识库中没有相关内容，请明确告知用户。'
+                : '';
             // 4. 构建 LLM 提示
             // 系统提示词：角色定义 + 写作风格 + 写作要求/提示词
-            const systemPrompt = `你是一个专业的写作助手。${styleContent ? `\n\n参考写作风格示例：\n${styleContent}` : ''}${renderedPromptContent ? `\n\n${renderedPromptContent}` : ''}
+            const systemPrompt = `你是一个专业的写作助手。${styleContent ? `\n\n参考写作风格示例：\n${styleContent}` : ''}${renderedPromptContent ? `\n\n${renderedPromptContent}` : ''}${strictModePrompt}
 
 写作要求：
 ${query}
@@ -552,6 +591,39 @@ router.delete('/knowledge/cache', auth_1.authMiddleware, async (req, res) => {
     catch (error) {
         console.error('Clear cache error:', error);
         res.status(500).json({ error: 'Failed to clear cache' });
+    }
+});
+router.get('/users/list', auth_1.authMiddleware, async (req, res) => {
+    try {
+        const isAdmin = req.user.isAdmin || false;
+        if (!isAdmin) {
+            return res.status(403).json({ error: 'Access denied. Admin only.' });
+        }
+        const users = await prisma_1.prisma.user.findMany({
+            select: {
+                id: true,
+                name: true,
+                email: true,
+                createdAt: true,
+                _count: {
+                    select: { writingTasks: true },
+                },
+            },
+            orderBy: { createdAt: 'desc' },
+        });
+        res.json({
+            users: users.map((u) => ({
+                id: u.id,
+                name: u.name,
+                email: u.email,
+                createdAt: u.createdAt,
+                taskCount: u._count.writingTasks,
+            })),
+        });
+    }
+    catch (error) {
+        console.error('Get users list error:', error);
+        res.status(500).json({ error: 'Failed to get users list' });
     }
 });
 exports.default = router;

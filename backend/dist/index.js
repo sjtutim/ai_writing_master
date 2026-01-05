@@ -23,7 +23,20 @@ const prompt_templates_1 = __importDefault(require("./routes/prompt-templates"))
 const users_1 = __importDefault(require("./routes/users"));
 const app = (0, express_1.default)();
 // Middleware
-app.use((0, cors_1.default)());
+app.use((0, cors_1.default)({
+    origin: true,
+    credentials: true,
+}));
+// Allow private network requests for Chromium-based browsers
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Private-Network', 'true');
+    next();
+});
+// Preflight handling
+app.options('*', (0, cors_1.default)({
+    origin: true,
+    credentials: true,
+}));
 app.use(express_1.default.json({ limit: '50mb' }));
 app.use(express_1.default.urlencoded({ extended: true, limit: '50mb' }));
 // 确保所有响应使用 UTF-8 编码

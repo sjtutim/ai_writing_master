@@ -42,15 +42,33 @@ router.post('/register', async (req, res) => {
                 createdAt: true,
             },
         });
+        // Get default user role
+        const defaultRole = await prisma_1.prisma.role.findFirst({
+            where: { name: 'user' },
+        });
+        if (defaultRole) {
+            await prisma_1.prisma.userRole.create({
+                data: {
+                    userId: user.id,
+                    roleId: defaultRole.id,
+                },
+            });
+        }
+        const isAdmin = false;
+        const rolesData = defaultRole ? [{ id: defaultRole.id, name: defaultRole.name }] : [];
+        const permissionsData = [];
         // Generate token
         const signOptions = { expiresIn: config_1.config.jwt.expiresIn };
-        const token = jsonwebtoken_1.default.sign({ userId: user.id, email: user.email }, config_1.config.jwt.secret, signOptions);
+        const token = jsonwebtoken_1.default.sign({ userId: user.id, email: user.email, isAdmin }, config_1.config.jwt.secret, signOptions);
         res.status(201).json({
             user: {
                 id: user.id,
                 email: user.email,
                 name: user.name,
                 status: user.status,
+                roles: rolesData,
+                permissions: permissionsData,
+                isAdmin,
             },
             token,
         });
@@ -114,9 +132,10 @@ router.post('/login', async (req, res) => {
             // 缓存角色和权限信息（1小时）
             await redis_1.CacheService.set(cacheKey, { roles: rolesData, permissions: permissionsData }, 3600);
         }
+        const isAdmin = rolesData.some((r) => r.name === 'admin');
         // Generate token
         const signOptions = { expiresIn: config_1.config.jwt.expiresIn };
-        const token = jsonwebtoken_1.default.sign({ userId: user.id, email: user.email }, config_1.config.jwt.secret, signOptions);
+        const token = jsonwebtoken_1.default.sign({ userId: user.id, email: user.email, isAdmin }, config_1.config.jwt.secret, signOptions);
         res.json({
             user: {
                 id: user.id,
@@ -125,6 +144,7 @@ router.post('/login', async (req, res) => {
                 status: user.status,
                 roles: rolesData,
                 permissions: permissionsData,
+                isAdmin,
             },
             token,
         });
@@ -218,6 +238,7 @@ router.get('/me', auth_1.authMiddleware, async (req, res) => {
       INNER JOIN "UserRole" ur ON ur."roleId" = rp."roleId"
       WHERE ur."userId" = ${userId}
     `;
+        const isAdmin = rolesData.some((r) => r.name === 'admin');
         const result = {
             id: user.id,
             email: user.email,
@@ -226,6 +247,7 @@ router.get('/me', auth_1.authMiddleware, async (req, res) => {
             createdAt: user.createdAt,
             roles: rolesData,
             permissions: permissionsData,
+            isAdmin,
         };
         // 缓存用户信息（30分钟）
         await redis_1.CacheService.set(cacheKey, result, 1800);

@@ -33,6 +33,16 @@ export const config = {
     apiUrl: process.env.EMBEDDING_API_URL || 'http://localhost:1234/v1/embeddings',
     model: process.env.EMBEDDING_MODEL || 'text-embedding-bge-m3',
   },
+  chunking: {
+    // 单块最大字符数（增大以保留更多上下文）
+    chunkSize: parseInt(process.env.CHUNK_SIZE || '1500', 10),
+    // 块之间的重叠字符数
+    overlap: parseInt(process.env.CHUNK_OVERLAP || '150', 10),
+    // 向量化批处理大小（每批处理的分块数量）
+    embeddingBatchSize: parseInt(process.env.EMBEDDING_BATCH_SIZE || '5', 10),
+    // 批次之间的延迟（毫秒），防止请求过快
+    embeddingBatchDelay: parseInt(process.env.EMBEDDING_BATCH_DELAY || '500', 10),
+  },
   deepseek: {
     baseUrl: process.env.DEEPSEEK_BASE_URL || 'https://api.deepseek.com',
     apiKey: process.env.DEEPSEEK_API_KEY || '',
