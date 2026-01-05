@@ -12,13 +12,13 @@ echo "🛑 停止服务..."
 cd docker
 docker-compose down --remove-orphans 2>/dev/null || true
 
-# 删除旧镜像，确保重新编译
-echo "🗑️ 删除旧镜像..."
+# 只删除应用镜像，保留基础镜像缓存
+echo "🗑️ 删除应用镜像..."
 docker rmi ai4write-backend ai4write-frontend 2>/dev/null || true
 
-# 构建并启动
-echo "🔨 构建镜像（不使用缓存）..."
-docker-compose build --no-cache
+# 构建镜像（使用缓存）
+echo "🔨 构建镜像..."
+docker-compose build
 
 echo "🚀 启动服务..."
 docker-compose up -d
