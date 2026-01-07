@@ -136,16 +136,12 @@ update_service() {
         echo "  停止并删除旧容器..."
         docker-compose stop backend 2>/dev/null || true
         docker-compose rm -f backend 2>/dev/null || true
-        docker stop ai4write-backend 2>/dev/null || true
-        docker rm -f ai4write-backend 2>/dev/null || true
         echo "  启动 backend..."
         docker-compose up -d backend
     elif [ "$service" = "frontend" ]; then
         echo "  停止并删除旧容器..."
         docker-compose stop frontend 2>/dev/null || true
         docker-compose rm -f frontend 2>/dev/null || true
-        docker stop ai4write-frontend 2>/dev/null || true
-        docker rm -f ai4write-frontend 2>/dev/null || true
         echo "  启动 frontend..."
         docker-compose up -d frontend
     fi
@@ -157,9 +153,11 @@ update_service() {
 
 check_network() {
     echo -e "${YELLOW}🔍 检查网络...${NC}"
-    if ! docker network inspect ai4write-network &>/dev/null; then
+    if ! docker network inspect docker_ai4write-network &>/dev/null && ! docker network inspect ai4write-network &>/dev/null; then
         echo "  创建网络 ai4write-network..."
-        docker network create ai4write-network 2>/dev/null || true
+        cd "$DOCKER_DIR"
+        docker-compose up -d --no-start
+        cd - > /dev/null
     fi
     echo -e "${GREEN}✅ 网络检查完成${NC}"
 }
