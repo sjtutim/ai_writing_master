@@ -424,7 +424,7 @@
               </select>
             </div>
             <div>
-              <label class="label">选择目录</label>
+              <label class="label">选择文件夹</label>
               <input
                 ref="folderInput"
                 type="file"
@@ -432,7 +432,7 @@
                 directory
                 multiple
                 @change="handleFolderSelect"
-                class="block w-full text-sm text-gray-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+                class="block w-full text-sm text-gray-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 folder-input"
               />
               <p class="text-xs text-gray-500 mt-1">支持 .docx, .doc, .txt, .md, .pdf 格式，单个文件最大 50MB</p>
             </div>
@@ -942,28 +942,60 @@ async function handleFolderUpload() {
     failed: 0,
   }
 
-  for (const file of folderFiles.value) {
-    try {
-      const formData = new FormData()
-      formData.append('file', file)
-      if (folderUploadCollectionId.value) {
-        formData.append('collectionId', folderUploadCollectionId.value)
+  const maxConcurrent = 2
+  const retryCount = 2
+  const timeout = 60000
+
+  async function uploadWithRetry(file: File, index: number): Promise<boolean> {
+    for (let attempt = 0; attempt <= retryCount; attempt++) {
+      try {
+        const controller = new AbortController()
+        const timeoutId = setTimeout(() => controller.abort(), timeout)
+
+        const formData = new FormData()
+        formData.append('file', file)
+        if (folderUploadCollectionId.value) {
+          formData.append('collectionId', folderUploadCollectionId.value)
+        }
+
+        const response = await fetch(`${config.public.apiBaseUrl}/documents/upload`, {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${authStore.token}` },
+          body: formData,
+          signal: controller.signal,
+        })
+
+        clearTimeout(timeoutId)
+
+        if (response.ok) {
+          return true
+        }
+        if (attempt < retryCount) {
+          await new Promise(resolve => setTimeout(resolve, 500 * (attempt + 1)))
+        }
+      } catch (error) {
+        if (attempt < retryCount) {
+          await new Promise(resolve => setTimeout(resolve, 500 * (attempt + 1)))
+        }
       }
+    }
+    return false
+  }
 
-      const response = await fetch(`${config.public.apiBaseUrl}/documents/upload`, {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${authStore.token}` },
-        body: formData,
-      })
+  const chunks: File[][] = []
+  for (let i = 0; i < folderFiles.value.length; i += maxConcurrent) {
+    chunks.push(folderFiles.value.slice(i, i + maxConcurrent))
+  }
 
-      if (response.ok) {
+  for (const chunk of chunks) {
+    const results = await Promise.all(chunk.map((file, idx) => uploadWithRetry(file, chunk.length)))
+    results.forEach(success => {
+      if (success) {
         folderUploadProgress.value.uploaded++
       } else {
         folderUploadProgress.value.failed++
       }
-    } catch (error) {
-      folderUploadProgress.value.failed++
-    }
+    })
   }
 
   folderUploading.value = false
@@ -1114,3 +1146,29 @@ onUnmounted(() => {
   }
 })
 </script>
+
+<style scoped>
+.folder-input {
+  color: transparent;
+}
+.folder-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.folder-input::before {
+  content: '选择文件夹';
+  display: inline-block;
+  padding: 0.625rem 1rem;
+  margin-right: 1rem;
+  border-radius: 0.5rem;
+  border: 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background-color: #eef2ff;
+  color: #4f46e5;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.folder-input:hover::before {
+  background-color: #e0e7ff;
+}
+</style>
