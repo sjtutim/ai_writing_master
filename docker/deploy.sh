@@ -144,6 +144,15 @@ update_service() {
     echo -e "${GREEN}✅ $service 更新完成${NC}"
 }
 
+check_network() {
+    echo -e "${YELLOW}🔍 检查网络...${NC}"
+    if ! docker network inspect ai4write-network &>/dev/null; then
+        echo "  创建网络 ai4write-network..."
+        docker network create ai4write-network 2>/dev/null || true
+    fi
+    echo -e "${GREEN}✅ 网络检查完成${NC}"
+}
+
 if $BUILD_BACKEND; then
     build_service "backend" "../backend" "$NO_PULL"
 fi
@@ -154,6 +163,8 @@ fi
 
 echo ""
 echo -e "${GREEN}🚀 启动服务...${NC}"
+
+check_network
 
 if [ "$BUILD_BACKEND" = true ] || [ "$BUILD_FRONTEND" = true ]; then
     if [ "$BUILD_BACKEND" = true ]; then
@@ -166,7 +177,9 @@ if [ "$BUILD_BACKEND" = true ] || [ "$BUILD_FRONTEND" = true ]; then
 
     if docker ps | grep -q "ai4write-proxy"; then
         echo -e "${YELLOW}🔄 重启代理...${NC}"
-        docker restart ai4write-proxy 2>/dev/null || true
+        cd "$DOCKER_DIR"
+        docker-compose restart proxy
+        cd - > /dev/null
     fi
 fi
 
