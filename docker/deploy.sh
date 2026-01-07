@@ -186,12 +186,17 @@ if [ "$BUILD_BACKEND" = true ] || [ "$BUILD_FRONTEND" = true ]; then
         update_service "frontend" "ai4write-frontend"
     fi
 
+    echo -e "${YELLOW}🔄 确保代理服务运行...${NC}"
+    cd "$DOCKER_DIR"
     if docker ps | grep -q "ai4write-proxy"; then
-        echo -e "${YELLOW}🔄 重启代理...${NC}"
-        cd "$DOCKER_DIR"
+        echo "  重启代理..."
         docker-compose restart proxy
-        cd - > /dev/null
+    else
+        echo "  启动代理..."
+        docker-compose up -d proxy
     fi
+    cd - > /dev/null
+    echo -e "${GREEN}✅ 代理服务已就绪${NC}"
 fi
 
 echo ""
