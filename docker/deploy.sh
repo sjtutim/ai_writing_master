@@ -132,11 +132,17 @@ update_service() {
     cd "$DOCKER_DIR"
 
     if [ "$service" = "backend" ]; then
-        echo "  使用 docker-compose 更新 backend..."
-        docker-compose up -d --no-deps backend
+        echo "  停止并删除旧容器..."
+        docker-compose stop backend 2>/dev/null || true
+        docker-compose rm -f backend 2>/dev/null || true
+        echo "  启动 backend..."
+        docker-compose up -d backend
     elif [ "$service" = "frontend" ]; then
-        echo "  使用 docker-compose 更新 frontend..."
-        docker-compose up -d --no-deps frontend
+        echo "  停止并删除旧容器..."
+        docker-compose stop frontend 2>/dev/null || true
+        docker-compose rm -f frontend 2>/dev/null || true
+        echo "  启动 frontend..."
+        docker-compose up -d frontend
     fi
 
     cd - > /dev/null
