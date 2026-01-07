@@ -129,29 +129,17 @@ update_service() {
 
     echo -e "${YELLOW}🔄 更新 $service 服务...${NC}"
 
-    if docker ps | grep -q "ai4write-$service"; then
-        echo "  停止旧容器..."
-        docker stop ai4write-$service 2>/dev/null || true
-        docker rm ai4write-$service 2>/dev/null || true
-    fi
+    cd "$DOCKER_DIR"
 
-    echo "  启动新容器..."
-    local extra_args=""
     if [ "$service" = "backend" ]; then
-        extra_args="-e DATABASE_URL -e MINIO_ENDPOINT -e MINIO_PORT -e MINIO_USE_SSL -e MINIO_ACCESS_KEY -e MINIO_SECRET_KEY -e MINIO_BUCKET -e REDIS_URL -e EMBEDDING_API_URL -e EMBEDDING_MODEL -e DEEPSEEK_BASE_URL -e DEEPSEEK_API_KEY -e DEEPSEEK_MODEL -e JWT_SECRET -e JWT_EXPIRES_IN"
+        echo "  使用 docker-compose 更新 backend..."
+        docker-compose up -d --no-deps backend
     elif [ "$service" = "frontend" ]; then
-        extra_args="-e NUXT_PUBLIC_API_BASE_URL"
+        echo "  使用 docker-compose 更新 frontend..."
+        docker-compose up -d --no-deps frontend
     fi
 
-    docker run -d \
-        --name ai4write-$service \
-        --network ai4write-network \
-        --restart unless-stopped \
-        $extra_args \
-        ai4write-$service 2>/dev/null || {
-        echo -e "${RED}❌ $service 启动失败${NC}"
-        return 1
-    }
+    cd - > /dev/null
 
     echo -e "${GREEN}✅ $service 更新完成${NC}"
 }
