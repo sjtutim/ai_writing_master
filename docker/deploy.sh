@@ -3,6 +3,7 @@
 set -e
 
 PROJECT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+DOCKER_DIR="$PROJECT_DIR/docker"
 cd "$PROJECT_DIR"
 
 RED='\033[0;31m'
@@ -135,12 +136,16 @@ update_service() {
         echo "  停止并删除旧容器..."
         docker-compose stop backend 2>/dev/null || true
         docker-compose rm -f backend 2>/dev/null || true
+        docker stop ai4write-backend 2>/dev/null || true
+        docker rm -f ai4write-backend 2>/dev/null || true
         echo "  启动 backend..."
         docker-compose up -d backend
     elif [ "$service" = "frontend" ]; then
         echo "  停止并删除旧容器..."
         docker-compose stop frontend 2>/dev/null || true
         docker-compose rm -f frontend 2>/dev/null || true
+        docker stop ai4write-frontend 2>/dev/null || true
+        docker rm -f ai4write-frontend 2>/dev/null || true
         echo "  启动 frontend..."
         docker-compose up -d frontend
     fi
