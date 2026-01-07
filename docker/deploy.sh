@@ -8,7 +8,24 @@ cd "$PROJECT_DIR"
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
 NC='\033[0m'
+
+log_info() {
+    echo -e "${BLUE}[INFO]${NC} $1"
+}
+
+log_warn() {
+    echo -e "${YELLOW}[WARN]${NC} $1"
+}
+
+log_error() {
+    echo -e "${RED}[ERROR]${NC} $1"
+}
+
+log_success() {
+    echo -e "${GREEN}[OK]${NC} $1"
+}
 
 usage() {
     echo "Usage: $0 [OPTIONS]"
@@ -86,13 +103,24 @@ build_service() {
 
     echo -e "${YELLOW}📦 构建 $service 服务...${NC}"
 
+    local build_cmd="docker build"
     if [ "$no_pull" = true ]; then
-        docker build --pull=false --cache-from ai4write-$service -t ai4write-$service $context
-    else
-        docker build --cache-from ai4write-$service -t ai4write-$service $context
+        build_cmd="$build_cmd --pull=false"
     fi
 
-    echo -e "${GREEN}✅ $service 构建完成${NC}"
+    if docker image inspect ai4write-$service &>/dev/null; then
+        build_cmd="$build_cmd --cache-from ai4write-$service"
+    fi
+
+    build_cmd="$build_cmd -t ai4write-$service $context"
+
+    if eval "$build_cmd"; then
+        echo -e "${GREEN}✅ $service 构建完成${NC}"
+    else
+        log_warn "构建缓存无效，重新构建..."
+        docker build --pull=false -t ai4write-$service $context
+        echo -e "${GREEN}✅ $service 构建完成${NC}"
+    fi
 }
 
 update_service() {
