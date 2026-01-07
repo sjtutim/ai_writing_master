@@ -47,19 +47,42 @@ const upload = multer({
 router.get('/', authMiddleware, async (req: AuthRequest, res) => {
   try {
     const userId = req.user!.userId;
+    const page = parseInt(req.query.page as string) || 1;
+    const pageSize = parseInt(req.query.pageSize as string) || 12;
+    const collectionId = req.query.collectionId as string | undefined;
+    const keyword = req.query.keyword as string | undefined;
 
-    const documents = await prisma.kbDocument.findMany({
-      where: { userId },
-      orderBy: { updatedAt: 'desc' },
-      include: {
-        versions: {
-          orderBy: { version: 'desc' },
-          take: 1,
+    const where: any = { userId };
+    if (collectionId) {
+      where.collectionId = collectionId === 'null' ? null : collectionId;
+    }
+    if (keyword) {
+      where.title = { contains: keyword };
+    }
+
+    const [documents, total] = await Promise.all([
+      prisma.kbDocument.findMany({
+        where,
+        orderBy: { updatedAt: 'desc' },
+        skip: (page - 1) * pageSize,
+        take: pageSize,
+        include: {
+          versions: {
+            orderBy: { version: 'desc' },
+            take: 1,
+          },
         },
-      },
-    });
+      }),
+      prisma.kbDocument.count({ where }),
+    ]);
 
-    res.json(documents);
+    res.json({
+      documents,
+      total,
+      page,
+      pageSize,
+      totalPages: Math.ceil(total / pageSize),
+    });
   } catch (error) {
     console.error('Get documents error:', error);
     res.status(500).json({ error: 'Failed to get documents' });

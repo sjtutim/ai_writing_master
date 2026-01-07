@@ -10,82 +10,42 @@
 
 [nuxt:tailwindcss] ℹ Using default Tailwind CSS file
 [nuxt:tailwindcss] ℹ Tailwind Viewer: http:/localhost:3007/_tailwind/
-✔ Vite client built in 24ms
-✔ Vite server built in 574ms
-[nitro] ✔ Nuxt Nitro server built in 494ms
-ℹ Vite client warmed up in 1ms
-ℹ Vite server warmed up in 611ms
+✔ Vite client built in 18ms
+✔ Vite server built in 560ms
+[nitro] ✔ Nuxt Nitro server built in 333ms
+ℹ Vite client warmed up in 2ms
+ℹ Vite server warmed up in 3164ms
 [useApi] Runtime config: { baseUrl: '/api', fullConfig: { apiBaseUrl: '/api' }, envVar: undefined }
+ℹ hmr update /pages/knowledge.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/knowledge.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs
+ℹ hmr update /pages/knowledge.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/knowledge.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x2)
+ℹ hmr update /pages/knowledge.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/knowledge.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x3)
+ℹ hmr update /pages/knowledge.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/knowledge.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x4)
+ℹ hmr update /pages/knowledge.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/knowledge.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x5)
+ℹ hmr update /pages/knowledge.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/knowledge.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x6)
+ℹ hmr update /pages/knowledge.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/knowledge.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x7)
+ℹ hmr update /pages/knowledge.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/knowledge.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x8)
+ℹ hmr update /pages/knowledge.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/knowledge.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x9)
+ℹ hmr update /pages/knowledge.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/knowledge.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x10)
+ℹ hmr update /pages/knowledge.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/knowledge.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x11)
+ℹ hmr update /pages/knowledge.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/knowledge.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x12)
+ℹ hmr update /pages/knowledge.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/knowledge.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x13)
+ℹ hmr update /pages/knowledge.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/knowledge.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x14)
+ℹ hmr update /pages/knowledge.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/knowledge.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x15)
+✔ Vite server hmr 9 files in 74.253ms
 [useApi] Runtime config: { baseUrl: '/api', fullConfig: { apiBaseUrl: '/api' }, envVar: undefined }
-ℹ hmr update /pages/writing.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/writing.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs
-ℹ hmr update /pages/writing.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/writing.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x2)
-ℹ hmr update /pages/writing.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/writing.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x3)
-ℹ hmr update /pages/writing.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/writing.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x4)
-ℹ hmr update /components/WritingHistory.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct
-ℹ hmr update /components/WritingHistory.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct (x2)
-ℹ hmr update /components/WritingHistory.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct (x3)
-ℹ hmr update /components/WritingHistory.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct (x4)
-ℹ hmr update /pages/writing.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/writing.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs
-ℹ hmr update /pages/writing.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/writing.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x2)
-✔ Vite server hmr 14 files in 105.426ms
+ℹ hmr update /pages/knowledge.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/knowledge.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x16)
+ℹ hmr update /pages/knowledge.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/knowledge.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x17)
+ℹ hmr update /pages/knowledge.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/knowledge.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x18)
+ℹ hmr update /pages/knowledge.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/knowledge.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x19)
+ℹ hmr update /pages/knowledge.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/knowledge.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x20)
+ℹ hmr update /pages/knowledge.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/knowledge.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x21)
+ℹ hmr update /pages/knowledge.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/knowledge.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x22)
+ℹ hmr update /pages/knowledge.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/knowledge.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x23)
+ℹ hmr update /pages/knowledge.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/knowledge.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x24)
+ℹ hmr update /pages/knowledge.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/knowledge.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x25)
+ℹ hmr update /pages/knowledge.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/knowledge.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x26)
+ℹ hmr update /pages/knowledge.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/knowledge.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x27)
+✔ Vite server hmr 9 files in 87.929ms
 [useApi] Runtime config: { baseUrl: '/api', fullConfig: { apiBaseUrl: '/api' }, envVar: undefined }
-ℹ hmr update /pages/writing.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/writing.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x3)
-ℹ hmr update /components/KnowledgeSearchModal.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct
-ℹ hmr update /components/KnowledgeSearchModal.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct (x2)
-ℹ hmr update /components/KnowledgeSearchModal.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct (x3)
-ℹ hmr update /components/KnowledgeSearchModal.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct (x4)
-ℹ hmr update /components/KnowledgeCachePanel.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct
-ℹ hmr update /components/PromptTemplateManager.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct
-ℹ hmr update /components/PromptTemplateManager.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct (x2)
-ℹ hmr update /components/WritingStyleManager.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct
-ℹ hmr update /components/WritingStyleManager.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct (x2)
-ℹ hmr update /components/PromptTemplateManager.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct
-ℹ hmr update /components/WritingStyleManager.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct
-✔ Vite server hmr 19 files in 97.715ms
-[useApi] Runtime config: { baseUrl: '/api', fullConfig: { apiBaseUrl: '/api' }, envVar: undefined }
-[useApi] Runtime config: { baseUrl: '/api', fullConfig: { apiBaseUrl: '/api' }, envVar: undefined }
-[useApi] Runtime config: { baseUrl: '/api', fullConfig: { apiBaseUrl: '/api' }, envVar: undefined }
-ℹ hmr update /components/PromptTemplateManager.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct
-ℹ hmr update /components/PromptTemplateManager.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct (x2)
-ℹ hmr update /components/PromptTemplateManager.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct (x3)
-✔ Vite server hmr 6 files in 17.074ms
-[useApi] Runtime config: { baseUrl: '/api', fullConfig: { apiBaseUrl: '/api' }, envVar: undefined }
-ℹ hmr update /components/WritingStyleManager.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct
-ℹ hmr update /components/WritingStyleManager.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct (x2)
-ℹ hmr update /components/WritingStyleManager.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct (x3)
-✔ Vite server hmr 6 files in 16.861ms
-[useApi] Runtime config: { baseUrl: '/api', fullConfig: { apiBaseUrl: '/api' }, envVar: undefined }
-ℹ hmr update /components/PromptTemplateManager.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct
-✔ Vite server hmr 6 files in 12.865ms
-✔ Vite server hmr 6 files in 12.865ms
-[useApi] Runtime config: { baseUrl: '/api', fullConfig: { apiBaseUrl: '/api' }, envVar: undefined }
-[useApi] Runtime config: { baseUrl: '/api', fullConfig: { apiBaseUrl: '/api' }, envVar: undefined }
-ℹ hmr update /components/PromptTemplateManager.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct (x2)
-ℹ hmr update /components/WritingStyleManager.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct
-✔ Vite server hmr 7 files in 15.631ms
-[useApi] Runtime config: { baseUrl: '/api', fullConfig: { apiBaseUrl: '/api' }, envVar: undefined }
-ℹ hmr update /components/PromptTemplateManager.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct
-ℹ hmr update /components/WritingStyleManager.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct
-✔ Vite server hmr 7 files in 11.522ms
-✔ Vite server hmr 7 files in 11.522ms
-[useApi] Runtime config: { baseUrl: '/api', fullConfig: { apiBaseUrl: '/api' }, envVar: undefined }
-[useApi] Runtime config: { baseUrl: '/api', fullConfig: { apiBaseUrl: '/api' }, envVar: undefined }
-ℹ hmr update /components/PromptTemplateManager.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct
-ℹ hmr update /components/WritingStyleManager.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct
-✔ Vite server hmr 7 files in 14.977ms
-[useApi] Runtime config: { baseUrl: '/api', fullConfig: { apiBaseUrl: '/api' }, envVar: undefined }
-ℹ hmr update /pages/writing.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/writing.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs
-✔ Vite server hmr 11 files in 96.709ms
-[useApi] Runtime config: { baseUrl: '/api', fullConfig: { apiBaseUrl: '/api' }, envVar: undefined }
-[useApi] Runtime config: { baseUrl: '/api', fullConfig: { apiBaseUrl: '/api' }, envVar: undefined }
-[useApi] Runtime config: { baseUrl: '/api', fullConfig: { apiBaseUrl: '/api' }, envVar: undefined }
-ℹ hmr update /components/PromptTemplateManager.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct
-ℹ hmr update /components/WritingStyleManager.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct
-ℹ hmr update /pages/writing.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/writing.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs
-ℹ hmr update /pages/writing.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/writing.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x2)
-✔ Vite server hmr 13 files in 80.52ms
-✔ Vite server hmr 13 files in 80.52ms
-ℹ hmr update /components/PromptTemplateManager.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct
-ℹ hmr update /components/WritingStyleManager.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct
-ℹ hmr update /components/PromptTemplateManager.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct
-ℹ hmr update /components/WritingStyleManager.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct
+ℹ hmr update /pages/knowledge.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/knowledge.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x28)
+ℹ hmr update /pages/knowledge.vue, /assets/css/main.css, /node_modules/tailwindcss/tailwind.css, /node_modules/tailwindcss/tailwind.css?direct, /assets/css/main.css?direct, /pages/knowledge.vue?macro=true, /@id/virtual:nuxt:%2FUsers%2Fxuhuayong%2Fprojects%2Fai4write%2Ffrontend%2F.nuxt%2Froutes.mjs (x29)

@@ -46,7 +46,6 @@ class KnowledgeCacheService {
                 id: { in: chunkIds },
                 version: {
                     document: {
-                        userId,
                         status: 'ready',
                     },
                 },

@@ -49,17 +49,35 @@ const upload = (0, multer_1.default)({
 router.get('/', auth_1.authMiddleware, async (req, res) => {
     try {
         const userId = req.user.userId;
-        const documents = await prisma_1.prisma.kbDocument.findMany({
-            where: { userId },
-            orderBy: { updatedAt: 'desc' },
-            include: {
-                versions: {
-                    orderBy: { version: 'desc' },
-                    take: 1,
+        const page = parseInt(req.query.page) || 1;
+        const pageSize = parseInt(req.query.pageSize) || 18;
+        const collectionId = req.query.collectionId;
+        const where = { userId };
+        if (collectionId) {
+            where.collectionId = collectionId === 'null' ? null : collectionId;
+        }
+        const [documents, total] = await Promise.all([
+            prisma_1.prisma.kbDocument.findMany({
+                where,
+                orderBy: { updatedAt: 'desc' },
+                skip: (page - 1) * pageSize,
+                take: pageSize,
+                include: {
+                    versions: {
+                        orderBy: { version: 'desc' },
+                        take: 1,
+                    },
                 },
-            },
+            }),
+            prisma_1.prisma.kbDocument.count({ where }),
+        ]);
+        res.json({
+            documents,
+            total,
+            page,
+            pageSize,
+            totalPages: Math.ceil(total / pageSize),
         });
-        res.json(documents);
     }
     catch (error) {
         console.error('Get documents error:', error);
