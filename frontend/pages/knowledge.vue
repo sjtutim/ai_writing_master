@@ -970,10 +970,16 @@ async function handleFolderUpload() {
         if (response.ok) {
           return true
         }
+
+        const errorText = await response.text().catch(() => '')
+        console.log(`上传 ${file.name} 失败 (尝试 ${attempt + 1}/${retryCount + 1}): ${response.status} - ${errorText}`)
+
         if (attempt < retryCount) {
           await new Promise(resolve => setTimeout(resolve, 500 * (attempt + 1)))
         }
-      } catch (error) {
+      } catch (error: any) {
+        const errorMessage = error.name === 'AbortError' ? '超时' : error.message
+        console.log(`上传 ${file.name} 失败 (尝试 ${attempt + 1}/${retryCount + 1}): ${errorMessage}`)
         if (attempt < retryCount) {
           await new Promise(resolve => setTimeout(resolve, 500 * (attempt + 1)))
         }
@@ -1001,11 +1007,18 @@ async function handleFolderUpload() {
   folderUploading.value = false
 
   if (folderUploadProgress.value.failed === 0) {
+    console.log(`文件夹上传完成: ${folderUploadProgress.value.uploaded}/${folderUploadProgress.value.total} 个文件`)
     closeFolderUploadModal()
     fetchDocuments()
     fetchCollections()
+  } else if (folderUploadProgress.value.uploaded === 0) {
+    folderUploadError.value = `上传失败：${folderUploadProgress.value.failed}/${folderUploadProgress.value.total} 个文件上传失败`
+    console.error(`文件夹上传失败: ${folderUploadProgress.value.failed} 个文件失败`)
+    fetchDocuments()
+    fetchCollections()
   } else {
-    folderUploadError.value = `上传完成，成功 ${folderUploadProgress.value.uploaded} 个，失败 ${folderUploadProgress.value.failed} 个`
+    folderUploadError.value = `部分成功：成功 ${folderUploadProgress.value.uploaded} 个，失败 ${folderUploadProgress.value.failed} 个`
+    console.warn(`文件夹上传部分成功: ${folderUploadProgress.value.uploaded} 成功, ${folderUploadProgress.value.failed} 失败`)
     fetchDocuments()
     fetchCollections()
   }
